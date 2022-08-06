@@ -14,6 +14,7 @@
 \newcommand{\cusong}{\CJKfamily{cusong}}%\
 \newcommand{\fang}{\CJKfamily{fang}}%
 \usepackage{calligra}
+\everymath{\displaystyle} 
 
 \author{张博涵}
 \institute{张博涵}
@@ -613,7 +614,7 @@ $则$\exists$开集$U\subset X \st p\in U$且由于$p\notin A$则$U\cap A = (U\c
 \end{tikzpicture}
      \end{minipage}
     }
-		\caption{定义1.10的说明}
+		\caption{定义1.10之说明}
 	\end{figure}
 	
 	\begin{proposition}
@@ -638,8 +639,9 @@ $则$\exists$开集$U\subset X \st p\in U$且由于$p\notin A$则$U\cap A = (U\c
 	\end{proof}
 %第二章
 \chapter{连续映射}
-研究点集拓扑的主要动机就是从更加一般的观点来定义连续性、紧性和连通性。下面三章就是在做这个工作。这一章，先研究一般的连续映射\footnote{值得强调的是，在尤承业老师的《基础拓扑学》中36页提到，除此之外还有\textbf{可数性}、\textbf{分离性}，这些也贯穿在这几章中出现。} 。
+研究点集拓扑的主要动机就是从更加一般的观点来定义连续性、紧性和连通性。下面三章就是在做这个工作。这一章，先研究一般的连续映射\footnote{值得强调的是，在尤承业老师的《基础拓扑学》中36页提到，除此之外还有\textbf{可数性}、\textbf{分离性}，以之来弥补拓扑空间的一些不足。这些也贯穿在这几章中出现。} 。
 \section{连续映射}
+\subsection{连续映射与其等价刻画}
 首先，我们重申连续性的定义：
 
 \begin{definition}[连续映射]
@@ -660,8 +662,532 @@ $则$\exists$开集$U\subset X \st p\in U$且由于$p\notin A$则$U\cap A = (U\c
 	
 	又由于$f$是$X\longrightarrow Y$的连续映射，所以$f^{-1}(U)$是$X$中开集，所以$A\cap f^{-1}(U)$就为$A$中开集。
 \end{proof}
+\begin{proposition}[连续映射之嵌入是连续映射]\label{c2-m3}
+	设$f:X\longrightarrow Y$是连续映射，像集$f(X)$赋予子空间拓扑，则$f:X\longrightarrow f(X)$也是连续映射。
+\end{proposition}
+\begin{proof}
+	\tl{$\forall f(X)$中开集}，由于子空间拓扑，则可设其形如$U\cap f(X) , U\subset_{open}Y$，那么自然有:$$f^{-1}(U\cap f(X)) = \tl{f^{-1}(U)\subset_{open}X}$$
+	因此得证。
+\end{proof}
+\begin{example}[拓扑上的恒等变换是连续映射]
+	设$X$为拓扑空间，$X$上的恒等映射：
+	\begin{equation*}
+		\begin{aligned}
+			{\rm{id}}_{X} : X & \longrightarrow X\\
+			x&\longmapsto x
+		\end{aligned}
+	\end{equation*}
+	这个映射显然是个连续映射。
+\end{example}
+\begin{example}[拓扑上的嵌入映射是连续映射]
+	设$X$为拓扑空间，$A\subset X$并赋予子空间拓扑，那么映射：
+	\begin{equation*}
+		\begin{aligned}
+			{\rm{i}}_{A} : A & \longrightarrow X\\
+			a&\longmapsto a
+		\end{aligned}
+	\end{equation*}
+	这个映射显然也是个连续映射。
+\end{example}
+\begin{example}[constant map是连续映射]
+	设$X$为拓扑空间，$Y$是一个单点集，那么映射
+	\begin{equation*}
+		f:X\longrightarrow Y
+	\end{equation*}
+	是一个连续映射。
+\end{example}
 
+为了更好地刻画连续映射，我们有连续映射的以下等价命题：
+\begin{proposition}下列命题等价：
+	\begin{enumerate}
+		\item $f:Z\longrightarrow Y$是连续映射。
+		\item $\forall U\subset_{open} Y,f^{-1}(U)$是开集。
+		\item 设$\tpj$为$Y$的一个拓扑基，$\forall U\in \tpj,f^{-1}(U)$是开集。
+		\item $f(\overline{A}) \subset \overline{f(A)} ,A\subset X$
+		\item $\overline{f^{-1}(B)}\subset f^{-1}(\overline{B}),\forall B\subset Y$
+		\item $\forall F\subset_{closed}Y,f^{-1}(F)$是闭集。
+	\end{enumerate}
+\end{proposition}
+\begin{note}
+以上命题说明了对于一个连续映射，	开集的原像是开集，闭集的原像是闭集。并且对于其拓扑基也是适用的。
+\end{note}
+\begin{proof}
+	下面开始着手证明这个命题，我们采取循环的办法进行证明：
+	\begin{enumerate}
+		\item[[\lei{$2\Rightarrow 3$}]]：显然的。
+		\item[[\lei{$3\Rightarrow 4$}]]：$\forall y\in f(\overline{A})$要证$y\in \overline{f(A)}$。那么对与$\forall y = f(x),x\in \overline{A}$作以下讨论：
+		\begin{enumerate}
+			\item $x\in A$ ，此时$y\in f(A)\subset\overline{f(A)}$，显然成立。
+			\item $x\notin A$，这时就说明$x$是$A$的一个极限点。那么我们再对到达域进行讨论：\begin{enumerate}
+			\item $y\in f(A)$ ，此时的证明依旧是显然的。
+			\item $f(x) = y \notin f(A)$，此时要证$y$为$f(A)$的一个极限点。
+			\begin{figure}[h]
+				\centering
+\tikzset{every picture/.style={line width=0.75pt}}
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+\draw   (41,71) .. controls (41,53.33) and (55.33,39) .. (73,39) -- (169,39) .. controls (186.67,39) and (201,53.33) .. (201,71) -- (201,218) .. controls (201,235.67) and (186.67,250) .. (169,250) -- (73,250) .. controls (55.33,250) and (41,235.67) .. (41,218) -- cycle ;
+\draw    (201,140) -- (290,140) ;
+\draw [shift={(292,140)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+\draw  [dash pattern={on 4.5pt off 4.5pt}] (55,170.5) .. controls (55,143.16) and (77.16,121) .. (104.5,121) .. controls (131.84,121) and (154,143.16) .. (154,170.5) .. controls (154,197.84) and (131.84,220) .. (104.5,220) .. controls (77.16,220) and (55,197.84) .. (55,170.5) -- cycle ;
+\draw  [dash pattern={on 4.5pt off 4.5pt}] (93,128) .. controls (93,107.57) and (109.57,91) .. (130,91) .. controls (150.43,91) and (167,107.57) .. (167,128) .. controls (167,148.43) and (150.43,165) .. (130,165) .. controls (109.57,165) and (93,148.43) .. (93,128) -- cycle ;
+\draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (134,132) .. controls (134,131.17) and (134.67,130.5) .. (135.5,130.5) .. controls (136.33,130.5) and (137,131.17) .. (137,132) .. controls (137,132.83) and (136.33,133.5) .. (135.5,133.5) .. controls (134.67,133.5) and (134,132.83) .. (134,132) -- cycle ;
+\draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (126,148.5) .. controls (126,147.67) and (126.67,147) .. (127.5,147) .. controls (128.33,147) and (129,147.67) .. (129,148.5) .. controls (129,149.33) and (128.33,150) .. (127.5,150) .. controls (126.67,150) and (126,149.33) .. (126,148.5) -- cycle ;
+\draw   (291,71) .. controls (291,53.33) and (305.33,39) .. (323,39) -- (419,39) .. controls (436.67,39) and (451,53.33) .. (451,71) -- (451,218) .. controls (451,235.67) and (436.67,250) .. (419,250) -- (323,250) .. controls (305.33,250) and (291,235.67) .. (291,218) -- cycle ;
+\draw  [dash pattern={on 4.5pt off 4.5pt}] (305,170.5) .. controls (305,143.16) and (327.16,121) .. (354.5,121) .. controls (381.84,121) and (404,143.16) .. (404,170.5) .. controls (404,197.84) and (381.84,220) .. (354.5,220) .. controls (327.16,220) and (305,197.84) .. (305,170.5) -- cycle ;
+\draw  [dash pattern={on 4.5pt off 4.5pt}] (343,128) .. controls (343,107.57) and (359.57,91) .. (380,91) .. controls (400.43,91) and (417,107.57) .. (417,128) .. controls (417,148.43) and (400.43,165) .. (380,165) .. controls (359.57,165) and (343,148.43) .. (343,128) -- cycle ;
+\draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (384,132) .. controls (384,131.17) and (384.67,130.5) .. (385.5,130.5) .. controls (386.33,130.5) and (387,131.17) .. (387,132) .. controls (387,132.83) and (386.33,133.5) .. (385.5,133.5) .. controls (384.67,133.5) and (384,132.83) .. (384,132) -- cycle ;
+\draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (376,148.5) .. controls (376,147.67) and (376.67,147) .. (377.5,147) .. controls (378.33,147) and (379,147.67) .. (379,148.5) .. controls (379,149.33) and (378.33,150) .. (377.5,150) .. controls (376.67,150) and (376,149.33) .. (376,148.5) -- cycle ;
+\draw (237,118.4) node [anchor=north west][inner sep=0.75pt]    {$f$};
+\draw (137.5,130.1) node [anchor=south west] [inner sep=0.75pt]    {$x$};
+\draw (129.5,148.5) node [anchor=west] [inner sep=0.75pt]    {$a$};
+\draw (132,87.6) node [anchor=south west] [inner sep=0.75pt]    {$f^{-1}( U)$};
+\draw (82,176.4) node [anchor=north west][inner sep=0.75pt]    {$A$};
+\draw (59,223.4) node [anchor=north west][inner sep=0.75pt]    {$X$};
+\draw (387.5,130.1) node [anchor=south west] [inner sep=0.75pt]    {$y$};
+\draw (379.5,148.5) node [anchor=west] [inner sep=0.75pt]    {$f( a)$};
+\draw (382,87.6) node [anchor=south west] [inner sep=0.75pt]    {$U$};
+\draw (332,176.4) node [anchor=north west][inner sep=0.75pt]    {$f( A)$};
+\draw (309,223.4) node [anchor=north west][inner sep=0.75pt]    {$Y$};
+\end{tikzpicture}
+\caption{命题2.3之证明图示}
+			\end{figure}
+			如上图，\tl{$\forall U\subset_{open}\tpj(y\in U)$}，由\lei{2}可知$f^{-1}(U)$是开集，又由于$x\in f^{-1}(U)\st f(x)=y\in U$，因此$x\in f^{-1}(U)$。另外由于$\exists x\in f^{-1}(U)$，则有：
+			$$(f^{-1}(U)\chadiao \dkh{x})\cap A\neq \emptyset$$这说明除了$x$外，$\exists a\in (f^{-1}(U))\cap A$，即$f(a)\in U, f(a)\in f(A)$，因此$U\cap f(A)\neq \emptyset$，又由于$y\notin f(A)$，即\tl{$(U\chadiao\dkh{y})\cap f(A) \neq \emptyset$}，因此$y$是$f(A)$的极限点。
+			\end{enumerate}
+		\end{enumerate}
+		\item[[\lei{$4\Rightarrow 5$}]]：直接在\lei{4}中取$A = f^{-1}(B)$，那么立马有：
+		\begin{equation*}
+			f(\overline{f^{-1}(B)}) \subset \overline{f(f^{-1}(B))}=B\subset \overline{B}
+		\end{equation*}
+		因此两边作用$f^{-1}$则得证。
+		\item[[\lei{$5\Rightarrow 6$}]]：$\forall F\subset_{closed} Y$，根据\lei{5}，然后由于$F$是闭集，所以$\overline{f^{-1}(F)}\subset f^{-1}(\overline{F}) = f^{-1}(F)$，而这一等式的反向是自然成立的，所以有$\overline{f^{-1}(F)}= f^{-1}(F)$。因此$f^{-1}(F)$是闭集。
+		\item[[\lei{$6\Rightarrow 2$}]]：任取$U\subset_{open}Y$，注意到$f^{-1}(U) \sqcup f^{-1}(Y\chadiao U) = X$，这里的无交并是因为$f$是映射。因此立马可以得到$$f^{-1}(U) = X\chadiao f^{-1}(Y\chadiao U) $$由于$f^{-1}(Y\chadiao U)$是闭集，因此$f^{-1}(U) = X\chadiao f^{-1}(Y\chadiao U)$是开集。
+	\end{enumerate}
+\end{proof}
+\subsection{拓扑空间中的极限与Hausdorff空间}
+研究连续性，是和极限密不可分的，下面开始定义极限。
+\begin{definition}[极限]\label{c2-d2}
+	设$X$是一个拓扑空间，$\dkh{x_{n}}\subset X$是$X$内的一个序列，如果对于$\forall U\subset_{open} X(x\in U) , \exists N,\st \forall n>N,x_{n}\in U$，
+	则把$x\in X$称为$\dkh{x_{n}}$的一个\gn{极限}。
+\end{definition}
+\begin{note}
+以上之所以说定义出来的极限是“一个”极限。是因为由此定义出的极限不唯一，其根本在于拓扑空间$X$中的点不一定可以分离，也就是所谓的\textbf{分离性}不一定存在。下面给出一个例子来说明这点。	
+\end{note}
+\begin{example}[定义\ref{c2-d2}中定义出的极限并不唯一]
+\label{c2-e4}
+	设$X = \dkh{0,1},\tp = \dkh{\dkh{0},\dkh{0,1},\emptyset}$，设$x_{n} = 0 , n =1,2,\cdots$， 因此：$\displaystyle\lim_{n}x_{n} = 0$是显然的，并且由于$U = \dkh{0,1}$是唯一包含$1$的开集，所以$\displaystyle\lim_{n}x_{n} = 1$。因此这个极限有两个值。
+\end{example}
+
+这样就非常的不好啊，仔细想来，在$\mathbb{R}$中我们可以有唯一的极限，这是因为$\mathbb{R}$很牛，里面有很多结构，比如有欧氏度量，而且还是全序域，还有线性结构。一般的拓扑空间不能做到极限唯一，肯定是因为其少了什么东西，这种东西就是所谓的\textbf{分离性}。增加的方法有很多，比如下面的\lei{T2}分离公理。
+
+\begin{definition}[Hausdorff空间]
+	设$X$为一个拓扑空间，如果$\forall x_{1},x_{2}\in X,x_{1} \neq x_{2} , \exists$开集$U_{1} , U_{2},\st x_{1}\in U_{1},x_{2}\in U_{2}$且$U_{1}\cap U_{2}=\emptyset$，则称$X$为一个\gn{Hausdorff空间}\footnote{这也称为拓扑空间$X$满足\gn{T2分离公理}。}。
+\end{definition}
+\begin{proposition}
+	设$X$为一个Hausdorff空间，$\dkh{x_{n}}\subset X$则若$x_{n}$的极限存在，则$\dkh{x_{n}}$的极限唯一，并记之为$\displaystyle\lim_{n}x_{n}$。
+\end{proposition}
+\begin{proof}
+	反设$\lim_{n}x_{n} = y_{1}$和$\lim_{n}x_{n} = y_{2}\neq y_{1}$同时成立，那么根据定义就$\exists N = \max\dkh{N_{1},N_{2}}  \st  $对$\forall n>N, x_{n}\in U_{1}$和$x_{n}\in U_{1}$同时成立，又由于$X$为一个Hausdorff空间，则$x_{n}\in U_{1}\cap U_{2}=\emptyset$，矛盾。
+\end{proof}
+\begin{example}[例\ref{c2-e4}中极限不存在的原因]
+	设$X = \dkh{0,1},\tp = \dkh{\dkh{0},\dkh{0,1},\emptyset}$，则$\tp$不是Hausdorff空间。
+	
+	这是因为取$y_{1} = 0,y_{2} = 1$，那么$y_{2} \in \dabing_{open}$只只存在一种情况：$y_{2}\in \dkh{0,1}$，此时$U\cap \dkh{y_{1}}=\emptyset$。
+\end{example}
+\begin{example}[度量空间都是Hausdorff空间]
+	设$(X,\rho)$为一个度量空间，$x_{1},x_{2}\in X,x_{1}\neq x_{2}$，设$\rho = \rho(x_{1},x_{2})>0$，令$U_{1} = B(x_{1},\dfrac{\rho}{2}),U_{2} = B(x_{2},\dfrac{\rho}{2})$，那么$U_{1}\cap U_{2}=\emptyset$。
+	\begin{figure}[h]
+	\centering
+\tikzset{every picture/.style={line width=0.75pt}}
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+\draw  [dash pattern={on 4.5pt off 4.5pt}] (100,154) .. controls (100,130.53) and (119.03,111.5) .. (142.5,111.5) .. controls (165.97,111.5) and (185,130.53) .. (185,154) .. controls (185,177.47) and (165.97,196.5) .. (142.5,196.5) .. controls (119.03,196.5) and (100,177.47) .. (100,154) -- cycle ;
+\draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (141,155.5) .. controls (141,154.67) and (141.67,154) .. (142.5,154) .. controls (143.33,154) and (144,154.67) .. (144,155.5) .. controls (144,156.33) and (143.33,157) .. (142.5,157) .. controls (141.67,157) and (141,156.33) .. (141,155.5) -- cycle ;
+\draw  [dash pattern={on 4.5pt off 4.5pt}] (185,146) .. controls (185,122.53) and (204.03,103.5) .. (227.5,103.5) .. controls (250.97,103.5) and (270,122.53) .. (270,146) .. controls (270,169.47) and (250.97,188.5) .. (227.5,188.5) .. controls (204.03,188.5) and (185,169.47) .. (185,146) -- cycle ;
+\draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (226,147.5) .. controls (226,146.67) and (226.67,146) .. (227.5,146) .. controls (228.33,146) and (229,146.67) .. (229,147.5) .. controls (229,148.33) and (228.33,149) .. (227.5,149) .. controls (226.67,149) and (226,148.33) .. (226,147.5) -- cycle ;
+\draw  [dash pattern={on 4.5pt off 4.5pt}]  (142.5,155.5) -- (227.5,147.5) ;
+\draw (109,160.4) node [anchor=north west][inner sep=0.75pt]    {$U_{1}$};
+\draw (133,136.4) node [anchor=north west][inner sep=0.75pt]    {$x_{1}$};
+\draw (231,130.4) node [anchor=north west][inner sep=0.75pt]    {$x_{2}$};
+\draw (223,162.4) node [anchor=north west][inner sep=0.75pt]    {$U_{2}$};
+\draw (187,130.4) node [anchor=north west][inner sep=0.75pt]    {$\rho $};
+\end{tikzpicture}
+\caption{例2.6之图示}
+\end{figure}
+更加准确一点儿说就是，反设$x\in U_{1}\cap U_{2}$，$\rho(x_{1},x_{2})\leq \rho(x_{1},x)+\rho(x,x_{2})\leq \dfrac{\rho}{2}+\dfrac{\rho}{2}$，矛盾！
+\end{example}
+
+在分析学中，如果一个函数连续，那么说明函数符号和极限号是可以交换的，即极限号可以取到函数里面去。即：
+$$f(x)\text{连续}~\Rightarrow ~\lim_{\mathcal{B}}f(x) = f(\lim_{\mathcal{B}} x)$$
+\begin{proposition}
+	设$X,Y$皆为Hausdorff空间，映射$f:X\longrightarrow Y$是连续映射，$\dkh{x_{n}}\subset X,\lim_{n}x_{n} = x_{0} ,  \lim_{n}f(x_{n})=y_{0}$，则$\lim_{n}f(x_{n}) = f(\lim_{n}x_{n}) \in Y$
+\end{proposition}
+\begin{proof}
+	这个证明很显然，根据定义，我们只需要证明$\forall U\subset_{open} Y(f(\lim_{n}x_{n})\in U)$，则$\exists N ,n>N,f(x_{n})\in U$。
+	
+	任取\tl{$U\subset_{open} Y(f(\lim_{n}x_{n})\in U)$}，由于$f$是连续映射，所以必然$\lim_{n}x_{n}\in f^{-1}(U)\subset_{open} X$，所以就有：$\exists N,\st n>N,x_{n}\in f^{-1}(U)$即\tl{$f(x_{n})\in U$}。
+\end{proof}
+\begin{definition}[同胚]
+	设$X,Y$是两个拓扑空间，$f:X\longrightarrow Y$如果：
+	\begin{enumerate}
+		\item $f$是双射。
+		\item $f$连续。
+		\item $f^{-1}$连续。
+	\end{enumerate}
+	那么就称映射$f$为一个\gn{同胚}（\gn{homeomorphism}）。
+\end{definition}
+
+在这个定义中，\lei{2}和\lei{3}真是十分奇怪，怎么会有连续映射的逆映射不连续的呢？下面给出了一个复变函数中的例子来进行说明。
+\begin{example}[存在连续映射之逆映射不连续]
+设映射为：
+\begin{equation*}
+	\begin{aligned}
+		f:[0,1)&\longrightarrow \mathbb{C}\\
+		t&\longmapsto e^{2\pi i t}
+	\end{aligned}
+\end{equation*}
+该映射之逆映射不连续。
+
+\begin{figure}[h]
+	\centering
+\tikzset{every picture/.style={line width=0.75pt}}\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1,scale=0.8]
+\draw    (72,160) -- (189,160) -- (203,160) (106,156) -- (106,164)(140,156) -- (140,164)(174,156) -- (174,164) ;
+\draw [shift={(205,160)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+\draw    (249,160) -- (370,160) ;
+\draw [shift={(372,160)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+\draw    (407,160) -- (577,160) ;
+\draw [shift={(579,160)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+\draw    (493,244.5) -- (493,72) ;
+\draw [shift={(493,70)}, rotate = 90] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+\draw   (436,160) .. controls (436,128.52) and (461.52,103) .. (493,103) .. controls (524.48,103) and (550,128.52) .. (550,160) .. controls (550,191.48) and (524.48,217) .. (493,217) .. controls (461.52,217) and (436,191.48) .. (436,160) -- cycle ;
+\draw  [draw opacity=0] (172.2,149.74) .. controls (173.36,152.94) and (174,156.4) .. (174,160) .. controls (174,163.6) and (173.36,167.06) .. (172.2,170.26) -- (144,160) -- cycle ; \draw   (172.2,149.74) .. controls (173.36,152.94) and (174,156.4) .. (174,160) .. controls (174,163.6) and (173.36,167.06) .. (172.2,170.26) ;  
+\draw    (409,192) .. controls (375.17,243.74) and (256.2,244) .. (211.67,191.79) ;
+\draw [shift={(211,191)}, rotate = 50.3] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+\draw (102,162.4) node [anchor=north west][inner sep=0.75pt]    {$0$};
+\draw (138.5,162.4) node [anchor=north west][inner sep=0.75pt]    {$t$};
+\draw (176,162.4) node [anchor=north west][inner sep=0.75pt]    {$1$};
+\draw (528,95.4) node [anchor=north west][inner sep=0.75pt]    {$e^{2\pi it}$};
+\draw (538,198.4) node [anchor=north west][inner sep=0.75pt]    {$|z|=1$};
+\draw (306,137.4) node [anchor=north west][inner sep=0.75pt]    {$f$};
+\draw (300,207.4) node [anchor=north west][inner sep=0.75pt]    {$f^{-1}$};
+\draw (581,163.4) node [anchor=north west][inner sep=0.75pt]    {$x$};
+\draw (495,73.4) node [anchor=north west][inner sep=0.75pt]    {$y$};
+\draw (495,160.65) node [anchor=north west][inner sep=0.75pt]    {$o$};
+\end{tikzpicture}
+\caption{例2.7中的映射}
+\end{figure}
+
+这是为什么呢，很显然，该映射$f$是一个连续映射，但是$f^{-1}$不连续，这是因为从$t=0$按照逆时针走，是$t$自$0$增大的过程，但是若顺时针走动，幅角从$0$突然变到比$2\pi$小一点点，$t$会由$0$瞬间变到$1$的周围，导致不连续的事情发生。
+\end{example}
+\begin{example}[球极投影]
+	考虑$S^{2} = \dkh{(x,y,z)|x^{2}+y^{2}+z^{2} = 1}$，北极点为$P = (0,0,1)$。映射：
+	\begin{equation*}
+		\begin{aligned}
+			h:S^{2}\chadiao P&\longrightarrow \mathbb{R}^{2}\\
+			(x,y,z)&\longmapsto (u,v)
+		\end{aligned}
+	\end{equation*}
+	其中$\mathbb{R}^{2}$赋予欧氏拓扑，而$S^{2}\chadiao P$赋予子空间拓扑。
+	\begin{figure}[h]
+		\centering
+\tikzset{every picture/.style={line width=0.75pt}}
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+\draw   (121,162) .. controls (121,115.06) and (159.06,77) .. (206,77) .. controls (252.94,77) and (291,115.06) .. (291,162) .. controls (291,208.94) and (252.94,247) .. (206,247) .. controls (159.06,247) and (121,208.94) .. (121,162) -- cycle ;
+\draw  [draw opacity=0] (291,162) .. controls (291.83,173.87) and (254.45,183.5) .. (207.5,183.5) .. controls (160.56,183.5) and (121.83,173.87) .. (121,162) -- (206,162) -- cycle ; \draw   (291,162) .. controls (291.83,173.87) and (254.45,183.5) .. (207.5,183.5) .. controls (160.56,183.5) and (121.83,173.87) .. (121,162) ;  
+\draw  [draw opacity=0][dash pattern={on 4.5pt off 4.5pt}] (121,162) .. controls (120.17,150.13) and (157.55,140.5) .. (204.5,140.5) .. controls (251.44,140.5) and (290.17,150.13) .. (291,162) .. controls (291.83,173.87) and (254.45,183.5) .. (207.5,183.5) .. controls (160.56,183.5) and (121.83,173.87) .. (121,162) -- (206,162) -- cycle ; \draw  [dash pattern={on 4.5pt off 4.5pt}] (121,162) .. controls (120.17,150.13) and (157.55,140.5) .. (204.5,140.5) .. controls (251.44,140.5) and (290.17,150.13) .. (291,162) .. controls (291.83,173.87) and (254.45,183.5) .. (207.5,183.5) .. controls (160.56,183.5) and (121.83,173.87) .. (121,162) -- cycle ;  
+\draw  [draw opacity=0] (206,77) .. controls (231.41,77) and (252,115.06) .. (252,162) .. controls (252,208.94) and (231.41,247) .. (206,247) -- (206,162) -- cycle ; \draw   (206,77) .. controls (231.41,77) and (252,115.06) .. (252,162) .. controls (252,208.94) and (231.41,247) .. (206,247) ;  
+\draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (243,118.5) .. controls (243,117.12) and (244.12,116) .. (245.5,116) .. controls (246.88,116) and (248,117.12) .. (248,118.5) .. controls (248,119.88) and (246.88,121) .. (245.5,121) .. controls (244.12,121) and (243,119.88) .. (243,118.5) -- cycle ;
+\draw  [dash pattern={on 4.5pt off 4.5pt}]  (206,162) -- (291,162) ;
+\draw  [dash pattern={on 4.5pt off 4.5pt}]  (206,162) -- (206,77) ;
+\draw  [dash pattern={on 4.5pt off 4.5pt}]  (206,162) -- (146,222) ;
+\draw    (146,222) -- (101.41,266.59) ;
+\draw [shift={(100,268)}, rotate = 315] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+\draw    (291,162) -- (370,162) ;
+\draw [shift={(372,162)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+\draw    (206,77) -- (206,17) ;
+\draw [shift={(206,15)}, rotate = 90] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+\draw    (206,77) -- (338,216) ;
+\draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (324,204.5) .. controls (324,203.12) and (325.12,202) .. (326.5,202) .. controls (327.88,202) and (329,203.12) .. (329,204.5) .. controls (329,205.88) and (327.88,207) .. (326.5,207) .. controls (325.12,207) and (324,205.88) .. (324,204.5) -- cycle ;
+\draw  [dash pattern={on 4.5pt off 4.5pt}] (310.51,212.85) .. controls (307.66,207.4) and (312.52,199.25) .. (321.35,194.64) .. controls (330.18,190.02) and (339.65,190.7) .. (342.49,196.15) .. controls (345.34,201.6) and (340.48,209.75) .. (331.65,214.36) .. controls (322.82,218.98) and (313.35,218.3) .. (310.51,212.85) -- cycle ;
+\draw [color={rgb, 255:red, 245; green, 166; blue, 35 }  ,draw opacity=1 ] [dash pattern={on 4.5pt off 4.5pt}]  (206,77) -- (310.51,212.85) ;
+\draw [color={rgb, 255:red, 245; green, 166; blue, 35 }  ,draw opacity=1 ] [dash pattern={on 4.5pt off 4.5pt}]  (206,77) -- (342.49,196.15) ;
+\draw (102,271.4) node [anchor=north west][inner sep=0.75pt]    {$x$};
+\draw (374,165.4) node [anchor=north west][inner sep=0.75pt]    {$y$};
+\draw (208,18.4) node [anchor=north west][inner sep=0.75pt]    {$z$};
+\draw (180.5,109.4) node [anchor=north west][inner sep=0.75pt]    {$( x,y,z)$};
+\draw (333.65,217.76) node [anchor=north west][inner sep=0.75pt]    {$( u,v)$};
+\draw (208,73.6) node [anchor=south west] [inner sep=0.75pt]    {$P$};
+\end{tikzpicture}
+\caption{球极投影}
+	\end{figure}
+	下面说明映射$h$是一个同胚，需说明三点：
+	\begin{enumerate}
+		\item 从$h$的构造来看，$h$显然是双射。
+		\item 从$h$的构造来看，$h$也是连续映射（把$S^{2}\chadiao P$中的开集映为$\mathbb{R}^{2}$中的开球）
+		\item 下说明$h^{-1}$也是连续映射，观察到$(0,0,1),(x,y,z),(u,v,0)$是三点共线，因此$\exists \lambda\neq 0$，并且有关系式：
+		\begin{equation*}
+			\lambda(x,y,z-1)=\lambda(u,v,-1)
+		\end{equation*}
+		解出$x=\lambda u,y=\lambda v,z=1-\lambda$，并考虑$(x,y,z)$在球$x^{2}+y^{2}+z^{2}$上，就有：
+		\begin{equation*}
+			\lambda^{2}u^{2}+\lambda^{2}v^{2}+(1-\lambda)^{2} = 1
+		\end{equation*}
+		因此同除$\lambda \neq 0$，得到：
+		\begin{equation*}
+			\lambda=\dfrac{2}{u^{2}+v^{2}+1}
+		\end{equation*}
+		这样就知道了$h^{-1}$应该满足下关系式：
+		\begin{equation*}
+			\begin{aligned}
+				h^{-1}:\mathbb{R}^{2}&\longrightarrow S^{2}\chadiao \dkh{P}\\
+				(u,v)&\longmapsto \xkh{\dfrac{2u}{u^{2}+v^{2}+1},\dfrac{2v}{u^{2}+v^{2}+1},\dfrac{u^{2}+v^{2}-1}{u^{2}+v^{2}+1}}
+			\end{aligned}
+		\end{equation*}
+		现考虑映射$f$：
+		\begin{equation*}
+			\begin{aligned}
+				f:\mathbb{R}^{2}&\longrightarrow \mathbb{R}^{3}\\
+				(u,v)&\longmapsto \xkh{\dfrac{2u}{u^{2}+v^{2}+1},\dfrac{2v}{u^{2}+v^{2}+1},\dfrac{u^{2}+v^{2}-1}{u^{2}+v^{2}+1}}
+			\end{aligned}
+		\end{equation*}
+		
+		很明显$f$是一个连续映射。根据我们的命题\ref{c2-m3}可知，$h^{-1}$也是连续映射。
+	\end{enumerate}
+\end{example}
 \section{充满整个空间的曲线-Peano\footnote{朱塞佩·皮亚诺 （意大利语：Giuseppe Peano；1858年8月27日－1932年4月20日）是意大利数学家、逻辑学家、语言学家。}曲线}
+本节将给出一个在分析学、拓扑学中都很重要且著名的例子---Peano曲线。
+
+\begin{example}[Peano曲线]
+	设$f:[0,1]\longrightarrow X$是一个连续映射，称之为一个\gn{曲线}。其中$X$设定为三角形$\triangle$（边长为$1$），取$\mathbb{R}^{2}$的子空间拓扑。按照如下方式对Peano曲线进行绘制：
+	
+	\begin{equation*}
+		f:[0,1]\longrightarrow X
+	\end{equation*}
+	$f_{1}$是这副德行（让点~“匀速率游走为红色的线”~）：
+	\begin{figure}[h]
+		\centering
+\tikzset{every picture/.style={line width=0.75pt}}
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+\draw    (151,250) -- (346,250) ;
+\draw    (151,250) -- (248.5,81.13) ;
+\draw    (248.5,81.13) -- (346,250) ;
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (151,250) -- (248.25,193.85) ;
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (248.25,193.85) -- (346,250) ;
+\draw (248.25,190.45) node [anchor=south] [inner sep=0.75pt]    {$f_{1}\left(\frac{1}{2}\right)$};
+\end{tikzpicture}
+\caption{Peano曲线第一步$f_{1}$}
+	\end{figure}
+	
+	接着，把整个三角形按照中点进行连接起来，这样就形成了4个小的并且全等的三角形。然后在每一个三角形里填充$f_1$，但是要注意顺序，$f_2$如下所示：
+	
+	\begin{figure}[h]
+		\centering
+\tikzset{every picture/.style={line width=0.75pt}}
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+\draw    (171,270) -- (366,270) ;
+\draw    (171,270) -- (268.5,101.13) ;
+\draw    (268.5,101.13) -- (366,270) ;
+\draw    (219.75,185.56) -- (317.25,185.56) ;
+\draw    (219.75,185.56) -- (268.5,270) ;
+\draw    (317.25,185.56) -- (268.5,270) ;
+\draw    (171,270) -- (267.99,270) ;
+\draw    (171,270) -- (219.5,186) ;
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (171,270) -- (219.37,242.07) ;
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (219.37,242.07) -- (267.99,270) ;
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (220,186) -- (268.37,158.07) ;
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (268.37,158.07) -- (316.99,186) ;
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (267.99,270) -- (268,213.5) ;
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (220,186) -- (268,213.5) ;
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (317,241.5) -- (366,270) ;
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (316.99,186) -- (317,241.5) ;
+\draw (169,273.4) node [anchor=north east] [inner sep=0.75pt]    {$f_{2}( 0)$};
+\draw (368,273.4) node [anchor=north west][inner sep=0.75pt]    {$f_{2}( 1)$};
+\draw (217.75,182.16) node [anchor=south east] [inner sep=0.75pt]    {$f_{2}\left(\frac{1}{2}\right)$};
+\end{tikzpicture}
+\caption{Peano曲线第二步$f_2$}
+	\end{figure}
+	
+	然后对其中每一个小三角形按照如下替换规则进行替换：
+	\begin{figure}[h]
+		\centering
+\tikzset{every picture/.style={line width=0.75pt}}
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+\draw    (103,240) -- (298,240) ;
+\draw    (103,240) -- (200.5,71.13) ;
+\draw    (200.5,71.13) -- (298,240) ;
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (103,240) -- (200.25,183.85) ;
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (200.25,183.85) -- (298,240) ;
+\draw    (390,241) -- (585,241) ;
+\draw    (390,241) -- (487.5,72.13) ;
+\draw    (487.5,72.13) -- (585,241) ;
+\draw    (438.75,156.56) -- (536.25,156.56) ;
+\draw    (438.75,156.56) -- (487.5,241) ;
+\draw    (536.25,156.56) -- (487.5,241) ;
+\draw    (390,241) -- (486.99,241) ;
+\draw    (390,241) -- (438.5,157) ;
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (390,241) -- (438.37,213.07) ;
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (438.37,213.07) -- (486.99,241) ;
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (439,157) -- (487.37,129.07) ;
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (487.37,129.07) -- (535.99,157) ;
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (486.99,241) -- (487,184.5) ;
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (439,157) -- (487,184.5) ;
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (536,212.5) -- (585,241) ;
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (535.99,157) -- (536,212.5) ;
+\draw    (279,150) -- (404,150) ;
+\draw [shift={(406,150)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+\draw (342.5,147) node [anchor=south] [inner sep=0.75pt]   [align=left] {替换};
+\end{tikzpicture}
+\caption{Peano曲线构筑规则}
+	\end{figure}
+	
+	这样我们就得到了$f_3$，以此类推...
+	
+	\begin{figure}[h]
+		\centering
+
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Straight Lines [id:da4452487886353127] 
+\draw    (183.5,134.5) -- (231.99,218.5) ;
+%Straight Lines [id:da7452299433041778] 
+\draw    (159.25,176.5) -- (207.75,176.5) ;
+%Straight Lines [id:da5689545118290742] 
+\draw    (159.25,176.5) -- (183.5,218.5) ;
+%Straight Lines [id:da4026834110085673] 
+\draw    (207.75,176.5) -- (183.5,218.5) ;
+%Straight Lines [id:da15211849558958757] 
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (135,218.5) -- (159.06,204.61) ;
+%Straight Lines [id:da013743062828558639] 
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (159.06,204.61) -- (183.25,218.5) ;
+%Straight Lines [id:da6280131962575781] 
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (159.37,176.72) -- (183.43,162.83) ;
+%Straight Lines [id:da4500201719147827] 
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (183.43,162.83) -- (207.62,176.72) ;
+%Straight Lines [id:da9823863695132296] 
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (183.25,218.5) -- (183.25,190.4) ;
+%Straight Lines [id:da9987199864798484] 
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (159.37,176.72) -- (183.25,190.4) ;
+%Straight Lines [id:da5610887461556471] 
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (207.62,204.32) -- (231.99,218.5) ;
+%Straight Lines [id:da44116401718844034] 
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (207.62,176.72) -- (207.62,204.32) ;
+%Straight Lines [id:da20956493721424563] 
+\draw    (183.75,134.06) -- (281.25,134.06) ;
+%Straight Lines [id:da2458399782846865] 
+\draw    (281.25,134.06) -- (232.5,218.5) ;
+%Straight Lines [id:da1703054684234142] 
+\draw    (232.44,134.25) -- (256.54,176.41) ;
+%Straight Lines [id:da7884335868164676] 
+\draw    (232.44,134.25) -- (207.98,176.2) ;
+%Straight Lines [id:da3252501120078737] 
+\draw    (256.54,176.41) -- (207.98,176.2) ;
+%Straight Lines [id:da9457474867851912] 
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (183.88,134.04) -- (207.91,148.05) ;
+%Straight Lines [id:da1199139186327054] 
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (207.91,148.05) -- (207.85,175.98) ;
+%Straight Lines [id:da978259216414529] 
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (232.31,134.47) -- (256.35,148.48) ;
+%Straight Lines [id:da37258514563348455] 
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (256.35,148.48) -- (256.29,176.41) ;
+%Straight Lines [id:da5391903142567398] 
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (207.85,175.98) -- (232.29,162.02) ;
+%Straight Lines [id:da49453695674366505] 
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (232.31,134.47) -- (232.29,162.02) ;
+%Straight Lines [id:da6550708204219686] 
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (232.29,190.12) -- (232.07,218.36) ;
+%Straight Lines [id:da7743718768871406] 
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (256.29,176.41) -- (232.29,190.12) ;
+%Straight Lines [id:da9354170106094462] 
+\draw    (208.25,91.5) -- (256.75,91.5) ;
+%Straight Lines [id:da025313551535410594] 
+\draw    (208.25,91.5) -- (232.5,133.5) ;
+%Straight Lines [id:da3251539143688129] 
+\draw    (256.75,91.5) -- (232.5,133.5) ;
+%Straight Lines [id:da3824813283137909] 
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (184,133.5) -- (208.06,119.61) ;
+%Straight Lines [id:da9656996251848466] 
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (208.06,119.61) -- (232.25,133.5) ;
+%Straight Lines [id:da4064095014917104] 
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (208.37,91.72) -- (232.44,77.82) ;
+%Straight Lines [id:da9389690679134728] 
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (232.44,77.82) -- (256.62,91.72) ;
+%Straight Lines [id:da7970229780254066] 
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (232.25,133.5) -- (232.25,105.39) ;
+%Straight Lines [id:da07861937968400046] 
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (208.37,91.72) -- (232.25,105.39) ;
+%Straight Lines [id:da15631925322885132] 
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (256.63,119.32) -- (281,133.5) ;
+%Straight Lines [id:da9532236792775153] 
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (256.62,91.72) -- (256.63,119.32) ;
+%Straight Lines [id:da7940830787810864] 
+\draw    (281.48,218.74) -- (256.77,176.18) ;
+%Straight Lines [id:da5412492816114032] 
+\draw    (281.48,218.74) -- (305.98,176.06) ;
+%Straight Lines [id:da14295678090757669] 
+\draw    (256.77,176.18) -- (305.98,176.06) ;
+%Straight Lines [id:da32223172444353443] 
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (330.69,218.62) -- (306.24,204.59) ;
+%Straight Lines [id:da3858152956993992] 
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (306.24,204.59) -- (306.11,176.28) ;
+%Straight Lines [id:da7564109494509244] 
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (281.61,218.52) -- (257.15,204.49) ;
+%Straight Lines [id:da7222190031387103] 
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (257.15,204.49) -- (257.02,176.18) ;
+%Straight Lines [id:da14163081209457484] 
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (306.11,176.28) -- (281.44,190.6) ;
+%Straight Lines [id:da4232364823033463] 
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (281.61,218.52) -- (281.44,190.6) ;
+%Straight Lines [id:da5379551358921246] 
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (281.25,162.11) -- (281.27,133.5) ;
+%Straight Lines [id:da6496020507310429] 
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (257.02,176.18) -- (281.25,162.11) ;
+%Straight Lines [id:da3996825114817164] 
+\draw    (232.5,49.5) -- (135,218.5) ;
+%Straight Lines [id:da616059163751844] 
+\draw    (134.23,218.29) -- (329.92,218.42) ;
+%Straight Lines [id:da4447070580057326] 
+\draw    (232.5,49.5) -- (329.92,218.42) ;
+\end{tikzpicture}
+		\caption{Peano曲线第三步$f_3$}
+	\end{figure}
+	
+	这样一直下去，由于匀速率，$f_n$中小三角形的边长为$\dfrac{1}{2^{n-1}}$，那么我们有以下断言：
+	
+	\begin{proposition}[Peano曲线]
+		\begin{enumerate}
+			\item $f_{n} :[0,1]\longrightarrow \triangle$并且有：$f_{n}\rightrightarrows : [0,1]\rightarrow \triangle$，映射$f$是连续映射，将之称为\gn{Peano曲线}。
+			\item $f([0,1]) = \triangle$
+		\end{enumerate}
+	\end{proposition}
+	\begin{proof}我们来一条一条证明：
+		\begin{enumerate}
+			\item $f(t)$是匀速率进行移动，相比较$f_{n+1}$和$f_{n}$，在$f_{n+1}$中的某一点一定要落入比它大四倍的$f_{n}$中。因此我们有$||f_{n+1}(t) - f_{n}(t)||\leq \dfrac{1}{2^{n-1}}$。
+			
+			
+			而$f_n$的边长为$\dfrac{1}{2^{n-1}}$，这就说明在时刻$t$，点一定移动到某个小三角形里，三角形中两点的欧氏距离不超过三角形的边长，即：\tl{$\forall m\geq n+1, ||f_{m}(t) - f_{n}(t)||\leq \dfrac{1}{2^{n-1}} , \forall t\in [0,1]$}。即：
+			\begin{equation*}
+				\forall \varepsilon >0,\exists N,\st \forall n,m>N,||f_{m}(t) - f_{n}(t)||\leq \varepsilon, \forall t\in [0,1]
+			\end{equation*}
+			因此在$\mathbb{R}^{2}$中,$\dkh{f_{n}(t)}$是一致收敛的。那么$f$是一个连续映射。
+			
+			\item $\forall P	\in \triangle ,\forall n\in \mathbb{N}$，通过对$\triangle$的边长进行$2^{n-1}$等分，就得到边长为$\dfrac{1}{2^{n-1}}$的小三角形。则$P$必然落在一个这样的小三角形里，对于$f_n$，必$\exists t_{n},\tl{||f_{n}(t_{n})-P||<\dfrac{1}{2^{n-1}}}$，根据第一点的议论，我们又有$\forall m\geq n+1, \tl{||f_{m}(t) - f_{n}(t)||\leq \dfrac{1}{2^{n-1}}} , \forall t\in [0,1]$，因此：
+			\begin{equation*}
+				\begin{aligned}
+					0\leq ||f(t_{n})-P||&\leq ||f(t_{n})-f_{n}(t_{n})||+||f_{n}(t_{n})-P||\\
+					 &\tl{\leq} \dfrac{1}{2^{n-1}}+\dfrac{1}{2^{n-1}} = \dfrac{1}{2^{n}}
+				\end{aligned}
+			\end{equation*}
+			
+			当$n\to +\infty$时，$f(t_{n}) \rightarrow P(n\to +\infty)$，因此$P$为$f([0,1])$的极限点。
+			
+			事实上，\textcolor{myblu}{在欧氏空间$\mathbb{R}^{2}$中，闭区间$[0,1]$是紧集，因此连续映射$f$映射紧集得到的项还是紧集，即欧氏空间$\mathbb{R}^{2}$的闭集。}因此$P\in f([0,1])$，即$f([0,1]) = \triangle$。
+		\end{enumerate}
+	\end{proof}
+\end{example}
+
 %第三章
 \chapter{紧性}
 %第四章
