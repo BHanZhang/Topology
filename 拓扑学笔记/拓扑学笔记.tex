@@ -2,15 +2,23 @@
 %titlestyle=display
 %toc=twocol
 \title{《拓扑学》学习笔记}
-\subtitle{基于庄晓波老师的教学视频and一些不知道从哪里来的idea}
+\subtitle{Practice makes perfect.}
 %（$\subset my$的）
+
+%额外宏包
+\usepackage{makeidx}
+\makeindex
+
+%字体部分
 \setCJKmainfont[ItalicFont=FandolKai-Regular,BoldFont=STSongti-SC-Black]{STSong} 
 \setCJKsansfont{FandolHei-Regular}
 \setCJKmonofont{FandolFang-Regular}
 \setCJKfamilyfont{kaiti}{FandolKai-Regular}
+\setCJKfamilyfont{cuk}{STKaitiSC-Black}
 \setCJKfamilyfont{cusong}{STSongti-SC-Black}
 \setCJKfamilyfont{fang}{FandolFang-Regular}
 \newcommand{\kaiti}{\CJKfamily{kaiti}}%\
+\newcommand{\cukaii}{\CJKfamily{cuk}}%\
 \newcommand{\cusong}{\CJKfamily{cusong}}%\
 \newcommand{\fang}{\CJKfamily{fang}}%
 \usepackage{calligra}
@@ -34,11 +42,13 @@
 \definecolor{mygrn}{RGB}{21,153,65}
 \definecolor{myor}{RGB}{252,113,21}
 \definecolor{myblu}{RGB}{46,90,168}
+%\renewcommand{\exists}{\exists~}
 \usepackage{array}
 \newcommand{\ccr}[1]{\makecell{{\color{#1}\rule{1cm}{1cm}}}}
 \newcommand{\tl}[1]{\textcolor{myor}{#1}}
 \newcommand{\gn}[1]{~\textcolor{mygrn}{\cusong{#1}}~}
 \newcommand{\lei}[1]{~\textcolor{myblu}{\cusong{#1}}~}
+\newcommand{\lanse}[1]{~\textcolor{myblu}{#1}~}
 \newcommand{\tp}{\mathscr{F}}
 \newcommand{\tpj}{\mathcal{B}}
 \newcommand{\mj}[1]{\mathscr{P} (#1) }
@@ -49,6 +59,7 @@
 \newcommand{\xkh}[1]{\left(#1\right)}
 \newcommand{\chadiao}{\backslash}
 \newcommand{\ranhou}{\Longrightarrow}
+\newcommand{\cukai}[1]{{\cukaii{#1}}}
 % 修改标题页的橙色带
 \definecolor{customcolor}{RGB}{249,125,28}
 \colorlet{coverlinecolor}{customcolor}
@@ -76,10 +87,12 @@
 \tableofcontents
 
 \mainmatter
+%第一部分
+\part{点集拓扑}
 %第一章
 \chapter{拓扑空间}
 \section{拓扑空间，开集}
-\begin{definition}[拓扑空间，开集]\label{c1-d1}
+\begin{definition}[拓扑空间，开集]\label{c1-d1}\index{拓扑空间}
 	设$X$为一个集合$\mathscr{F}\in \mathscr{P}(X)$（把$\mathscr{F}$中的元素称为$X$中的\gn{开集}），满足：
 	\begin{enumerate}
 		\item $\emptyset , X \in \mathscr{F}$
@@ -430,6 +443,10 @@ $则$\exists$开集$U\subset X \st p\in U$且由于$p\notin A$则$U\cap A = (U\c
 		\end{equation*}
 	\end{enumerate}
 \end{proof}
+\begin{note}
+这里做一个小小小的总结，一个开集的闭包是闭集，也就是说闭集包括了这个开集中的所有的元素和这个开集的全部极限点，因此在这个开集中取任何点列其极限点均在这个集合的闭包里（闭集也一样，闭集的闭包为其自己）。因此我们知道闭集中“闭”的含义是\cukai{闭集关于取极限运算是封闭的！}。	
+\end{note}
+
 \subsection{集合之解体}
 为了更好说话，引入以下概念：
 \begin{definition}[内点，外点，边界点]
@@ -493,7 +510,7 @@ $则$\exists$开集$U\subset X \st p\in U$且由于$p\notin A$则$U\cap A = (U\c
 	\end{enumerate}
 \end{example}
 \section{拓扑空间的砖头---拓扑基}
-\begin{definition}[拓扑基]
+\begin{definition}[拓扑基]\index{拓扑基}
 	设$X$是拓扑空间，$\tpj$是一个由一些$X$中开集构成的集族，如果对$\forall X$中开集$U$，$U$均可表为$\tpj$中一些元素之并，则称$\tpj$构成了$X$的一个\gn{拓扑基}。
 \end{definition}
 \begin{example}[$\mathbb{R}^{1}$中的欧氏拓扑可以有不同的拓扑基]
@@ -630,7 +647,7 @@ $则$\exists$开集$U\subset X \st p\in U$且由于$p\notin A$则$U\cap A = (U\c
 		同理，$\tp\subset\tp'$，因此$\tp=\tp'$
 	\end{proof}
 	
-	为了更好的使用以上拓扑基的等价条件，我们可以篡改\lei{TP2}为以下的\lei{TP2'}：
+	为了更好的使用以上拓扑基的等价条件，我们可以篡改\lei{TB2}为以下的\lei{TB2'}：
 	\begin{enumerate}
 		\item[\lei{TP2'}]. $\forall U_{1},U_{2}\in \tpj , \forall p\in U_{1}\cap U_{2},\exists U_{p}\in \tpj, \st p\in U_{p}\subset U_{1}\cap U_{2}$
 	\end{enumerate}
@@ -764,7 +781,7 @@ $则$\exists$开集$U\subset X \st p\in U$且由于$p\notin A$则$U\cap A = (U\c
 		\item[[\lei{$6\Rightarrow 2$}]]：任取$U\subset_{open}Y$，注意到$f^{-1}(U) \sqcup f^{-1}(Y\chadiao U) = X$，这里的无交并是因为$f$是映射。因此立马可以得到$$f^{-1}(U) = X\chadiao f^{-1}(Y\chadiao U) $$由于$f^{-1}(Y\chadiao U)$是闭集，因此$f^{-1}(U) = X\chadiao f^{-1}(Y\chadiao U)$是开集。
 	\end{enumerate}
 \end{proof}
-\subsection{拓扑空间中的极限与Hausdorff空间}
+\subsection{拓扑空间中的极限与Hausdorff\footnote{费利克斯·豪斯多夫（德语：Felix Hausdorff，1868年11月8日－1942年1月26日），德国数学家。他是拓扑学的创始人之一，并且对集合论和泛函分析都贡献不少。他定义和研究偏序集、豪斯多夫空间和豪斯多夫维，证明豪斯多夫极大定理。他以笔名Paul Mongré出版哲学和文学作品。}空间}
 研究连续性，是和极限密不可分的，下面开始定义极限。
 \begin{definition}[极限]\label{c2-d2}
 	设$X$是一个拓扑空间，$\dkh{x_{n}}\subset X$是$X$内的一个序列，如果对于$\forall U\subset_{open} X(x\in U) , \exists N,\st \forall n>N,x_{n}\in U$，
@@ -956,7 +973,7 @@ $$f(x)\text{连续}~\Rightarrow ~\lim_{\mathcal{B}}f(x) = f(\lim_{\mathcal{B}} x
 \section{充满整个空间的曲线-Peano\footnote{朱塞佩·皮亚诺 （意大利语：Giuseppe Peano；1858年8月27日－1932年4月20日）是意大利数学家、逻辑学家、语言学家。}曲线}
 本节将给出一个在分析学、拓扑学中都很重要且著名的例子---Peano曲线。
 
-\begin{example}[Peano曲线]
+\begin{example}[Peano曲线]\index{Peano曲线}
 	设$f:[0,1]\longrightarrow X$是一个连续映射，称之为一个\gn{曲线}。其中$X$设定为三角形$\triangle$（边长为$1$），取$\mathbb{R}^{2}$的子空间拓扑。按照如下方式对Peano曲线进行绘制：
 	
 	\begin{equation*}
@@ -1181,7 +1198,7 @@ $$f(x)\text{连续}~\Rightarrow ~\lim_{\mathcal{B}}f(x) = f(\lim_{\mathcal{B}} x
 				\end{aligned}
 			\end{equation*}
 			
-			当$n\to +\infty$时，$f(t_{n}) \rightarrow P(n\to +\infty)$，因此$P$为$f([0,1])$的极限点。
+			当$n\to +\infty$时，$f(t_{n}) \rightarrow P$，因此$P$为$f([0,1])$的极限点。
 			
 			事实上，\textcolor{myblu}{在欧氏空间$\mathbb{R}^{2}$中，闭区间$[0,1]$是紧集，因此连续映射$f$映射紧集得到的项还是紧集，即欧氏空间$\mathbb{R}^{2}$的闭集。}因此$P\in f([0,1])$，即$f([0,1]) = \triangle$。
 		\end{enumerate}
@@ -1190,9 +1207,1152 @@ $$f(x)\text{连续}~\Rightarrow ~\lim_{\mathcal{B}}f(x) = f(\lim_{\mathcal{B}} x
 
 %第三章
 \chapter{紧性}
-%第四章
+紧性是一类非常重要的拓扑性质，在分析中，我们常常利用紧性说明一些真理。紧性和集合开闭、连续都有很大的关联。下面我们首先研究紧性，然后在此基础上推广一些概念，使之更加一般。
+\section{开覆盖，紧集，紧子集}
+\begin{definition}[开覆盖]
+	设$X$为一个拓扑空间，对于拓扑空间$X$中的一族开集$\dkh{U_{i}}_{i\in I}$，如果$$\dabing_{i\in I} U_{i} = X$$那么就把开集族$\dkh{U_{i}}_{i\in I}$称为$X$的一个\gn{开覆盖}。
+\end{definition}
+\begin{example}[$\mathbb{R}^{3}$中球面$S^{2}$的一组开覆盖]
+	以下开集$U_1,U_2$是$\mathbb{R}^{3}$中球面$S^{2}$的一组开覆盖：
+	\begin{figure}[h]
+		\centering
+		
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Shape: Arc [id:dp4877182164030387] 
+\draw  [draw opacity=0][fill={rgb, 255:red, 248; green, 231; blue, 28 }  ,fill opacity=1 ] (354.43,119.19) .. controls (367.73,89.6) and (397.46,69) .. (432,69) .. controls (466.25,69) and (495.76,89.25) .. (509.22,118.43) -- (432,154) -- cycle ; \draw   (354.43,119.19) .. controls (367.73,89.6) and (397.46,69) .. (432,69) .. controls (466.25,69) and (495.76,89.25) .. (509.22,118.43) ;  
+%Shape: Arc [id:dp23161002882548187] 
+\draw  [draw opacity=0][fill={rgb, 255:red, 248; green, 231; blue, 28 }  ,fill opacity=1 ] (249.73,188.45) .. controls (236.51,218.23) and (206.68,239) .. (172,239) .. controls (137.78,239) and (108.28,218.78) .. (94.81,189.64) -- (172,154) -- cycle ; \draw   (249.73,188.45) .. controls (236.51,218.23) and (206.68,239) .. (172,239) .. controls (137.78,239) and (108.28,218.78) .. (94.81,189.64) ;  
+%Shape: Arc [id:dp910960502839778] 
+\draw  [draw opacity=0][fill={rgb, 255:red, 184; green, 233; blue, 134 }  ,fill opacity=1 ] (248.32,189.67) .. controls (243.31,199.45) and (211.05,207) .. (172,207) .. controls (132.95,207) and (100.69,199.45) .. (95.68,189.67) -- (172,187) -- cycle ; \draw   (248.32,189.67) .. controls (243.31,199.45) and (211.05,207) .. (172,207) .. controls (132.95,207) and (100.69,199.45) .. (95.68,189.67) ;  
+%Shape: Arc [id:dp9693162106830377] 
+\draw  [draw opacity=0][fill={rgb, 255:red, 184; green, 233; blue, 134 }  ,fill opacity=1 ][dash pattern={on 4.5pt off 4.5pt}] (95.68,189.67) .. controls (95.23,188.79) and (95,187.9) .. (95,187) .. controls (95,175.95) and (129.47,167) .. (172,167) .. controls (214.53,167) and (249,175.95) .. (249,187) .. controls (249,187.9) and (248.77,188.79) .. (248.32,189.67) -- (172,187) -- cycle ; \draw  [dash pattern={on 4.5pt off 4.5pt}] (95.68,189.67) .. controls (95.23,188.79) and (95,187.9) .. (95,187) .. controls (95,175.95) and (129.47,167) .. (172,167) .. controls (214.53,167) and (249,175.95) .. (249,187) .. controls (249,187.9) and (248.77,188.79) .. (248.32,189.67) ;  
+%Shape: Arc [id:dp2184763136314598] 
+\draw  [draw opacity=0][fill={rgb, 255:red, 184; green, 233; blue, 134 }  ,fill opacity=1 ][dash pattern={on 4.5pt off 4.5pt}] (87,154) .. controls (86.17,142.13) and (123.55,132.5) .. (170.5,132.5) .. controls (217.44,132.5) and (256.17,142.13) .. (257,154) .. controls (257.83,165.87) and (220.45,175.5) .. (173.5,175.5) .. controls (126.56,175.5) and (87.83,165.87) .. (87,154) -- (172,154) -- cycle ; \draw  [dash pattern={on 4.5pt off 4.5pt}] (87,154) .. controls (86.17,142.13) and (123.55,132.5) .. (170.5,132.5) .. controls (217.44,132.5) and (256.17,142.13) .. (257,154) .. controls (257.83,165.87) and (220.45,175.5) .. (173.5,175.5) .. controls (126.56,175.5) and (87.83,165.87) .. (87,154) -- cycle ;  
+%Shape: Arc [id:dp049424143239571894] 
+\draw  [draw opacity=0][fill={rgb, 255:red, 184; green, 233; blue, 134 }  ,fill opacity=1 ] (87,154) .. controls (87,107.06) and (125.06,69) .. (172,69) .. controls (218.94,69) and (257,107.06) .. (257,154) -- (172,154) -- cycle ; \draw   (87,154) .. controls (87,107.06) and (125.06,69) .. (172,69) .. controls (218.94,69) and (257,107.06) .. (257,154) ;  
+%Shape: Arc [id:dp8748762706324542] 
+\draw  [draw opacity=0][fill={rgb, 255:red, 184; green, 233; blue, 134 }  ,fill opacity=1 ] (94.93,189.89) .. controls (89.84,178.99) and (87,166.83) .. (87,154) .. controls (87,107.06) and (125.06,69) .. (172,69) .. controls (218.94,69) and (257,107.06) .. (257,154) .. controls (257,166.87) and (254.14,179.08) .. (249.02,190.01) -- (172,154) -- cycle ; \draw   (94.93,189.89) .. controls (89.84,178.99) and (87,166.83) .. (87,154) .. controls (87,107.06) and (125.06,69) .. (172,69) .. controls (218.94,69) and (257,107.06) .. (257,154) .. controls (257,166.87) and (254.14,179.08) .. (249.02,190.01) ;  
+%Shape: Arc [id:dp7238984247117861] 
+\draw  [draw opacity=0] (257,154) .. controls (257.83,165.87) and (220.45,175.5) .. (173.5,175.5) .. controls (126.56,175.5) and (87.83,165.87) .. (87,154) -- (172,154) -- cycle ; \draw   (257,154) .. controls (257.83,165.87) and (220.45,175.5) .. (173.5,175.5) .. controls (126.56,175.5) and (87.83,165.87) .. (87,154) ;  
+%Shape: Arc [id:dp5891897917139242] 
+\draw  [draw opacity=0][fill={rgb, 255:red, 184; green, 233; blue, 134 }  ,fill opacity=1 ] (509.07,118.11) .. controls (514.16,129.01) and (517,141.17) .. (517,154) .. controls (517,200.94) and (478.94,239) .. (432,239) .. controls (385.06,239) and (347,200.94) .. (347,154) .. controls (347,141.96) and (349.5,130.51) .. (354.01,120.14) -- (432,154) -- cycle ; \draw   (509.07,118.11) .. controls (514.16,129.01) and (517,141.17) .. (517,154) .. controls (517,200.94) and (478.94,239) .. (432,239) .. controls (385.06,239) and (347,200.94) .. (347,154) .. controls (347,141.96) and (349.5,130.51) .. (354.01,120.14) ;  
+%Shape: Arc [id:dp2130503166870723] 
+\draw  [draw opacity=0][fill={rgb, 255:red, 184; green, 233; blue, 134 }  ,fill opacity=1 ] (517,154) .. controls (517.83,165.87) and (480.45,175.5) .. (433.5,175.5) .. controls (386.56,175.5) and (347.83,165.87) .. (347,154) -- (432,154) -- cycle ; \draw   (517,154) .. controls (517.83,165.87) and (480.45,175.5) .. (433.5,175.5) .. controls (386.56,175.5) and (347.83,165.87) .. (347,154) ;  
+%Shape: Arc [id:dp5006753357361131] 
+\draw  [draw opacity=0][fill={rgb, 255:red, 184; green, 233; blue, 134 }  ,fill opacity=1 ][dash pattern={on 4.5pt off 4.5pt}] (347,154) .. controls (346.17,142.13) and (383.55,132.5) .. (430.5,132.5) .. controls (475.47,132.5) and (512.91,141.34) .. (516.7,152.52) -- (432,154) -- cycle ; \draw  [dash pattern={on 4.5pt off 4.5pt}] (347,154) .. controls (346.17,142.13) and (383.55,132.5) .. (430.5,132.5) .. controls (475.47,132.5) and (512.91,141.34) .. (516.7,152.52) ;  
+%Shape: Arc [id:dp27854573070484867] 
+\draw  [draw opacity=0][fill={rgb, 255:red, 248; green, 231; blue, 28 }  ,fill opacity=1 ] (508.32,121.67) .. controls (503.31,131.45) and (471.05,139) .. (432,139) .. controls (392.95,139) and (360.69,131.45) .. (355.68,121.67) -- (432,119) -- cycle ; \draw   (508.32,121.67) .. controls (503.31,131.45) and (471.05,139) .. (432,139) .. controls (392.95,139) and (360.69,131.45) .. (355.68,121.67) ;  
+%Shape: Arc [id:dp5018514725883458] 
+\draw  [draw opacity=0][fill={rgb, 255:red, 248; green, 231; blue, 28 }  ,fill opacity=1 ][dash pattern={on 4.5pt off 4.5pt}] (355.68,121.67) .. controls (355.23,120.79) and (355,119.9) .. (355,119) .. controls (355,107.95) and (389.47,99) .. (432,99) .. controls (474.53,99) and (509,107.95) .. (509,119) .. controls (509,127.68) and (487.7,135.07) .. (457.93,137.84) -- (432,119) -- cycle ; \draw  [dash pattern={on 4.5pt off 4.5pt}] (355.68,121.67) .. controls (355.23,120.79) and (355,119.9) .. (355,119) .. controls (355,107.95) and (389.47,99) .. (432,99) .. controls (474.53,99) and (509,107.95) .. (509,119) .. controls (509,127.68) and (487.7,135.07) .. (457.93,137.84) ;  
+%Shape: Arc [id:dp019845462128910807] 
+\draw  [draw opacity=0] (354.93,189.89) .. controls (349.84,178.99) and (347,166.83) .. (347,154) .. controls (347,107.06) and (385.06,69) .. (432,69) .. controls (478.94,69) and (517,107.06) .. (517,154) .. controls (517,166.87) and (514.14,179.08) .. (509.02,190.01) -- (432,154) -- cycle ; \draw   (354.93,189.89) .. controls (349.84,178.99) and (347,166.83) .. (347,154) .. controls (347,107.06) and (385.06,69) .. (432,69) .. controls (478.94,69) and (517,107.06) .. (517,154) .. controls (517,166.87) and (514.14,179.08) .. (509.02,190.01) ;  
+%Shape: Arc [id:dp7763317975452522] 
+\draw  [draw opacity=0][dash pattern={on 4.5pt off 4.5pt}] (95.68,189.67) .. controls (95.23,188.79) and (95,187.9) .. (95,187) .. controls (95,175.95) and (129.47,167) .. (172,167) .. controls (214.53,167) and (249,175.95) .. (249,187) .. controls (249,195.68) and (227.7,203.07) .. (197.93,205.84) -- (172,187) -- cycle ; \draw  [dash pattern={on 4.5pt off 4.5pt}] (95.68,189.67) .. controls (95.23,188.79) and (95,187.9) .. (95,187) .. controls (95,175.95) and (129.47,167) .. (172,167) .. controls (214.53,167) and (249,175.95) .. (249,187) .. controls (249,195.68) and (227.7,203.07) .. (197.93,205.84) ;  
+%Shape: Arc [id:dp4812470301976983] 
+\draw  [draw opacity=0][fill={rgb, 255:red, 184; green, 233; blue, 134 }  ,fill opacity=1 ][dash pattern={on 4.5pt off 4.5pt}] (87,154) .. controls (86.17,142.13) and (123.55,132.5) .. (170.5,132.5) .. controls (215.47,132.5) and (252.91,141.34) .. (256.7,152.52) -- (172,154) -- cycle ; \draw  [dash pattern={on 4.5pt off 4.5pt}] (87,154) .. controls (86.17,142.13) and (123.55,132.5) .. (170.5,132.5) .. controls (215.47,132.5) and (252.91,141.34) .. (256.7,152.52) ;  
+
+% Text Node
+\draw (422,197.4) node [anchor=north west][inner sep=0.75pt]    {$U_{2}$};
+% Text Node
+\draw (161,96.4) node [anchor=north west][inner sep=0.75pt]    {$U_{1}$};
+
+
+\end{tikzpicture}
+\caption{例3.1中的$U_1$与$U_2$}
+	\end{figure}
+	
+	即：$S^{2} = U_{1}\cup U_{2}$。
+\end{example}
+
+\begin{definition}[子覆盖]
+	若开覆盖$\dkh{U_{i}}_{i\in I}$中可以取出一部分开集，记之为$\dkh{U_{j}}_{j\in J},J\subset I$，且满足$\dabing_{j\in J}U_{j} = X$，则称$\dkh{U_{j}}_{j\in J}$为原先开覆盖的一个\gn{子覆盖}；若特别地，$|J|<+\infty$，则称之为原先覆盖的一个\gn{有限子覆盖}。
+\end{definition}
+\begin{definition}[紧性]
+	设$X$为一个拓扑空间，若$\forall X$的开覆盖，存在有限子覆盖，则称$X$是\gn{紧的}。
+\end{definition}
+下面几个例子说明了紧性对于分析学有一些方便的好处。
+\begin{example}[紧性的好处一：便于操作]
+	映射$f:[a,b]\longrightarrow \mathbb{R}$连续，则$f([a,b])$有界。
+	\begin{proof}
+		$f$连续，则$f$局部有界，则$\forall x\in [a,b] , \exists x$的邻域$U_{x}, \st  f|_{U_{x}\cap[a,b]}$有界。
+		
+		由于$[a,b]$是紧集，所以对于任意的$[a,b]$的开覆盖$\dabing_{x\in [a,b]}U_{x}\supset [a,b] $，则$\exists x_{1},\cdots,x_{n},\st \dabing_{i=1}^{n}U_{x_{i}}\supset [a,b]$，即$f([a,b])$有界。
+	\end{proof}
+\end{example}
+\begin{example}[紧性的好处二：可以高枕无忧地做积分（而不用判断其收敛性）]
+如果对于$f$在$\mathbb{R}$中区间$X$（$X = [a,b) ~or~ (a,b) ~or~ (a,+\infty)$）进行积分，可能会在边界处出现瑕点，例如广义积分$\int_{a}^{\to +\infty}{\rm{d}}x$不一定收敛，所以这个符号不能够轻松地写下来。
+
+	如果$f\in C([a,b])$，那么就可以对$f$在$[a,b]$上进行积分运算$\int_{a}^{b}f(x){\rm{d}}x$，而这个积分必然是收敛的。
+\end{example}
+\begin{note}
+积分在拓扑学中有非常大的作用。可以借由积分来定义所谓的{\cukai{拓扑不变量}}。这是拓扑学研究的动机之一。	
+\end{note}
+
+
+回忆之前数学分析中的情况，我们是说闭区间$[a,b]$是$\mathbb{R}$中的紧集，但是我们的定义是针对拓扑空间$X$来说的，因此差一个子集和子空间拓扑的区别，因此我们需要下面的概念来进行统一：
+
+
+\begin{definition}[紧子集]
+	设$X$为一个拓扑空间，$Y\subset X$，如果$Y$在子控件拓扑下是紧的，则称$Y$为$X$的一个\gn{紧子集}。
+\end{definition}
+\begin{note}
+以下三点相互等价：
+\begin{enumerate}
+	\item $Y$是紧集。
+	\item 对$\forall Y$的开覆盖，不妨记为$\dkh{U_{i}\cap Y}_{i\in I}$，其中$U_{i}\subset_{open}X$，总可找到有限子覆盖$U_{i_{1}}\cap Y,U_{i_{2}}\cap Y,\cdots,U_{i_{n}}\cap Y, \st  \dabing_{j=1}^{n}U_{i_{j}}\cap Y = Y$
+	\item 对$\forall X$中的覆盖$Y$的开子集族$\dkh{U_{i}}_{i\in I}$，可找到$U_{i_{1}},U_{i_{2}},\cdots,U_{i_{n}},\st \dabing_{j=1}^{n}U_{i_{j}}\supset Y$
+\end{enumerate}	
+\end{note}
+\begin{proof}
+	这显然啊。
+\end{proof}
+\begin{theorem}[实数集$\mathbb{R}$中的闭集是紧子集]
+	$[a,b]\subset \mathbb{R}$赋予欧氏拓扑，是$\mathbb{R}$中紧子集。
+\end{theorem}
+
+\begin{note}
+首先我们知道，$\mathbb{R}$	中的闭区间必然是有界的（主要是相对比$\mathbb{R}^{n}$中的闭集不一定是有界集（在某个方向一直没有界））。和下面的定理\ref{c3-t2}相对应。
+\end{note}
+
+\begin{proof}
+	任取$\mathbb{R}$中的一族开集$\dkh{U_{i}}_{i\in I}\supset [a,b]$，假设其根本不存在有限子覆盖。那么将这个闭区间$[a,b]$一分为二，记其中的一个为$[a_{1},b_{1}]$，这个闭区间当然也没有有限子覆盖。这样一直下去，我们就得到一列闭区间族$\dkh{[a_{n},b_{n}]}_{n\in \mathbb{N}}$，里面的任何一个闭区间都不能被$\dkh{U_{i}}_{i\in I}$中的有限个开集覆盖。且$|b_{n}-a_{n}| =\dfrac{1}{2^{n}} \to 0 (n\to +\infty)$。
+	
+	根据闭区间套定理，$\exists c\in [a_{n},b_{n}] \subset [a,b], \forall n$，但是对于仅仅一个点$c$，当然有$c\in U_{i_{0}}$。即：$$\exists N,\st [a_{N},b_{N}]\subset U_{i_{0}}$$这与假设矛盾。
+\end{proof}
+
+	在这个例子里，$[a,b]$明显是闭集，也是$\mathbb{R}$中的紧子集。反之，$\mathbb{R}$中的紧子集都长成$[a,b]$这样的德行。不长这样的必然不是紧集，比如$(0,1]$并非紧集\footnote{这是因为$\dajiao_{n=2}^{=\infty}(\dfrac{1}{n},2)\cap(0,1] = (0,1]$}。那么自然就会发问：\textbf{一般拓扑空间$X$中的紧子集是否都是闭集？}
+
+
+\begin{example}[一般拓扑空间中的紧集不一定是闭集]
+	设$X=\dkh{0,1},\tp = \dkh{\dkh{0},\dkh{0,1},\emptyset}$对于集合$Y = \dkh{0}$，是$X$中紧集，但是并不是闭集（因为$X\chadiao Y = \dkh{1}\notin \tp$即不是开集）。
+\end{example}
+很明显的直觉就是，这个玩意不乖是因为没有T2分离公理，所以我们隆重推出以下结论：
+\begin{proposition}[Hausdroff空间中的紧集必然是闭集]
+	设$Y\subset X$是拓扑空间，$Y$是紧集，那么如果$X$是Hausdroff空间，则$Y$是闭集。
+\end{proposition}
+\begin{proof}
+	即要证$\forall x_{0}\in  X\chadiao Y$，找到一个$Y\subset_{open}X , \st x_{0}\in U\subset X\chadiao Y$。
+	
+	\begin{figure}[h]
+		\centering
+
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Curve Lines [id:da012157783454685323] 
+\draw    (54,133) .. controls (106,66) and (131,43) .. (180,52) .. controls (229,61) and (277,137) .. (337,135) .. controls (397,133) and (371,192) .. (243,208) .. controls (115,224) and (29,158) .. (54,133) -- cycle ;
+%Shape: Circle [id:dp9619535187052062] 
+\draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (123,136.5) .. controls (123,135.12) and (124.12,134) .. (125.5,134) .. controls (126.88,134) and (128,135.12) .. (128,136.5) .. controls (128,137.88) and (126.88,139) .. (125.5,139) .. controls (124.12,139) and (123,137.88) .. (123,136.5) -- cycle ;
+%Shape: Circle [id:dp5809771479656438] 
+\draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (263,156.5) .. controls (263,155.12) and (264.12,154) .. (265.5,154) .. controls (266.88,154) and (268,155.12) .. (268,156.5) .. controls (268,157.88) and (266.88,159) .. (265.5,159) .. controls (264.12,159) and (263,157.88) .. (263,156.5) -- cycle ;
+%Shape: Circle [id:dp8252570204737129] 
+\draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (146,106.5) .. controls (146,105.12) and (147.12,104) .. (148.5,104) .. controls (149.88,104) and (151,105.12) .. (151,106.5) .. controls (151,107.88) and (149.88,109) .. (148.5,109) .. controls (147.12,109) and (146,107.88) .. (146,106.5) -- cycle ;
+%Curve Lines [id:da33996927567313806] 
+\draw    (83,125) .. controls (123,95) and (118,109) .. (158,79) .. controls (198,49) and (235,126) .. (196,157) .. controls (157,188) and (58,150) .. (83,125) -- cycle ;
+%Curve Lines [id:da6349582936361065] 
+\draw  [dash pattern={on 4.5pt off 4.5pt}]  (116,123) .. controls (138,89) and (103,97) .. (143,67) .. controls (183,37) and (247,99) .. (241,113) .. controls (235,127) and (129,147) .. (116,123) -- cycle ;
+%Curve Lines [id:da06055669728511659] 
+\draw  [dash pattern={on 4.5pt off 4.5pt}]  (68,141) .. controls (97,78) and (94,127) .. (149,114) .. controls (204,101) and (190,183) .. (172,194) .. controls (154,205) and (43,166) .. (68,141) -- cycle ;
+%Shape: Ellipse [id:dp5396771508142577] 
+\draw  [dash pattern={on 4.5pt off 4.5pt}] (243.17,144.76) .. controls (250.14,126.32) and (268.6,116.21) .. (284.4,122.19) .. controls (300.19,128.16) and (307.35,147.95) .. (300.38,166.39) .. controls (293.4,184.83) and (274.95,194.94) .. (259.15,188.97) .. controls (243.35,183) and (236.2,163.2) .. (243.17,144.76) -- cycle ;
+%Shape: Ellipse [id:dp19782369079178785] 
+\draw  [dash pattern={on 4.5pt off 4.5pt}] (219.39,160.82) .. controls (225.94,143.51) and (242.71,133.82) .. (256.85,139.16) .. controls (270.99,144.51) and (277.15,162.87) .. (270.61,180.18) .. controls (264.06,197.49) and (247.29,207.18) .. (233.15,201.84) .. controls (219.01,196.49) and (212.85,178.13) .. (219.39,160.82) -- cycle ;
+
+% Text Node
+\draw (127.5,139.9) node [anchor=north west][inner sep=0.75pt]    {$y_{1}$};
+% Text Node
+\draw (153,103.1) node [anchor=south west] [inner sep=0.75pt]    {$y_{2}$};
+% Text Node
+\draw (141,173.4) node [anchor=north west][inner sep=0.75pt]    {$V_{y1}{}$};
+% Text Node
+\draw (209,90.4) node [anchor=north west][inner sep=0.75pt]    {$V_{y_{2}}{}$};
+% Text Node
+\draw (263.5,157.4) node [anchor=north east] [inner sep=0.75pt]    {$x_{0}$};
+% Text Node
+\draw (268,128.4) node [anchor=north west][inner sep=0.75pt]    {$U_{y_{1}}{}$};
+% Text Node
+\draw (219,173.4) node [anchor=north west][inner sep=0.75pt]    {$U_{y_{2}}{}$};
+% Text Node
+\draw (339,145.4) node [anchor=north west][inner sep=0.75pt]  [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,opacity=1 ]  {$X$};
+% Text Node
+\draw (178,82.4) node [anchor=north west][inner sep=0.75pt]  [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,opacity=1 ]  {$Y$};
+
+
+\end{tikzpicture}
+\caption{命题3.1之示意图}
+	\end{figure}
+	
+	任取$x_{0}\neq y_{1}\in Y$，由于\lanse{$X$是Hausdroff空间}，则$\exists V_{y_{1}}(y_{1}\in V_{y_{1}}) , U_{y_{1}}(x_{0}\in U_{y_{1}}),\st V_{y_{1}}\cap U_{y_{1}} = \emptyset$，又由于\lanse{$X$是紧集}，任取$Y$的一个开覆盖$\dkh{V_{y_{i}}}_{i}^{\infty}$存在有限子覆盖$\dkh{V_{y_{i}}}_{i}^{n}$，使得\begin{equation}\label{eq3-1}
+		\dabing_{i=1}^{n}V_{y_{i}} \supset Y
+	\end{equation}
+	同时取$U = \dajiao_{j} U_{y_{j}}$，则$$U\cap V_{y_{i}} = \xkh{\dabing_{j}U_{y_{j}}}\cap V_{j_{i}} = \emptyset , \forall i$$
+	
+	因此$U\subset X\chadiao (\dabing_{i=1}^{n})V_{y_{i}}$，而又有式\ref{eq3-1}，因此$U\subset X\chadiao Y$，得证。
+	
+	
+\end{proof}
+\begin{proposition}[紧集的闭子集是紧子集]
+	设$X$是拓扑空间，$X$是紧集，若则$Y\subset X$是闭子集，则$Y$是紧集。
+\end{proposition}
+\begin{proof}
+	取$X$中$Y$的一族开覆盖$\dkh{U_{i}}_{i\in I}$，即$\dabing_{i\in I}U_{i}\supset Y$，因为$Y$是闭集，所以$U = X\chadiao Y$是开集。又由于$X$是紧集，因此有限覆盖$\dkh{U_{i_{j}}}_{j}^{n}$满足$$(\dabing_{j=1}^{n}U_{i_{j}})\cup U = X$$因此：
+	\begin{equation*}
+		\begin{aligned}
+			Y & = Y\cap X\\
+			& = Y\cap\xkh{(\dabing_{j=1}^{n}U_{i_{j}})\cup U}\\
+			& = (\dabing_{j=1}^{n}(U_{i_{j}}\cap Y))\cup (Y\cap U)\\
+			&=\dabing_{j=1}^{n}(U_{i_{j}}\cap Y)
+		\end{aligned}
+	\end{equation*}
+	因此$Y\subset \dabing_{j=1}^{n}U_{i_{j}}$，得证。
+\end{proof}
+\begin{theorem}[欧氏空间$\mathbb{R}^{n}$中的紧子集必然是有界闭集]\label{c3-t2}
+	设$X\subset \mathbb{R}^{n}$是紧集$\iff X$是有界闭集。
+\end{theorem}
+\begin{proof}
+下分两部分来证明：
+	\begin{enumerate}
+		\item[[\lei{$\Rightarrow $}]]：设$X\subset \mathbb{R}^{n}$是紧集，则$X\subset \dabing_{i=1}^{+\infty}B_{\mathbb{R}^{n}}(0,i)$，则由于其紧性，$\exists n_{1}<n_{2}<\cdots<n_{k} , \st X\subset \dajiao_{j=1}^{+\infty}B_{\mathbb{R}^{n}}(0,n_{j}) = B_{\mathbb{R}^{n}}(0,n_{k})$，因此$X$有界；又由于$\mathbb{R}^{n}$是Hausdroff空间，因此$X$闭集，得证。
+		\item[[\lei{$\Leftarrow $}]]：利用\lanse{闭集套定理}立得，或者利用下一节的\lanse{乘积拓扑}的性质。
+	\end{enumerate}
+\end{proof}
+\section{乘积拓扑}
+\subsection{一般般的乘积拓扑}
+实际上，在分析学中，我们已经接触到一些与乘积拓扑相关的例子。
+\begin{example}[$\mathbb{R}^{2}$中的闭矩形]
+	比如集合$[a,b]\times [c,d] = \dkh{(x,y)|a\leq x\leq b,c\leq y\leq d}$，如下图所示：
+	\begin{figure}[h]
+	\centering
+		
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Shape: Axis 2D [id:dp743347430684322] 
+\draw  (50,234) -- (333,234)(78.3,36) -- (78.3,256) (326,229) -- (333,234) -- (326,239) (73.3,43) -- (78.3,36) -- (83.3,43)  ;
+%Shape: Rectangle [id:dp6025371871163259] 
+\draw   (143,87) -- (248,87) -- (248,160) -- (143,160) -- cycle ;
+%Straight Lines [id:da9080465207126023] 
+\draw  [dash pattern={on 4.5pt off 4.5pt}]  (248,160) -- (248,234) ;
+%Straight Lines [id:da9902909746683768] 
+\draw  [dash pattern={on 4.5pt off 4.5pt}]  (143,160) -- (143,234) ;
+%Straight Lines [id:da12091642127155033] 
+\draw  [dash pattern={on 4.5pt off 4.5pt}]  (143,87) -- (78,87) ;
+%Straight Lines [id:da054402093518220784] 
+\draw  [dash pattern={on 4.5pt off 4.5pt}]  (143,160) -- (78,160) ;
+
+% Text Node
+\draw (337,229.4) node [anchor=north west][inner sep=0.75pt]    {$x$};
+% Text Node
+\draw (88,22.4) node [anchor=north west][inner sep=0.75pt]    {$ \begin{array}{l}
+y\\
+\end{array}$};
+% Text Node
+\draw (80.3,237.4) node [anchor=north west][inner sep=0.75pt]    {$0$};
+% Text Node
+\draw (76,90.4) node [anchor=north east] [inner sep=0.75pt]    {$d$};
+% Text Node
+\draw (76,163.4) node [anchor=north east] [inner sep=0.75pt]    {$c$};
+% Text Node
+\draw (145,237.4) node [anchor=north west][inner sep=0.75pt]    {$a$};
+% Text Node
+\draw (250,237.4) node [anchor=north west][inner sep=0.75pt]    {$b$};
+
+
+\end{tikzpicture}
+\caption{$\mathbb{R}^{2}$上闭矩形}
+	\end{figure}
+	
+\end{example}
+\begin{example}[$\mathbb{R}^{3}$中的圆柱体]
+	集合$S^{1}\times [0,1]$，其中$S^{1}=\dkh{(s,y)|x^{2}+y^{2} = 1,(x,y)\in \mathbb{R}^{2}}$。因此上述集合即为：
+	\begin{equation*}
+		S^{1}\times [0,1] = \dkh{(x,y,z)|x^{2}+y^{2}=1,0\leq z\leq 1}
+	\end{equation*}
+	即如下图所示：
+	\begin{figure}[h]
+		\centering
+		
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Shape: Arc [id:dp5867673470206138] 
+\draw  [draw opacity=0] (311,154) .. controls (311,154) and (311,154) .. (311,154) .. controls (311.83,165.87) and (274.45,175.5) .. (227.5,175.5) .. controls (180.56,175.5) and (141.83,165.87) .. (141,154) -- (226,154) -- cycle ; \draw   (311,154) .. controls (311,154) and (311,154) .. (311,154) .. controls (311.83,165.87) and (274.45,175.5) .. (227.5,175.5) .. controls (180.56,175.5) and (141.83,165.87) .. (141,154) ;  
+%Shape: Arc [id:dp9801525984935566] 
+\draw  [draw opacity=0][dash pattern={on 4.5pt off 4.5pt}] (141,154) .. controls (140.17,142.13) and (177.55,132.5) .. (224.5,132.5) .. controls (271.44,132.5) and (310.17,142.13) .. (311,154) -- (226,154) -- cycle ; \draw  [dash pattern={on 4.5pt off 4.5pt}] (141,154) .. controls (140.17,142.13) and (177.55,132.5) .. (224.5,132.5) .. controls (271.44,132.5) and (310.17,142.13) .. (311,154) ;  
+%Straight Lines [id:da3611895710460895] 
+\draw  [dash pattern={on 4.5pt off 4.5pt}]  (226,154) -- (311,154) ;
+%Straight Lines [id:da12024645752757346] 
+\draw  [dash pattern={on 4.5pt off 4.5pt}]  (226,154) -- (226,69) ;
+%Straight Lines [id:da7833738970612383] 
+\draw  [dash pattern={on 4.5pt off 4.5pt}]  (226,154) -- (166,214) ;
+%Straight Lines [id:da8528144415780532] 
+\draw    (204.5,175.5) -- (133.41,246.59) ;
+\draw [shift={(132,248)}, rotate = 315] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Straight Lines [id:da6274040575457973] 
+\draw    (311,154) -- (390,154) ;
+\draw [shift={(392,154)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Straight Lines [id:da17473737450957993] 
+\draw    (226,69) -- (226,9) ;
+\draw [shift={(226,7)}, rotate = 90] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Straight Lines [id:da08714079380313722] 
+\draw    (311,154) -- (311,70) ;
+%Straight Lines [id:da407712841502595] 
+\draw    (141,153) -- (141,69) ;
+%Shape: Ellipse [id:dp5634621885708664] 
+\draw   (141,69) .. controls (141,57.13) and (179.06,47.5) .. (226,47.5) .. controls (272.94,47.5) and (311,57.13) .. (311,69) .. controls (311,80.87) and (272.94,90.5) .. (226,90.5) .. controls (179.06,90.5) and (141,80.87) .. (141,69) -- cycle ;
+
+% Text Node
+\draw (134,251.4) node [anchor=north west][inner sep=0.75pt]    {$x$};
+% Text Node
+\draw (394,157.4) node [anchor=north west][inner sep=0.75pt]    {$y$};
+% Text Node
+\draw (228,10.4) node [anchor=north west][inner sep=0.75pt]    {$z$};
+% Text Node
+\draw (228,157.4) node [anchor=north west][inner sep=0.75pt]    {$0$};
+
+
+\end{tikzpicture}
+		\caption{$\mathbb{R}^{3}$上圆柱体}
+	\end{figure}
+\end{example}
+\begin{example}[轮胎面]
+	$\mathbb{R}^{3}$中的轮胎面$T$赋予子空间拓扑同胚于乘积拓扑$S^{1}\times S^{1}$，轮胎面$T$如下：
+	\begin{figure}[h]
+		\centering
+		
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Straight Lines [id:da46665022496354225] 
+\draw  [dash pattern={on 4.5pt off 4.5pt}]  (246,166) -- (331,166) ;
+%Straight Lines [id:da18171534318477045] 
+\draw  [dash pattern={on 4.5pt off 4.5pt}]  (246,166) -- (246,81) ;
+%Straight Lines [id:da47464611202042817] 
+\draw  [dash pattern={on 4.5pt off 4.5pt}]  (246,166) -- (186,226) ;
+%Straight Lines [id:da5273374104748707] 
+\draw    (192,220) -- (153.41,258.59) ;
+\draw [shift={(152,260)}, rotate = 315] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Straight Lines [id:da6648718515799088] 
+\draw    (331,166) -- (410,166) ;
+\draw [shift={(412,166)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Straight Lines [id:da42233672776782605] 
+\draw    (246,112.5) -- (246,21) ;
+\draw [shift={(246,19)}, rotate = 90] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Shape: Ellipse [id:dp840648962114322] 
+\draw   (154.17,190.35) .. controls (146.71,162.19) and (181.77,128.46) .. (232.48,115.01) .. controls (283.2,101.57) and (330.36,113.49) .. (337.83,141.65) .. controls (345.29,169.81) and (310.23,203.54) .. (259.52,216.99) .. controls (208.8,230.43) and (161.64,218.51) .. (154.17,190.35) -- cycle ;
+%Shape: Ellipse [id:dp5438465257979463] 
+\draw   (195.81,179.31) .. controls (191.73,163.92) and (210.89,145.48) .. (238.61,138.13) .. controls (266.33,130.78) and (292.11,137.3) .. (296.19,152.69) .. controls (300.27,168.08) and (281.11,186.52) .. (253.39,193.87) .. controls (225.67,201.22) and (199.89,194.7) .. (195.81,179.31) -- cycle ;
+%Shape: Arc [id:dp12641922139401074] 
+\draw  [draw opacity=0] (223.67,222.54) .. controls (223.67,222.54) and (223.67,222.54) .. (223.67,222.54) .. controls (219.86,222.03) and (217.53,215.82) .. (218.47,208.65) .. controls (219.41,201.49) and (223.27,196.09) .. (227.09,196.59) -- (225.38,209.56) -- cycle ; \draw   (223.67,222.54) .. controls (223.67,222.54) and (223.67,222.54) .. (223.67,222.54) .. controls (219.86,222.03) and (217.53,215.82) .. (218.47,208.65) .. controls (219.41,201.49) and (223.27,196.09) .. (227.09,196.59) ;  
+%Shape: Arc [id:dp22685883519264038] 
+\draw  [draw opacity=0][dash pattern={on 4.5pt off 4.5pt}] (227.09,196.59) .. controls (227.09,196.59) and (227.09,196.59) .. (227.09,196.59) .. controls (230.91,197.09) and (233.24,203.31) .. (232.29,210.47) .. controls (231.35,217.64) and (227.49,223.04) .. (223.67,222.54) -- (225.38,209.56) -- cycle ; \draw  [dash pattern={on 4.5pt off 4.5pt}] (227.09,196.59) .. controls (227.09,196.59) and (227.09,196.59) .. (227.09,196.59) .. controls (230.91,197.09) and (233.24,203.31) .. (232.29,210.47) .. controls (231.35,217.64) and (227.49,223.04) .. (223.67,222.54) ;  
+%Shape: Arc [id:dp7651170234393176] 
+\draw  [draw opacity=0][dash pattern={on 4.5pt off 4.5pt}] (286.92,207.48) .. controls (286.92,207.48) and (286.92,207.48) .. (286.92,207.48) .. controls (284,209.99) and (277.81,207.59) .. (273.1,202.11) .. controls (268.38,196.63) and (266.93,190.16) .. (269.85,187.65) -- (278.38,197.56) -- cycle ; \draw  [dash pattern={on 4.5pt off 4.5pt}] (286.92,207.48) .. controls (286.92,207.48) and (286.92,207.48) .. (286.92,207.48) .. controls (284,209.99) and (277.81,207.59) .. (273.1,202.11) .. controls (268.38,196.63) and (266.93,190.16) .. (269.85,187.65) ;  
+%Shape: Arc [id:dp5131264451553017] 
+\draw  [draw opacity=0] (269.85,187.65) .. controls (269.85,187.65) and (269.85,187.65) .. (269.85,187.65) .. controls (272.76,185.13) and (278.95,187.54) .. (283.66,193.02) .. controls (288.38,198.49) and (289.83,204.97) .. (286.92,207.48) -- (278.38,197.56) -- cycle ; \draw   (269.85,187.65) .. controls (269.85,187.65) and (269.85,187.65) .. (269.85,187.65) .. controls (272.76,185.13) and (278.95,187.54) .. (283.66,193.02) .. controls (288.38,198.49) and (289.83,204.97) .. (286.92,207.48) ;  
+%Shape: Circle [id:dp5855571536160855] 
+\draw   (285.5,196) .. controls (285.5,196.28) and (285.72,196.5) .. (286,196.5) .. controls (286.28,196.5) and (286.5,196.28) .. (286.5,196) .. controls (286.5,195.72) and (286.28,195.5) .. (286,195.5) .. controls (285.72,195.5) and (285.5,195.72) .. (285.5,196) -- cycle ;
+%Straight Lines [id:da5483092345722265] 
+\draw  [dash pattern={on 4.5pt off 4.5pt}]  (246,166) -- (304,223.5) ;
+%Straight Lines [id:da23610679539920998] 
+\draw  [dash pattern={on 4.5pt off 4.5pt}]  (286,195.5) -- (286,205.48) ;
+%Straight Lines [id:da027094385148068723] 
+\draw  [dash pattern={on 4.5pt off 4.5pt}]  (286,205.48) -- (326,165.48) ;
+%Straight Lines [id:da2575191594724433] 
+\draw  [dash pattern={on 4.5pt off 4.5pt}]  (286,205.48) -- (206,205.48) ;
+%Shape: Circle [id:dp04176172531136113] 
+\draw   (285.5,204.98) .. controls (285.5,205.26) and (285.72,205.48) .. (286,205.48) .. controls (286.28,205.48) and (286.5,205.26) .. (286.5,204.98) .. controls (286.5,204.7) and (286.28,204.48) .. (286,204.48) .. controls (285.72,204.48) and (285.5,204.7) .. (285.5,204.98) -- cycle ;
+
+% Text Node
+\draw (154,263.4) node [anchor=north west][inner sep=0.75pt]    {$x$};
+% Text Node
+\draw (414,169.4) node [anchor=north west][inner sep=0.75pt]    {$y$};
+% Text Node
+\draw (248,22.4) node [anchor=north west][inner sep=0.75pt]    {$z$};
+% Text Node
+\draw (244,162.6) node [anchor=south east] [inner sep=0.75pt]    {$0$};
+% Text Node
+\draw (288.5,192.6) node [anchor=south west] [inner sep=0.75pt]    {$( x,y,z)$};
+% Text Node
+\draw (246,169.4) node [anchor=north] [inner sep=0.75pt]    {$\theta $};
+% Text Node
+\draw (204,205.48) node [anchor=east] [inner sep=0.75pt]    {$a$};
+
+
+\end{tikzpicture}
+\caption{轮胎面$T$}
+	\end{figure}
+	\newpage
+	其中$(x,y,z)$可以由两参数$(\theta,\alpha)$来决定，取第一个$S^{1}$为某点$(x,y,z)$向$xoy$平面做投影得到。投影点与$x$轴之夹角为$\theta$：
+	\begin{figure}[h]
+		\centering
+		
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Shape: Axis 2D [id:dp18065539959509458] 
+\draw  (70,149) -- (277,149)(173,41) -- (173,248) (270,144) -- (277,149) -- (270,154) (168,48) -- (173,41) -- (178,48)  ;
+%Shape: Circle [id:dp5752488942133569] 
+\draw   (119,149) .. controls (119,119.18) and (143.18,95) .. (173,95) .. controls (202.82,95) and (227,119.18) .. (227,149) .. controls (227,178.82) and (202.82,203) .. (173,203) .. controls (143.18,203) and (119,178.82) .. (119,149) -- cycle ;
+%Shape: Circle [id:dp149080506500179] 
+\draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (215,119) .. controls (215,117.34) and (216.34,116) .. (218,116) .. controls (219.66,116) and (221,117.34) .. (221,119) .. controls (221,120.66) and (219.66,122) .. (218,122) .. controls (216.34,122) and (215,120.66) .. (215,119) -- cycle ;
+%Straight Lines [id:da14226355330318952] 
+\draw  [dash pattern={on 4.5pt off 4.5pt}]  (173,149) -- (218,119) ;
+%Shape: Arc [id:dp8550926156223679] 
+\draw  [draw opacity=0] (191.8,136.63) .. controls (194.14,140.18) and (195.5,144.43) .. (195.5,149) -- (173,149) -- cycle ; \draw   (191.8,136.63) .. controls (194.14,140.18) and (195.5,144.43) .. (195.5,149) ;  
+
+% Text Node
+\draw (197.5,145.6) node [anchor=south west] [inner sep=0.75pt]    {$\theta $};
+% Text Node
+\draw (220,115.6) node [anchor=south west] [inner sep=0.75pt]    {$e^{i\theta }$};
+
+
+\end{tikzpicture}
+		\caption{第一个$S^{1}$球面}
+	\end{figure}
+	
+	在小圆中，建立点$(x,y,z)$与$z$轴之间的夹角为$\alpha$：
+	
+	\begin{figure}[h]
+		\centering
+		
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Straight Lines [id:da715868777824265] 
+\draw    (100,178) -- (100,51) ;
+\draw [shift={(100,49)}, rotate = 90] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Straight Lines [id:da5936824959340532] 
+\draw  [dash pattern={on 4.5pt off 4.5pt}]  (100,178) -- (337,178) ;
+%Straight Lines [id:da0558945933767967] 
+\draw    (246,178) -- (246,51) ;
+\draw [shift={(246,49)}, rotate = 90] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Shape: Circle [id:dp6756364793613125] 
+\draw  [dash pattern={on 4.5pt off 4.5pt}] (192,178) .. controls (192,148.18) and (216.18,124) .. (246,124) .. controls (275.82,124) and (300,148.18) .. (300,178) .. controls (300,207.82) and (275.82,232) .. (246,232) .. controls (216.18,232) and (192,207.82) .. (192,178) -- cycle ;
+%Shape: Circle [id:dp722136459883157] 
+\draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (281,139) .. controls (281,137.34) and (282.34,136) .. (284,136) .. controls (285.66,136) and (287,137.34) .. (287,139) .. controls (287,140.66) and (285.66,142) .. (284,142) .. controls (282.34,142) and (281,140.66) .. (281,139) -- cycle ;
+%Straight Lines [id:da18507445500370823] 
+\draw  [dash pattern={on 4.5pt off 4.5pt}]  (246,178) -- (284,139) ;
+%Straight Lines [id:da5829910938279133] 
+\draw  [dash pattern={on 4.5pt off 4.5pt}]  (284,177.5) -- (284,139) ;
+%Straight Lines [id:da17288867127298624] 
+\draw  [dash pattern={on 4.5pt off 4.5pt}]  (246,139) -- (284,139) ;
+%Shape: Arc [id:dp34543009938456426] 
+\draw  [draw opacity=0] (246,165.5) .. controls (249.34,165.5) and (252.38,166.81) .. (254.62,168.95) -- (246,178) -- cycle ; \draw   (246,165.5) .. controls (249.34,165.5) and (252.38,166.81) .. (254.62,168.95) ;  
+%Straight Lines [id:da24295335253932926] 
+\draw    (246,178) -- (207.48,142.85) ;
+\draw [shift={(206,141.5)}, rotate = 42.38] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+
+% Text Node
+\draw (171,180.4) node [anchor=north west][inner sep=0.75pt]    {$a$};
+% Text Node
+\draw (246,181.4) node [anchor=north] [inner sep=0.75pt]    {$A$};
+% Text Node
+\draw (248,162.1) node [anchor=south west] [inner sep=0.75pt]    {$\alpha $};
+% Text Node
+\draw (284,180.9) node [anchor=north] [inner sep=0.75pt]    {$r\sin \alpha $};
+% Text Node
+\draw (213,154.4) node [anchor=north west][inner sep=0.75pt]    {$r$};
+% Text Node
+\draw (102,52.4) node [anchor=north west][inner sep=0.75pt]    {$z$};
+% Text Node
+\draw (98,181.4) node [anchor=north east] [inner sep=0.75pt]    {$o$};
+
+
+\end{tikzpicture}
+		\caption{第二个$S^{1}$球面}
+	\end{figure}
+
+
+这样我们可以看出映射$f$：
+\begin{equation*}
+	\begin{aligned}
+		S^{1}\times S^{1} &\longrightarrow T\\
+		(e^{i\theta},e^{i\alpha})&\longmapsto ((a+r\sin \alpha)\cos \theta,(a+r\sin \alpha)\sin \theta ,r\cos \alpha)
+	\end{aligned}
+\end{equation*}
+这个映射是一个双射，因此是一个同胚。这说明\lei{$S^{1}\times S^{1} \simeq T$}。
+\end{example}
+下面我们给出乘积拓扑的定义：
+\begin{definition}[乘积拓扑]
+	设$X,Y$为两个拓扑空间。定义$\tpj$为$X\times Y$上的如下子集族$$\dkh{U\times V|U\subset_{open},V\subset_{open}Y}$$则$\tpj$生成了$X\times Y$上的一个拓扑，该拓扑称为$X\times Y$上的\gn{乘积拓扑}。
+\end{definition}
+\begin{proof}
+	即证明拓扑基$\tpj$生成了$X\times Y$，即证以下两点：
+	\begin{enumerate}
+		\item $\dabing_{U\times V\in \tpj}U\times V = X\times Y$
+		\item $\forall U_{1}\times V_{1},U_{2}\times V_{2}\in \tpj$要证$\forall (x,y)\in (U_{1}\times V_{1})\cap(U_{2}\times V_{2}),\exists U_{3}\times V_{3}\in \st x\in U_{3}\times V_{3}\subset (U_{1}\times V_{1})\cap(U_{2}\times V_{2})$
+	\end{enumerate}
+	很显然，第一点是显然的，因此我们只需要验证第二点即可。取$U_{3}\times V_{3} = (U_{1}\times V_{1})\cap(U_{2}\times V_{2})$。即：
+	\begin{equation*}
+		\begin{aligned}
+			(U_{1}\times V_{1})\cap(U_{2}\times V_{2})&=\dkh{(x,y)|(x,y)\in U_{1}\times V_{1},(x,y)\in U_{2}\times V_{2}}\\
+			&=\dkh{(s,y)|x\in U_{1},x\in U_{2},y\in V_{1},y\in V_{2}}\\
+			&=\dkh{(x,y)|(x,y)\in (U_{1}\cap U_{2})\times (V_{1}\cap V_{2})}\\
+			&=(U_{1}\cap U_{2})\times (V_{1}\cap V_{2})
+		\end{aligned}
+	\end{equation*}
+	因此得证。
+\end{proof}
+\begin{note}
+按照上面对于乘积拓扑的定义，我们可以继续定义$n$次乘积的乘积拓扑：
+\begin{definition}
+	设$X_{1},X_{2},\cdots ,X_{n}$为$n$个拓扑空间。那么定义他们的乘积拓扑空间为：
+	\begin{equation*}
+		X_{1}\times X_{2} \times X_{n} = (((X_{1}\times X_{2})\times X_{3})\times\cdots )\times)\times X_{n}
+	\end{equation*}
+\end{definition}	
+\end{note}
+\begin{example}[$n$维欧氏空间中的闭矩体]
+	$n$维欧氏空间中的闭矩体：
+	\begin{equation*}
+		[a_1,b_1]\times[a_2,b_{2}]\times \cdots [a_{n},b_{n}]\subset \mathbb{R}^{n}
+	\end{equation*}
+\end{example}
+\begin{example}[轮胎面]
+	实际上刚刚的例子中直接断言说同胚是不讲道理的，因为我们没有给予两个球面直乘之后的空间一个明确的拓扑结构。下面 我们在单位球面$S^{1}$上考虑两个公转角$\theta_{1}$与$\theta_{2}$，那么集合：
+	
+	\begin{equation*}
+		I_{\theta_{1},\theta_{2}} = \dkh{e^{i\theta}|\theta\in [\theta_{1},\theta_2]}
+	\end{equation*}
+	
+	
+	\begin{figure}[h]
+		\centering
+		
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Shape: Axis 2D [id:dp203175839117822] 
+\draw  (90,169) -- (297,169)(193,61) -- (193,268) (290,164) -- (297,169) -- (290,174) (188,68) -- (193,61) -- (198,68)  ;
+%Shape: Circle [id:dp12962402600717415] 
+\draw   (139,169) .. controls (139,139.18) and (163.18,115) .. (193,115) .. controls (222.82,115) and (247,139.18) .. (247,169) .. controls (247,198.82) and (222.82,223) .. (193,223) .. controls (163.18,223) and (139,198.82) .. (139,169) -- cycle ;
+%Shape: Circle [id:dp8795838300142391] 
+\draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (242,153) .. controls (242,151.34) and (243.34,150) .. (245,150) .. controls (246.66,150) and (248,151.34) .. (248,153) .. controls (248,154.66) and (246.66,156) .. (245,156) .. controls (243.34,156) and (242,154.66) .. (242,153) -- cycle ;
+%Straight Lines [id:da09251544981835158] 
+\draw  [dash pattern={on 4.5pt off 4.5pt}]  (193,169) -- (245,153) ;
+%Shape: Arc [id:dp5917015531936993] 
+\draw  [draw opacity=0] (214.5,162.34) .. controls (215.15,164.45) and (215.5,166.68) .. (215.5,169) .. controls (215.5,169) and (215.5,169) .. (215.5,169) -- (193,169) -- cycle ; \draw   (214.5,162.34) .. controls (215.15,164.45) and (215.5,166.68) .. (215.5,169) .. controls (215.5,169) and (215.5,169) .. (215.5,169) ;  
+%Shape: Circle [id:dp9798800064315032] 
+\draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (217,123) .. controls (217,121.34) and (218.34,120) .. (220,120) .. controls (221.66,120) and (223,121.34) .. (223,123) .. controls (223,124.66) and (221.66,126) .. (220,126) .. controls (218.34,126) and (217,124.66) .. (217,123) -- cycle ;
+%Straight Lines [id:da06492994015485243] 
+\draw  [dash pattern={on 4.5pt off 4.5pt}]  (193,169) -- (220,123) ;
+%Shape: Arc [id:dp8484317615965473] 
+\draw  [draw opacity=0] (204.26,149.52) .. controls (210.98,153.41) and (215.5,160.68) .. (215.5,169) -- (193,169) -- cycle ; \draw   (204.26,149.52) .. controls (210.98,153.41) and (215.5,160.68) .. (215.5,169) ;  
+%Shape: Arc [id:dp45409706315033294] 
+\draw  [draw opacity=0] (220.33,122.42) .. controls (231.71,129.11) and (240.42,139.85) .. (244.49,152.67) -- (193,169) -- cycle ; \draw  [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ] (220.33,122.42) .. controls (231.71,129.11) and (240.42,139.85) .. (244.49,152.67) ;  
+
+% Text Node
+\draw (247,153) node [anchor=west] [inner sep=0.75pt]    {$\theta _{1}$};
+% Text Node
+\draw (222,122.6) node [anchor=south west] [inner sep=0.75pt]    {$\theta _{2}$};
+% Text Node
+\draw (299,169.4) node [anchor=north west][inner sep=0.75pt]    {$x$};
+% Text Node
+\draw (205,60.4) node [anchor=north west][inner sep=0.75pt]    {$y$};
+% Text Node
+\draw (244,117.4) node [anchor=north west][inner sep=0.75pt]  [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,opacity=1 ]  {$I_{\theta _{1} ,\theta _{2}}{}$};
+
+
+\end{tikzpicture}
+		\caption{$S^{1}$中的拓扑基}
+	\end{figure}
+	
+	那么$I_{\theta_{1},\theta_{2}}$为$S^{1}$的一个拓扑基。且$\dkh{I_{\theta_{1},\theta_{2}}\times I_{\alpha_{1},\alpha_{2}}}$为$S^{1}\times S^{1}$的一个拓扑基。
+\end{example}
+\subsection{乘积空间上的Universal Property\footnote{中译为\gn{泛性质，有时也称为万有性。范畴论研究泛性质。}}}
+以上我们根据乘积空间的性质来定义了乘积拓扑空间，下面让我们挖掘更加一般的性质，定义范畴乘积的概念。
+\subsubsection{对于线性空间而言}\label{c3221}
+设$V,W$为域$\mathbb{K}$上的两个向量空间。构造$V\times W$为一个$\mathbb{K}$-线性空间：
+\begin{enumerate}
+	\item $(v_{1},w_{1}) + (v_{2},w_{2}):=(v_{1}+v_{2},w_{1}+w_{2})$
+	\item $\lambda \cdot(v,w) = (\lambda v,\lambda w)$
+\end{enumerate}
+再定义$V\times W$到线性空间$V,W$的两个投影为：
+\begin{equation*}
+	\begin{aligned}
+		\pi_{V} :V\times W&\longrightarrow V\\
+		(v,w)&\longmapsto v
+	\end{aligned}
+\end{equation*}
+和\begin{equation*}
+	\begin{aligned}
+		\pi_{W} :V\times W&\longrightarrow W\\
+		(v,w)&\longmapsto w
+	\end{aligned}
+\end{equation*}
+那么$(V\times W,\pi_{V},\pi_{W})$有如下的\lei{Universal Property}：
+
+对于任何一个线性空间$Z$以及线性映射$f:Z\longrightarrow V,g:Z\longrightarrow W,\exists!h:Z\longrightarrow V\times W,\st $下列图表可交换：
+\begin{figure}[h]
+	\centering
+	
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+\draw[->]    (289,95) -- (289,214) ;
+\draw[->]    (265,91) -- (212.38,146.05) ;
+\draw[->]    (313,91) -- (365.62,146.05) ;
+\draw[->]    (278,225) -- (212.57,173.73) ;
+\draw[->]    (300,225) -- (365.47,173.73) ;
+\draw (289,90.6) node [anchor=south] [inner sep=0.75pt]    {$V\times W$};
+% Text Node
+\draw (289,218.4) node [anchor=north] [inner sep=0.75pt]    {$Z$};
+% Text Node
+\draw (208.5,157.75) node [anchor=east] [inner sep=0.75pt]    {$V$};
+% Text Node
+\draw (369.5,157.75) node [anchor=west] [inner sep=0.75pt]    {$W$};
+% Text Node
+\draw (291,157.25) node [anchor=west] [inner sep=0.75pt]    {$\exists !h$};
+% Text Node
+\draw (236,115.85) node [anchor=south east] [inner sep=0.75pt]    {$\pi _{V}$};
+% Text Node
+\draw (343,115.85) node [anchor=south west] [inner sep=0.75pt]    {$\pi _{W}$};
+% Text Node
+\draw (242.5,202.15) node [anchor=north east] [inner sep=0.75pt]    {$f$};
+% Text Node
+\draw (336,202.15) node [anchor=north west][inner sep=0.75pt]    {$g$};
+\end{tikzpicture}
+\end{figure}
+
+\begin{proof}
+	定义映射$h$为：
+	\begin{equation*}
+	\begin{aligned}
+		Z&\longrightarrow V\times W\\
+		z&\longmapsto (f(z),g(z))
+	\end{aligned}
+	\end{equation*}
+	
+	这个映射明显满足以上的图表交换条件，现在问题是这个映射是不是唯一的？答案必然是肯定的，假设另有一个线性映射$\widetilde{h}:Z\longrightarrow V\times W$满足图表交换条件，那么我们有：
+	\begin{equation*}
+		\pi_{V}\circ \widetilde{h} = f
+	\end{equation*}
+	\begin{equation*}
+		\pi_{W}\circ \widetilde{h} = g
+	\end{equation*}
+	
+	那么对于$\forall z\in Z$，设$\widetilde{h}(z) = (h_{1}(z),h_{2}(z))$，那么由于$\pi_{V}$和$\pi_{W}$是投影，以及上面的性质有：
+	\begin{equation*}
+		f(z) = \pi_{V}(\widetilde{h}(z)) = h_{1}(z)
+	\end{equation*}
+	\begin{equation*}
+		g(z) = \pi_{W}(\widetilde{h}(z)) = h_{2}(z)
+	\end{equation*}
+	因此就是说明$h(z) = (f(z),g(z)) = (h_{1}(z),g_{1}(z)) = \widetilde{h}(z) , \forall z\in Z$。因此$h = \widetilde{h}$。
+\end{proof}
+\subsubsection{对于群而言}\label{c3222}
+设$G,H$是两个群，$G\times H$是这两个群的乘积群，定义乘积群中的乘法为：$\forall (g_{1},h_{1}),(g_{2},h_{2})\in G\times H$有：$(g_{1},h_{1})\cdot (g_{2},h_{2}) := (g_{1}\cdot g_{2},h_{1}\cdot h_{2})$，还有这俩自然群同态：
+\begin{equation*}
+	\begin{aligned}
+		\pi_{1}:G\times H &\longrightarrow G\\
+		(g,h)&\longmapsto g
+	\end{aligned}
+\end{equation*}
+\begin{equation*}
+	\begin{aligned}
+		\pi_{2}:G\times H &\longrightarrow H\\
+		(g,h)&\longmapsto h
+	\end{aligned}
+\end{equation*}
+那么$(G\times H,\pi_{1},\pi_{2})$有如下的\lei{Universal Property}：
+
+
+对于任何一个群$K$以及线性映射$f:K\longrightarrow G,g:K\longrightarrow H,\exists!\text{群同态}h:K\longrightarrow G\times H,\st $下列图表可交换：
+\begin{figure}[h]
+	\centering
+	
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+\draw[->]    (289,95) -- (289,214) ;
+\draw[->]    (265,91) -- (212.38,146.05) ;
+\draw[->]    (313,91) -- (365.62,146.05) ;
+\draw[->]    (278,225) -- (212.57,173.73) ;
+\draw[->]    (300,225) -- (365.47,173.73) ;
+\draw (289,90.6) node [anchor=south] [inner sep=0.75pt]    {$G\times H$};
+% Text Node
+\draw (289,218.4) node [anchor=north] [inner sep=0.75pt]    {$K$};
+% Text Node
+\draw (208.5,157.75) node [anchor=east] [inner sep=0.75pt]    {$G$};
+% Text Node
+\draw (369.5,157.75) node [anchor=west] [inner sep=0.75pt]    {$H$};
+% Text Node
+\draw (291,157.25) node [anchor=west] [inner sep=0.75pt]    {$\exists !h$};
+% Text Node
+\draw (236,115.85) node [anchor=south east] [inner sep=0.75pt]    {$\pi _{1}$};
+% Text Node
+\draw (343,115.85) node [anchor=south west] [inner sep=0.75pt]    {$\pi _{2}$};
+% Text Node
+\draw (242.5,202.15) node [anchor=north east] [inner sep=0.75pt]    {$f$};
+% Text Node
+\draw (336,202.15) node [anchor=north west][inner sep=0.75pt]    {$g$};
+\end{tikzpicture}
+\end{figure}
+\begin{proof}
+	和之前线性空间中一样，对于$\forall k\in K$，直接取$h(k):=(f(k),g(k))$即可。
+\end{proof}
+\subsubsection{对于与拓扑空间而言}\label{c3223}
+设$X,Y$是两个拓扑空间，$X\times Y$是其乘积拓扑空间，定义映射：
+\begin{equation*}
+	\begin{aligned}
+		\pi_{1} : X\times Y&\longrightarrow X\\
+		(x,y)&\longmapsto x
+	\end{aligned}
+\end{equation*}
+\begin{equation*}
+	\begin{aligned}
+		\pi_{2} : X\times Y&\longrightarrow Y\\
+		(x,y)&\longmapsto y
+	\end{aligned}
+\end{equation*}
+\begin{lemma}\label{c3-y1}
+	上定义的$\pi_{1}$和$\pi_{2}$是连续映射。
+\end{lemma}
+\begin{proof}
+	只需证明映射$\pi_{1}$是连续映射即可，任取$U\subset_{open}X$，那么其关于$\pi_{1}$的逆像为$\pi_{1}^{-1}(U) = U\times Y$，这是开集。
+\end{proof}
+\begin{lemma}
+	设$X,Y,Z$为仨拓扑空间，$X\times Y$为乘积拓扑空间，对于$\forall f:Z\longrightarrow X\times Y$有：
+	\begin{equation*}
+		f\text{连续}\iff	\pi_{1}\circ f,\pi_{2}\circ f\text{连续}
+	\end{equation*}
+\end{lemma}
+\begin{proof}
+	证明其充分必要即可：
+	\begin{enumerate}
+		\item[[\lei{$\Rightarrow $}]]：由于$f$是连续映射以及引理\ref{c3-y1}可知$\pi_{1}$和$\pi_{2}$也是连续映射。得证。
+		\item[[\lei{$\Leftarrow $}]]：要证：$\forall$开集$W\subset X\times Y,f^{-1}(W)$是开集。只要证$\forall U\subset_{open}X,V\subset_{open}Y,f^{-1}(U\times V)$是开集。事实上：
+		\begin{equation*}
+			\begin{aligned}
+				f^{-1}(U\times V) &= \dkh{z\in Z|f(z)=(\pi_{1}\circ f(z) , \pi_{2}\circ f(z)) \in U\times V}\\
+				&=\dkh{z\in Z|\pi_{1}\circ f(z)\in U,\pi_{2}\circ f(z)\in V}\\
+				&=(\pi_{1}\circ f)^{-1}(U)\cap(\pi_{2}\circ f)^{-1}(V)
+			\end{aligned}
+		\end{equation*}
+		这是开集，因此得证。
+	\end{enumerate}
+\end{proof}
+\subsubsection{范畴与范畴的乘积}
+\begin{definition}[范畴]
+	一个\gn{范畴}（\gn{category}）$\mathcal{C}$是指下面的数据：
+	\begin{enumerate}
+		\item 一些被称为\gn{对象}（\gn{object}）的东西所组成的集合$\mathcal{O}b\mathcal{(C)}$。
+		\item 一些被称为\gn{态射}（\gn{morphism}）的东西所组成的集合$\mathcal{H}om\mathcal{(C)}$。
+		\item 映射：\begin{equation*}
+			\begin{aligned}
+				s(\gn{source}):\mathcal{H}om\mathcal{(C)}&\longrightarrow \mathcal{O}b\mathcal{(C)}\\
+				f\longmapsto s(f)
+			\end{aligned}
+		\end{equation*}
+		\begin{equation*}
+			\begin{aligned}
+				t(\gn{target}):\mathcal{H}om\mathcal{(C)}&\longrightarrow \mathcal{O}b\mathcal{(C)}\\
+				f\longmapsto t(f)
+			\end{aligned}
+		\end{equation*}
+	
+	
+	对于$\forall f\in \mathcal{H}om\mathcal{(C)},s(f) = X,t(f)=Y$，记$f:X\longrightarrow Y$，记$\hom_{\mathcal{C}}(X,Y) := \dkh{f\in \mathcal{H}om\mathcal{(C)}|s(f) = X,t(f) = Y}$
+	\item 态射的\gn{复合$\circ$}（\gn{composition}）：
+	\begin{equation*}
+		\begin{aligned}
+			\circ : \hom(X,Y)\times \hom(Y,Z)&\longrightarrow  \hom(X,Z)\\
+			(f,g)&\longmapsto g\circ f
+		\end{aligned}
+	\end{equation*}
+	\end{enumerate}
+	满足下列运算律：\begin{enumerate}
+		\item \lei{结合律}：$\forall  X,Y,Z,W$满足关系：
+
+\begin{center}
+\tikzset{every picture/.style={line width=0.5pt}}
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+\draw[->]    (169,147) -- (225,147) ;
+\draw[->]     (242,147) -- (298,147) ;
+\draw[->]     (317,147) -- (373,147) ;
+\draw (167,147) node [anchor=east] [inner sep=0.75pt]    {$X$};
+\draw (240,147) node [anchor=east] [inner sep=0.75pt]    {$Y$};
+\draw (315,147) node [anchor=east] [inner sep=0.75pt]    {$Z$};
+\draw (377,147) node [anchor=west] [inner sep=0.75pt]    {$W$};
+\draw (198,143.6) node [anchor=south] [inner sep=0.75pt]    {$f$};
+\draw (271,143.6) node [anchor=south] [inner sep=0.75pt]    {$g$};
+\draw (346,143.6) node [anchor=south] [inner sep=0.75pt]    {$h$};
+\end{tikzpicture}
+\end{center}
+有：
+$$(h\circ g)\circ f = h\circ (g\circ f)$$
+		\item \lei{恒等态射}：$\forall X\in \mathcal{O}b(\mathcal{C}),\exists \gn{1_{X}}:X\longrightarrow X,\st \forall f:X\longrightarrow Y;g:Z\longrightarrow X$有$f\circ 1_{X} = f,1_{X}\circ g = g$，并且恒等态射是唯一的。
+	\end{enumerate}
+\end{definition}
+\begin{definition}[态射的同构]
+	设$\mathcal{C}$是一个范畴，$X,Y$为$\mathcal(C)$中的两个对象，如果$\exists $两个态射$f:X\longrightarrow Y,g:Y\longrightarrow X\st f\circ g=1_{Y},g\circ f=1_{X}$，那么称$X$与$Y$是\gn{同构的}。
+\end{definition}
+\begin{example}[域$\mathbb{K}$上的线性空间范畴]
+	节\ref{c3221}中所叙述的Vect$_{\mathbb{K}}$是\gn{域$\mathbb{K}$上的线性空间范畴}。
+\end{example}
+\begin{example}[群范畴]
+	节\ref{c3222}中所叙述的Grp是\gn{群范畴}。
+\end{example}
+\begin{example}[拓扑空间范畴]
+	节\ref{c3223}中所叙述的Top是\gn{拓扑空间范畴}。
+\end{example}
+\begin{definition}[范畴乘积]
+	设$\mathcal{C}$是一个范畴，$x_{1},X_{2}\in \mathcal{O}b{\mathcal{C}}$，$X_{1}$与$X_{2}$的\gn{乘积}是指如下数据：
+	\begin{enumerate}
+		\item $Y\in \mathcal{O}b(\mathcal{(C)})$，其中记$Y = X_{1}\times X_{2}$
+		\item $\pi_{1}:Y\longrightarrow X_{1},\pi_{2}:Y\longrightarrow X_{2}$，满足以下Universal Property：
+		
+		$\exists Z\in \mathcal{O}b(\mathcal{C})$以及$f:Z\longrightarrow X_{1},g:Z\longrightarrow X_{2},\exists  !$态射$h:Z\longrightarrow Y,\st $下列图表交换：
+
+	\begin{center}
+\tikzset{every picture/.style={line width=0.75pt}}
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+\draw[->]    (289,95) -- (289,214) ;
+\draw[->]    (265,91) -- (212.38,146.05) ;
+\draw[->]    (313,91) -- (365.62,146.05) ;
+\draw[->]    (278,225) -- (212.57,173.73) ;
+\draw[->]    (300,225) -- (365.47,173.73) ;
+\draw (289,90.6) node [anchor=south] [inner sep=0.75pt]    {$Y$};
+% Text Node
+\draw (289,218.4) node [anchor=north] [inner sep=0.75pt]    {$Z$};
+% Text Node
+\draw (208.5,157.75) node [anchor=east] [inner sep=0.75pt]    {$X_{1}$};
+% Text Node
+\draw (369.5,157.75) node [anchor=west] [inner sep=0.75pt]    {$X_{2}$};
+% Text Node
+\draw (291,157.25) node [anchor=west] [inner sep=0.75pt]    {$\exists !h$};
+% Text Node
+\draw (236,115.85) node [anchor=south east] [inner sep=0.75pt]    {$\pi _{1}$};
+% Text Node
+\draw (343,115.85) node [anchor=south west] [inner sep=0.75pt]    {$\pi _{2}$};
+% Text Node
+\draw (242.5,202.15) node [anchor=north east] [inner sep=0.75pt]    {$f$};
+% Text Node
+\draw (336,202.15) node [anchor=north west][inner sep=0.75pt]    {$g$};
+\end{tikzpicture}
+	\end{center}
+		\end{enumerate}
+\end{definition}
+\begin{note}
+如果$X_{1}$与$X_{2}$的乘积存在，则其在同构下唯一。假设$(Y',\pi_{1}':Y'\longrightarrow X_{1},\pi_{2}':Y'\longrightarrow X_{2})$也满足以上	Universal Property：
+\begin{center}
+\tikzset{every picture/.style={line width=0.75pt}}
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+\draw[->]    (279,214) -- (279,95) ;
+\draw[->]    (299,95) -- (299,214) ;
+\draw[->]    (265,91) -- (212.38,146.05) ;
+\draw[->]    (313,91) -- (365.62,146.05) ;
+\draw[->]    (278,225) -- (212.57,173.73) ;
+\draw[->]    (300,225) -- (365.47,173.73) ;
+\draw (289,90.6) node [anchor=south] [inner sep=0.75pt]    {$Y$};
+% Text Node
+\draw (289,218.4) node [anchor=north] [inner sep=0.75pt]    {$Y'$};
+% Text Node
+\draw (208.5,157.75) node [anchor=east] [inner sep=0.75pt]    {$X_{1}$};
+% Text Node
+\draw (369.5,157.75) node [anchor=west] [inner sep=0.75pt]    {$X_{2}$};
+% Text Node
+\draw (301,157.25) node [anchor=west] [inner sep=0.75pt]    {$l$};
+
+\draw (275,157.25) node [anchor=east] [inner sep=0.75pt]    {$h$};
+% Text Node
+\draw (236,115.85) node [anchor=south east] [inner sep=0.75pt]    {$\pi _{1}$};
+% Text Node
+\draw (343,115.85) node [anchor=south west] [inner sep=0.75pt]    {$\pi _{2}$};
+% Text Node
+\draw (242.5,202.15) node [anchor=north east] [inner sep=0.75pt]    {$\pi_{1}'$};
+% Text Node
+\draw (336,202.15) node [anchor=north west][inner sep=0.75pt]    {$\pi_{2}'$};
+\end{tikzpicture}
+	\end{center}
+
+那么$h\circ h:Y'\longrightarrow Y'$
+\begin{center}
+\tikzset{every picture/.style={line width=0.75pt}}
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+\draw[->]    (279,95) -- (279,214) ;
+\draw[->]    (299,95) -- (299,214) ;
+\draw[->]    (265,91) -- (212.38,146.05) ;
+\draw[->]    (313,91) -- (365.62,146.05) ;
+\draw[->]    (278,225) -- (212.57,173.73) ;
+\draw[->]    (300,225) -- (365.47,173.73) ;
+\draw (289,90.6) node [anchor=south] [inner sep=0.75pt]    {$Y'$};
+% Text Node
+\draw (289,218.4) node [anchor=north] [inner sep=0.75pt]    {$Y'$};
+% Text Node
+\draw (208.5,157.75) node [anchor=east] [inner sep=0.75pt]    {$X_{1}$};
+% Text Node
+\draw (369.5,157.75) node [anchor=west] [inner sep=0.75pt]    {$X_{2}$};
+% Text Node
+\draw (301,157.25) node [anchor=west] [inner sep=0.75pt]    {$l\circ h$};
+
+\draw (275,157.25) node [anchor=east] [inner sep=0.75pt]    {$1_{Y'}$};
+% Text Node
+\draw (236,115.85) node [anchor=south east] [inner sep=0.75pt]    {$\pi _{1}'$};
+% Text Node
+\draw (343,115.85) node [anchor=south west] [inner sep=0.75pt]    {$\pi _{2}'$};
+% Text Node
+\draw (242.5,202.15) node [anchor=north east] [inner sep=0.75pt]    {$\pi_{1}'$};
+% Text Node
+\draw (336,202.15) node [anchor=north west][inner sep=0.75pt]    {$\pi_{2}'$};
+\end{tikzpicture}
+	\end{center}
+	
+根据图很容易得到：
+\begin{equation*}
+	\pi_{1}'\circ (l\circ h) = (\pi_{1}'\circ l)\circ h = \pi_{1}\circ h = \pi_{1}'
+\end{equation*}
+就得到：
+\begin{equation*}
+	1_{Y'} = l\circ h
+\end{equation*}
+类似可以得到：
+\begin{equation*}
+	h\circ l = 1_{Y} 
+\end{equation*}
+因此就是说$Y'$和$Y$是同构的。
+\end{note}
+\begin{conclusion}
+	对于拓扑空间$X_{1},X_{2}$，令$X_{1}\times X_{2}$为其乘积拓扑空间，我们已经证明$(X_{1}\times X_{2},\pi_{1},\pi_{2})$为$X_{1},X_{2}$在拓扑空间中的乘积。
+\end{conclusion}
+\subsection{乘积拓扑与紧性}
+\begin{lemma}
+	设$X$为一个拓扑空间，设$\tpj$为$X$的一个拓扑基，则：
+	\begin{equation*}
+		X\text{紧}\iff \forall\text{一族}\dkh{U_{\alpha}}_{\alpha \in I}\subset\tpj,\dkh{U_{\alpha}}_{\alpha \in I}\text{覆盖}X\text{，则}\dkh{U_{\alpha}}_{\alpha\in  I}\text{存在有限子覆盖}
+	\end{equation*}
+\end{lemma}
+\begin{proof}
+	必要性是显然的，下只需证明充分性。
+	
+	任取$X$的开覆盖$\dkh{V_{\alpha}}_{\alpha\in J}$，使得：
+	\begin{equation*}
+		\dabing_{\alpha\in J}V_{\alpha} = X
+	\end{equation*}
+而由于$\tpj$为$X$的一个拓扑基，就有：$V_{\alpha} = \dabing_{U_{\alpha i}\in \tpj}U_{\alpha i}$，根据条件。就知道$\exists U_{\alpha_{1}i_{1}},U_{\alpha_{2}i_{2}},\cdots,U_{\alpha_{n}i_{n}}\in \dkh{U_{\alpha i}},\st \dabing_{j=1}^{n}U_{\alpha_{j}i_{j}} = X$，其中$U_{\alpha_{j}i_{j}}\subset V_{\alpha_{j}}$，因此$\dabing_{j=1}^{n}V_{j} = X$。
+\end{proof}
+
+\begin{proposition}[紧集的直积集是紧集]
+	设$X,Y$是紧集，那么$X\times Y$也是紧集。
+\end{proposition}
+\begin{proof}
+	任取$\dkh{U_{\alpha}\times V_{\alpha}}_{\alpha\in I}$为$X\times Y$的一组开覆盖，任取$x\in X$，作为单点集$\dkh{x}$与$X$的乘积拓扑空间$\dkh{x}\times Y\simeq Y$，而且由于$Y$是紧集得知$\dkh{x}\times Y$也是紧集。
+	
+	那么任取$\dkh{U_{\alpha}\times V_{\alpha}}_{\alpha\in I}$是$\dkh{x}\times Y$的开覆盖，那么其必存在有限子覆盖$\dkh{U_{\alpha}^{x}\times V_{\alpha}^{x}}_{\alpha =1}^{n_{x}}$，令：
+	\begin{equation*}
+		U^{x} = \dajiao_{j = 1}^{n_{x}} U_{j}^{x}  \subset_{open} X
+	\end{equation*}
+	
+	那么$$\dabing_{x\in X}U^{x}= X$$又由于$X$是紧集，因此$\exists x_{1} , x_{2},\cdots , x_{n} \st X\subset \dabing_{i=1}^{n}U^{x_{i}}$，那么再对$Y$做类似的事情，就得到一列乘积集合$\dkh{\dkh{U_{j}^{x_{i}}\times V_{j}^{x_{i}}}_{j = 1}^{n_{x_{i}}}}_{i = 1}^{m}$，并且每一行$U^{x_{i}}\times Y\subset \dabing_{j=1}^{n_{x_{i}}}U_{j}^{x_{i}}\times V_{j}^{x_{i}}$，满足：
+	\begin{equation*}
+		X\times Y\subset \dabing_{i=1}^{m}\dabing_{j=1}^{n_{x_{i}}}U_{j}^{x_{i}}\times V_{j}^{x_{i}}
+	\end{equation*}
+	右侧乘积集合的个数是有限的，因此$X\times Y$是紧集。
+\end{proof}
+
+\subsection{紧性与连续映射}
+\begin{proposition}[紧性是一个拓扑不变量]\label{c3-m4}
+	设$	X$是紧集，$f:X\longrightarrow Y$是连续映射，那么$f(X)$也是紧集。
+\end{proposition}
+\begin{note}
+本命题的意思是\cukai{紧性在连续映射的作用下被保持}。也就是说，对于两个同胚的拓扑空间而言，这两个拓扑空间同具有紧性或者同不具有紧性。\lei{紧性是一个拓扑不变量！}
+\end{note}
+\begin{proof}
+	对于$\forall f(X)$的一组开覆盖$\dkh{U_{\alpha}}_{\alpha\in I},U_{\alpha}\subset_{open}Y$，那么$\dkh{f^{-1}(U_{\alpha})}_{\alpha\in I}$为$X$的一组开覆盖。由于$X$是紧集，因此$\exists \alpha_{1},\alpha_{2},\cdots,\alpha_{n}, \st X\subset\dabing_{i = 1}^{n}f^{-1}(U_{\alpha_{i}})$，即：$f(X)\subset\dabing_{i=1}^{n}U_{\alpha_{i}}$。
+\end{proof}
+\begin{corollary}
+	紧空间上的连续实值函数有界，并可以取到最值。
+\end{corollary}
+\begin{proof}
+	设$X$是紧集，$f:X\longrightarrow \mathbb{R}$是连续映射，根据上命题\ref{c3-m4}可知$f(X)$是紧集，根据定理\ref{c3-t2}可知$f(X)$是有界闭集，下设$S = \sup f(X),s=\inf f(X)$，由于$f(X)$是闭集，集合的上确界和下确界都可在集合中取到。因此$S,s\in f(X)$。
+\end{proof}
+\subsection{更多的紧性}
+\begin{definition}[极限点紧性]
+	设$X$为拓扑空间，如果$X$中的任意无限子集都有极限点，就称$X$是\gn{极限点紧}\footnote{By Munkers ： 在拓扑学早期，这种紧性被称为\gn{紧致性}。如同我们在数学分析中证明的一样，不过在这里我们需要区分紧支集、紧致性、紧性、列紧性。}的。
+\end{definition}
+\begin{proposition}
+	紧性蕴含极限点紧性。
+\end{proposition}
+\begin{proof}
+	设$ X$是紧集，任取无限集合$A\subset X$，假设$A$没有极限点，即：
+	\begin{equation*}
+		\forall x\in X ,\exists U_{x}\subset_{open}X,\st (U_{x}\chadiao\dkh{x})\cap A = \emptyset
+ 	\end{equation*}
+ 	即$U_{x}$中最多只有$A$中的一个点。另一方面，由于$X$的紧性可以知道，任取$X$的一个开覆盖$\dkh{U_{x}}_{x\in X}\supset X$，总存在有限子覆盖$\dkh{U_{x_{i}}}_{i=1}^{n}$使得$$ \dabing_{i=1}^{n}U_{x_{i}} = X\supset A$$
+ 	而上式左侧是有限并，每一个集合中做多只有$A$的一个点，所以左侧最多只有$A$集合中的$n$个点；右侧包含无限子集$A$，因此有$A$中的无限多个点，这就矛盾！
+\end{proof}
+\begin{example}[极限点紧性与紧性不等价]
+	正整数集$\mathbb{Z}_{+} = \dkh{1,2,3,\cdots,n,\cdots}$上赋予离散拓扑；$Y = \dkh{0,1}$上赋予平凡拓扑，其直积集$\mathbb{Z}_{+}\times Y$赋予乘积拓扑的条件下是极限点紧集，而非紧集。
+	\begin{proof}
+		对于$\forall \emptyset \neq A\subset \mathbb{Z}_{+}\times Y$，若$(n,1)\in A$，那么$(n,1)$是$A$的极限点。因此之当然是极限点紧集。但是其并非紧集，比如对于一组开集族$\dkh{\dkh{n}\times Y}_{n=1,2,\cdots}$显然是$\mathbb{Z}_{+}\times Y$的一组开覆盖，但是其并没有一个有限子覆盖。
+		
+%		但是对于$\mathbb{Z}_{+}\times Y$的一组拓扑基为$\dkh{n}\times Y,n=1,2,\cdots$，则$\forall U\subset_{open}\mathbb{Z}_{+}\times Y,(n,0)\in U$
+	\end{proof}\end{example}
+	\begin{definition}[列紧性]
+		设$X$为一个拓扑空间，如果对于$X$中的任何一个无限点列$\dkh{x_{n}}_{n=1}^{\infty}$都有收敛子列，就称$X$是一个\gn{列紧集}。
+	\end{definition}
+\begin{proposition}
+	列紧性蕴含极限点紧性。
+\end{proposition}
+\begin{proof}
+	对于列紧集$X$取任何无限集合$ A\subset X$，任取$\dkh{x_{n}}_{n=1}^{\infty}$是$A$的一个点列，$x_{n}$互不相同。则$\dkh{x_{n}}_{n=1}^{\infty}$有收敛子列$\dkh{x_{n_{k}}},\st x_{n_{k}}\to x_{0}(k\to +\infty)$，因此$x_{0}$为$A$的极限点，因此$X$是极限点紧集。
+\end{proof}
+\begin{example}[列紧性与极限点紧性不等价]
+	对于实数集$\mathbb{R}$，赋予\gn{右拓扑}：$\tp = \dkh{(a,+\infty)|a\in \mathbb{R}}\cup\emptyset$，明显$(\mathbb{R},\tp)$是极限点紧集\footnote{这是因为：任取$\emptyset\neq A\subset\mathbb{R}$。设$x_{0}\in A$，则$x_{0}-1$是$A$的一个极限点，这是因为此时$\forall U\subset_{open}\mathbb{R}$$U$可以表示为$(x,+\infty),x<x_{0}-1$，此时有：
+	\begin{equation*}
+		x_{0}\in (U\chadiao\dkh{x_{0}-1})\cap A \neq \emptyset
+	\end{equation*}}。但是$(\mathbb{R},\tp)$并非列紧集。
+	\begin{proof}
+		直接取点列为$x_{n} = -n,n\in \mathbb{N}$，假设其有收敛子列$\dkh{x_{n_{k}}}_{k=1}^{\infty},\st x_{n_{k}}\to x_{0}(k\to +\infty)$，即：
+		\begin{equation*}
+			\forall U\subset_{open}\mathbb{R}(x_{0}\in U),\exists N,\st \forall k>N,x_{n_{k}}\in U
+		\end{equation*}
+		但是实际上$\forall U\subset_{open}\mathbb{R}$，都可以写成$U=(a,+\infty),a<x_{0}$，那么必然存在$M,\st \forall k>M,x_{n_{k}}<a,x_{n_{k}}\notin U$。
+	\end{proof}
+\end{example}
+\begin{theorem}
+	在度量空间中，紧性、极限点紧性、列紧性互相等价。
+\end{theorem}
+%第四章	
 \chapter{连通性}
+在这一节，我们要再引入另一个拓扑不变量，即连通性，连通性在复分析中有很高的出场率。
+\section{连通性与连通分支}
+\subsection{连通性}
+为了考虑一个集合的连通性，我们先来考虑一集合不连通是一个什么情况。
+\begin{definition}[连通性]
+	设$X$是一个拓扑空间，如果$X$可以被分解为两个非空开集的直和，就称$X$是\gn{不连通}的。即：
+	\begin{equation*}
+		X=  U\sqcup V,U\subset_{open}X,V\subset_{open}X;U,V\neq \emptyset
+	\end{equation*}
+\end{definition}
+\begin{note}
+	由此可以看出，我们说一个集合是\tl{不连通}的，是可以把它分解成两个独立的部分，这两个部分是既开又闭，因此每一个部分中的点、极限点都只被限定在这个部分之中，任何一个部分的点从该部分往任何地方跑，都不可以直接到达另一个部分。
+	\begin{figure}[h]
+		\centering
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Shape: Ellipse [id:dp8624803269432] 
+\draw   (101.66,146.98) .. controls (96.85,129.97) and (111.9,110.83) .. (135.29,104.21) .. controls (158.67,97.59) and (181.53,106.01) .. (186.34,123.02) .. controls (191.15,140.03) and (176.1,159.17) .. (152.71,165.79) .. controls (129.33,172.41) and (106.47,163.99) .. (101.66,146.98) -- cycle ;
+%Shape: Ellipse [id:dp6936201842442715] 
+\draw   (195.17,102.18) .. controls (196.7,84.57) and (217.57,72.01) .. (241.78,74.12) .. controls (265.99,76.23) and (284.37,92.21) .. (282.83,109.82) .. controls (281.3,127.43) and (260.43,139.99) .. (236.22,137.88) .. controls (212.01,135.77) and (193.63,119.79) .. (195.17,102.18) -- cycle ;
+%Straight Lines [id:da582018709351726] 
+\draw    (150,120) -- (164.54,106.37) ;
+\draw [shift={(166,105)}, rotate = 136.85] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Straight Lines [id:da22908013955818896] 
+\draw    (162,127) -- (179.35,115.13) ;
+\draw [shift={(181,114)}, rotate = 145.62] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Straight Lines [id:da4126636864109632] 
+\draw    (165,135) -- (184.59,124) ;
+\draw [shift={(186.34,123.02)}, rotate = 150.69] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Straight Lines [id:da904012699639372] 
+\draw    (224,94) -- (201.57,111.76) ;
+\draw [shift={(200,113)}, rotate = 321.63] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Straight Lines [id:da8244179446110391] 
+\draw    (228,111) -- (204.88,119.32) ;
+\draw [shift={(203,120)}, rotate = 340.2] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Straight Lines [id:da789966203802531] 
+\draw    (218,90) -- (196.93,101.24) ;
+\draw [shift={(195.17,102.18)}, rotate = 331.92] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+\draw (142,138.4) node [anchor=north east] [inner sep=0.75pt]    {$U$};
+\draw (239,106) node    {$V$};
+\end{tikzpicture}
+\caption{集合$X=U\sqcup V$是不连通的}
+	\end{figure}
+\end{note}
+\begin{example}[$\mathbb{R}$中不是不连通的例子]
+	设集合$X = [0,2]$赋予之欧氏拓扑空间的子空间拓扑，$X$是\tl{不是不连通的}，这是因为$X= [0,2] = [0,1)\sqcup [1,2]$，其中 比如$[0,1)$并非是子空间意义下的闭集（从而$[1,2]$也不是子空间意义下的开集）。对于其他的分解也都是这种情况。
+\end{example}
+
+\begin{example}[$\mathbb{R}$中不连通的例子]
+	设集合$X=[0,1)\cup(1,2]$，那么$X = ((-1,1)\cap X)\sqcup((1,3)\cap X)$，在子空间拓扑下两侧集合都是开集和闭集，因此$X$在子空间拓扑意义下是不连通的。
+\end{example}
+\begin{example}[圆扣掉两个点就不连通了]
+	设$X = S^{1}\chadiao\dkh{P,Q} = (\dkh{x<0}\cap X)\sqcup(\dkh{x>0}\cap X)$，因此其是不连通的。\end{example}
+	\begin{figure}[h]
+		\centering
+
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1,scale=0.8]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Shape: Axis 2D [id:dp9727015375843877] 
+\draw  (115.38,169) -- (271.38,169)(193,87.61) -- (193,243.61) (264.38,164) -- (271.38,169) -- (264.38,174) (188,94.61) -- (193,87.61) -- (198,94.61)  ;
+%Shape: Circle [id:dp7282422916468221] 
+\draw  [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ] (139,169) .. controls (139,139.18) and (163.18,115) .. (193,115) .. controls (222.82,115) and (247,139.18) .. (247,169) .. controls (247,198.82) and (222.82,223) .. (193,223) .. controls (163.18,223) and (139,198.82) .. (139,169) -- cycle ;
+%Shape: Circle [id:dp9329032514915467] 
+\draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (190,115) .. controls (190,113.34) and (191.34,112) .. (193,112) .. controls (194.66,112) and (196,113.34) .. (196,115) .. controls (196,116.66) and (194.66,118) .. (193,118) .. controls (191.34,118) and (190,116.66) .. (190,115) -- cycle ;
+%Shape: Circle [id:dp8971655931886666] 
+\draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (190,223) .. controls (190,221.34) and (191.34,220) .. (193,220) .. controls (194.66,220) and (196,221.34) .. (196,223) .. controls (196,224.66) and (194.66,226) .. (193,226) .. controls (191.34,226) and (190,224.66) .. (190,223) -- cycle ;
+\draw (188,111.6) node [anchor=south east] [inner sep=0.75pt]    {$P$};
+% Text Node
+\draw (191,226.4) node [anchor=north east] [inner sep=0.75pt]    {$Q$};
+% Text Node
+\draw (191,172.4) node [anchor=north east] [inner sep=0.75pt]    {$o$};
+% Text Node
+\draw (260,173.4) node [anchor=north west][inner sep=0.75pt]    {$x$};
+\draw (203,84.4) node [anchor=north west][inner sep=0.75pt]    {$y$};
+\end{tikzpicture}\caption{例4.3中的$X = S^{1}\chadiao\dkh{P,Q}$}
+	\end{figure}
+
+
+
+
+
+
+\section{道路连通性}
+
+
+\chapter{商空间}
+
+%第二部分
+\part{代数拓扑}
+\chapter{基本群}
+
+%第三部分-流形与几何-梅加强
+\part{微分流形}
+\chapter{微分流形}
+
+\section{流形的定义与例}
+
+%\chapter{微积分}
+%\chapter{流形的几何}
+%\chapter{流形的上同调}
 %符号说明
+\part{杂七杂八}
 \chapter{符号说明}
 %\begin{mdframed}
 %	一切没有符号说明的文档都是耍流氓!
@@ -1214,4 +2374,7 @@ $$f(x)\text{连续}~\Rightarrow ~\lim_{\mathcal{B}}f(x) = f(\lim_{\mathcal{B}} x
 	\item 数学逻辑语言同国际标准。
 	\item 外加一些张氏古代汉语和标准中式英语（虽然掺杂一些少量标准英式英语）。
 \end{enumerate}
+
+\printindex
+
 \end{document}
