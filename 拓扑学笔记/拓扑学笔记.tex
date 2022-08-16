@@ -8,6 +8,10 @@
 %额外宏包
 \usepackage{makeidx}
 \makeindex
+\usepackage{standalone}
+\usepackage{pgfplotstable}
+\usepackage{pgfplots}
+\pgfplotsset{compat = newest}
 
 %字体部分
 \setCJKmainfont[ItalicFont=FandolKai-Regular,BoldFont=STSongti-SC-Black]{STSong} 
@@ -60,6 +64,13 @@
 \newcommand{\chadiao}{\backslash}
 \newcommand{\ranhou}{\Longrightarrow}
 \newcommand{\cukai}[1]{{\cukaii{#1}}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\hanshu}[1]{\left\{ \begin{aligned}
+					#1
+					\end{aligned} \right.}
+
+% 重新定义
+%\renewcommand{\exists}{\exists~}
 % 修改标题页的橙色带
 \definecolor{customcolor}{RGB}{249,125,28}
 \colorlet{coverlinecolor}{customcolor}
@@ -236,10 +247,10 @@ $n$维单位球面$S^{n}\subset \mathbb{R}^{n}$赋予欧氏拓扑，其中$S^{n}
 	\end{equation*}
 	则称$p$为$A$的一个\gn{极限点}。而将集合$\overline{A} = A \cup \dkh{A\text{的极限点}}$称为$A$的\gn{闭包}。
 \end{definition}
-\begin{example}[欧式空间中有理点的极限点集为欧氏空间]
+\begin{example}[欧氏空间中有理点的极限点集为欧氏空间]
 	$X = \mathbb{R}^{3}$，$A$是$X$中的有理点（即$A\in \dkh{(x,y,z)|x,y,z\in \mathbb{Q}}$），那么$X$就是$A$的极限点集。
 \end{example}
-\begin{example}[欧式空间中整数点的极限点集为空集]
+\begin{example}[欧氏空间中整数点的极限点集为空集]
 	$X = \mathbb{R}^{3}$，$A=\mathbb{Z}$，那么$A$的极限点集为$\emptyset$。
 \end{example}
 \begin{example}[点集的极限点]
@@ -895,7 +906,7 @@ $$f(x)\text{连续}~\Rightarrow ~\lim_{\mathcal{B}}f(x) = f(\lim_{\mathcal{B}} x
 
 这是为什么呢，很显然，该映射$f$是一个连续映射，但是$f^{-1}$不连续，这是因为从$t=0$按照逆时针走，是$t$自$0$增大的过程，但是若顺时针走动，幅角从$0$突然变到比$2\pi$小一点点，$t$会由$0$瞬间变到$1$的周围，导致不连续的事情发生。
 \end{example}
-\begin{example}[球极投影]
+\begin{example}[球极投影]\label{c2-e8}
 	考虑$S^{2} = \dkh{(x,y,z)|x^{2}+y^{2}+z^{2} = 1}$，北极点为$P = (0,0,1)$。映射：
 	\begin{equation*}
 		\begin{aligned}
@@ -1694,7 +1705,7 @@ y\\
 		(e^{i\theta},e^{i\alpha})&\longmapsto ((a+r\sin \alpha)\cos \theta,(a+r\sin \alpha)\sin \theta ,r\cos \alpha)
 	\end{aligned}
 \end{equation*}
-这个映射是一个双射，因此是一个同胚。这说明\lei{$S^{1}\times S^{1} \simeq T$}。
+这个映射是一个双射，因此是一个同胚。这说明\lei{$S^{1}\times S^{1} \cong T$}。
 \end{example}
 下面我们给出乘积拓扑的定义：
 \begin{definition}[乘积拓扑]
@@ -2165,7 +2176,7 @@ $$(h\circ g)\circ f = h\circ (g\circ f)$$
 	设$X,Y$是紧集，那么$X\times Y$也是紧集。
 \end{proposition}
 \begin{proof}
-	任取$\dkh{U_{\alpha}\times V_{\alpha}}_{\alpha\in I}$为$X\times Y$的一组开覆盖，任取$x\in X$，作为单点集$\dkh{x}$与$X$的乘积拓扑空间$\dkh{x}\times Y\simeq Y$，而且由于$Y$是紧集得知$\dkh{x}\times Y$也是紧集。
+	任取$\dkh{U_{\alpha}\times V_{\alpha}}_{\alpha\in I}$为$X\times Y$的一组开覆盖，任取$x\in X$，作为单点集$\dkh{x}$与$X$的乘积拓扑空间$\dkh{x}\times Y\cong Y$，而且由于$Y$是紧集得知$\dkh{x}\times Y$也是紧集。
 	
 	那么任取$\dkh{U_{\alpha}\times V_{\alpha}}_{\alpha\in I}$是$\dkh{x}\times Y$的开覆盖，那么其必存在有限子覆盖$\dkh{U_{\alpha}^{x}\times V_{\alpha}^{x}}_{\alpha =1}^{n_{x}}$，令：
 	\begin{equation*}
@@ -2179,7 +2190,7 @@ $$(h\circ g)\circ f = h\circ (g\circ f)$$
 	右侧乘积集合的个数是有限的，因此$X\times Y$是紧集。
 \end{proof}
 
-\subsection{紧性与连续映射}
+\subsection{紧性为拓扑不变性}
 \begin{proposition}[紧性是一个拓扑不变量]\label{c3-m4}
 	设$	X$是紧集，$f:X\longrightarrow Y$是连续映射，那么$f(X)$也是紧集。
 \end{proposition}
@@ -2327,14 +2338,963 @@ $$(h\circ g)\circ f = h\circ (g\circ f)$$
 \draw (203,84.4) node [anchor=north west][inner sep=0.75pt]    {$y$};
 \end{tikzpicture}\caption{例4.3中的$X = S^{1}\chadiao\dkh{P,Q}$}
 	\end{figure}
+\begin{definition}[连通性]
+	设$X$为一个拓扑空间，如果$X = U\sqcup V$，其中$U,V\subset_{open }X$，则$U,V$中至少有一个为空集。则称$X$是\gn{连通}的。
+\end{definition}
+
+\begin{proposition}
+	
+	设$X$是一个拓扑空间，则下列三条等价：
+	\begin{enumerate}
+	\item $X$连通。
+	\item $X$中既开又闭之集合只能为$\emptyset, X$。
+	\item 不存在一个连续的满射$f:X\longrightarrow Y$。其中$Y$赋予离散拓扑结构，且$Y$中元素之个数不少于2。	
+	\end{enumerate}
+	\end{proposition}
+	\begin{proof}
+		该命题给予了连通性的几个等价叙述，下循环证之：
+		\begin{enumerate}
+			\item[[\lei{1}$\Rightarrow\lei{2}$]]： 若$U\subset_{open,closed}X$则$X\chadiao U\subset_{open,closed}$，由于$X = U\sqcup (X\chadiao U)$，且$X$是连通的，就说明$U$和$X\chadiao U$中至少有一个为空集。得证。
+			\item[[\lei{2}$\Rightarrow\lei{3}$]]： 假设存在连续满射：
+			\begin{equation*}
+				f:X\longrightarrow Y
+			\end{equation*}
+			满足赋予$Y$离散拓扑，且$|Y| \geq 2$，那么任取$y\in Y$，在离散拓扑意义下$y$既为开集又为闭集，由于$f$是连续映射，则$f^{-1}(y)$既为开集又为闭集，如果$f^{-1}(y)=X$，那么$|Y| = 1$显然不成立，则$f^{-1}(y)\neq X$，因此$f^{-1}(y)=\emptyset$，这又与$f$为满射矛盾。
+			\item[[\lei{3}$\Rightarrow\lei{1}$]]： 假设$X = U\sqcup V;U,V\subset_{open}X ;U,V\neq \emptyset$，令:
+			\begin{equation*}
+				\begin{aligned}
+					f:X&\longrightarrow\dkh{0,1}\\
+					x&\longmapsto f(x) = \left\{ \begin{aligned}
+					&1,x\in U\\
+					&0,x\in V
+					\end{aligned} \right.
+				\end{aligned}
+			\end{equation*}
+			那么就有$f^{-1}(1) = U,f^{-1}(0) = V$，与$f$为一个连续满射，与\lei{3}矛盾。
+		\end{enumerate}
+	\end{proof}
 
 
 
 
 
+在数学分析之中，我们常常在$\mathbb{R}$上研究问题，因此下面我们考虑一些$\mathbb{R}$上的连通性的例子。
 
+\begin{proposition}
+	$\mathbb{R}$在欧氏拓扑意义下是连通的。
+\end{proposition}
+\begin{proof}
+	假设$\mathbb{R}$不连通，即：
+	\begin{equation*}
+		\exists U\subset_{open,closed}\mathbb{R},U\neq \emptyset,\mathbb{R}
+	\end{equation*}
+	则$\exists x_{1}\in \mathbb{R}\chadiao U,\exists x_{2}\in U$，不妨设$x_{1}<x_{2}$，考虑集合$S = \dkh{x\in \mathbb{R}|x\geq x_{1},[x_{1},x_{2}]\subset \mathbb{R}\chadiao U}$。
+	
+	\begin{figure}[h]
+		\centering
+		
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Shape: Rectangle [id:dp25984372613253615] 
+\draw  [color={rgb, 255:red, 248; green, 231; blue, 28 }  ,draw opacity=1 ][fill={rgb, 255:red, 248; green, 231; blue, 28 }  ,fill opacity=1 ] (204,94.5) -- (294,94.5) -- (294,112) -- (204,112) -- cycle ;
+%Straight Lines [id:da9856667544417632] 
+\draw    (100,112) -- (306,112) ;
+\draw [shift={(308,112)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Straight Lines [id:da812503550526777] 
+\draw    (204,106) -- (204,112) ;
+%Straight Lines [id:da4930812729568812] 
+\draw    (150,106) -- (150,112) ;
+%Straight Lines [id:da5135502597081416] 
+\draw    (243,106) -- (243,112) ;
+
+% Text Node
+\draw (150,115.4) node [anchor=north] [inner sep=0.75pt]    {$x_{1}$};
+% Text Node
+\draw (243,115.4) node [anchor=north] [inner sep=0.75pt]    {$x_{2}$};
+% Text Node
+\draw (255.5,103) node [anchor=west] [inner sep=0.75pt]    {$U$};
+
+
+\end{tikzpicture}
+\caption{命题4.2之区间关系图}
+	\end{figure}
+	首先\tl{$ x_{1}\in S\neq \emptyset$}，并且\tl{$S$上有界}（$x_{2}$就是$S$的一个上界，这是因为$x_{2}\in U,$则$[x_{1},x_{2}]\nsubseteq \mathbb{R}\chadiao U,\forall y>x_{2},[x_{1},y]\nsubseteq\mathbb{R}\chadiao U$，这就说明$x_{2}$是上界），那么由\lei{确界原理}可知$S$有上确界，记之为$s = \sup S$。那么：
+	\begin{enumerate}
+		\item $s\in U$，由于$U$是开集，那么$\exists \delta>0,(s-\delta,s+\delta)\subset U,\st s-\dfrac{\delta}{2}$为$S$的一个上界，与$s$是上确界矛盾。
+		\item $s\notin U$，由于$\mathbb{R}\chadiao U$为开集，因此$\exists \delta>0,(s-\delta,s+\delta)\subset \mathbb{R}\chadiao U$因此必然$\tl{\exists s_{1}\in S}, s-\delta<s_{1}<s,\tl{\st [x_{1},s_{1}]\subset\mathbb{R}\chadiao U}$，那么就有$[x_{1},s+\dfrac{\delta}{2}]\subset \mathbb{R}\chadiao U$，又与$s$为上确界矛盾。
+	\end{enumerate}
+	综上，$s$不能为上确界，因此假设有误，归谬。
+\end{proof}
+\begin{definition}[连通性]
+	设$X$为拓扑空间，$Y\subset X$，若$Y$在$X$的子空间拓扑意义下连通，则称$Y$是连通的。
+\end{definition}
+\begin{proposition}
+	$X\subset \mathbb{R}$是连通的$\iff X$为一个区间。
+\end{proposition}
+\begin{proof}
+	命题的必要性是与上命题同理的，下证充分性：
+	
+	反设$X$并非一个区间，那么就$\exists a<b\in X,\st \exists x_{0}\in \mathbb{R},a<x_{0}<b$，这样定义两个集合：
+	\begin{equation*}
+		a\in U = (-\infty, x_{0})\cap X\neq \emptyset
+	\end{equation*}
+	\begin{equation*}
+	b\in 	V = (x_{0},+\infty)\cap X\neq \emptyset
+	\end{equation*}
+	
+	\begin{figure}[h]
+		\centering
+
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Shape: Rectangle [id:dp1843188710301753] 
+\draw  [color={rgb, 255:red, 248; green, 231; blue, 28 }  ,draw opacity=1 ][fill={rgb, 255:red, 248; green, 231; blue, 28 }  ,fill opacity=1 ] (207,116.5) -- (309,116.5) -- (309,132) -- (207,132) -- cycle ;
+%Straight Lines [id:da34892541955377654] 
+\draw    (170,126) -- (170,132) ;
+%Straight Lines [id:da28190929256595565] 
+\draw    (263,126) -- (263,132) ;
+%Shape: Rectangle [id:dp6705961757589611] 
+\draw  [color={rgb, 255:red, 248; green, 231; blue, 28 }  ,draw opacity=1 ][fill={rgb, 255:red, 248; green, 231; blue, 28 }  ,fill opacity=1 ] (94,116.5) -- (185,116.5) -- (185,132) -- (94,132) -- cycle ;
+%Straight Lines [id:da3318922285283652] 
+\draw    (70,132) -- (326,132) ;
+\draw [shift={(328,132)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Straight Lines [id:da6894417560497292] 
+\draw    (170,126) -- (170,132) ;
+%Straight Lines [id:da6151326776599586] 
+\draw    (194,126) -- (194,132) ;
+%Straight Lines [id:da7145181826545] 
+\draw    (185,101) -- (185,132) ;
+%Straight Lines [id:da5195077215615593] 
+\draw    (207,101) -- (207,132) ;
+%Straight Lines [id:da45440492592285264] 
+\draw    (94,101) -- (185,101) ;
+%Straight Lines [id:da7959474615337747] 
+\draw    (207,101) -- (309,101) ;
+%Straight Lines [id:da19360814689465333] 
+\draw    (94,101) -- (94,132) ;
+%Straight Lines [id:da24265481076968398] 
+\draw    (309,101) -- (309,132) ;
+
+% Text Node
+\draw (168,135.4) node [anchor=north east] [inner sep=0.75pt]    {$a$};
+% Text Node
+\draw (265,135.4) node [anchor=north west][inner sep=0.75pt]    {$b$};
+% Text Node
+\draw (275.5,123) node [anchor=west] [inner sep=0.75pt]    {$V$};
+% Text Node
+\draw (194,135.4) node [anchor=north] [inner sep=0.75pt]    {$x_{0}$};
+% Text Node
+\draw (187,97.6) node [anchor=south west] [inner sep=0.75pt]    {$X$};
+% Text Node
+\draw (121.5,123.25) node [anchor=east] [inner sep=0.75pt]    {$U$};
+
+
+\end{tikzpicture}
+\caption{命题4.3之区间关系}
+	\end{figure}
+	由子空间拓扑的定义，$U,V$都是$X$的中的开集，并且有$U\sqcup V = X$，因此$U,V$均为闭集，则$X$不连通，矛盾！
+\end{proof}
+\subsection{连通性为拓扑不变性}
+\begin{proposition}[连通性为一个拓扑不变性]\label{c4-m4}
+	设$X,Y$为拓扑空间，设$f:X\longrightarrow Y$是连续映射，$X$连通，则$f(X)$也连通。
+\end{proposition}
+\begin{proof}
+	由于$f:X\longrightarrow Y$是连续映射，则$f:X\longrightarrow f(X)$是连续满射，那么\tl{$\forall\emptyset\neq U\subset_{open,closed} f(X)$}，由于\lanse{$f$是连续映射}，所以$f^{-1}(U)\subset_{open,closed}X$，并且由于\lanse{$f$是满射}，所以$f^{-1}(U)\neq \emptyset$，由于\lanse{$X$是连通的}，因此$f^{-1}(U)= X$，于是\tl{$f(X) = U$}，这就说明$f(X)$也是连通的。
+\end{proof}
+\begin{corollary}\label{c4-t1}
+	若$X\cong Y$则$X$连通$\iff Y$连通。
+\end{corollary}
+
+\begin{example}[一维单位球面与$\mathbb{R}$不是同胚的]
+	$S^{1}\ncong \mathbb{R}$
+\end{example}
+\begin{proof}现已知的两种拓扑不变量，分别给出证明：
+\begin{enumerate}
+	\item $S^{1}$是紧集，但是$\R $不是紧集，因此这俩不是同胚的。
+	\item 假设$S^{1}\cong \mathbb{R}$，那么由于$S^{1}\chadiao\dkh{P=(0,1)}$仍是连通的，因此由同胚（在图中记之为$\varphi$）与推论\ref{c4-t1}可知，$\R\chadiao \dkh{P}$也是连通的，但事实不然，因此矛盾！
+\end{enumerate}
+	\begin{figure}[h]
+		\centering
+		
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Shape: Axis 2D [id:dp17553241848744894] 
+\draw  (103.38,166) -- (259.38,166)(181,84.61) -- (181,240.61) (252.38,161) -- (259.38,166) -- (252.38,171) (176,91.61) -- (181,84.61) -- (186,91.61)  ;
+%Shape: Circle [id:dp5695673243314854] 
+\draw  [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ] (127,166) .. controls (127,136.18) and (151.18,112) .. (181,112) .. controls (210.82,112) and (235,136.18) .. (235,166) .. controls (235,195.82) and (210.82,220) .. (181,220) .. controls (151.18,220) and (127,195.82) .. (127,166) -- cycle ;
+%Shape: Circle [id:dp2077603973722042] 
+\draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (178,112) .. controls (178,110.34) and (179.34,109) .. (181,109) .. controls (182.66,109) and (184,110.34) .. (184,112) .. controls (184,113.66) and (182.66,115) .. (181,115) .. controls (179.34,115) and (178,113.66) .. (178,112) -- cycle ;
+%Straight Lines [id:da26911717019935066] 
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (396,216) -- (488.66,112.99) ;
+\draw [shift={(490,111.5)}, rotate = 131.97] [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Shape: Circle [id:dp3254015361467735] 
+\draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (439,165.75) .. controls (439,164.09) and (440.34,162.75) .. (442,162.75) .. controls (443.66,162.75) and (445,164.09) .. (445,165.75) .. controls (445,167.41) and (443.66,168.75) .. (442,168.75) .. controls (440.34,168.75) and (439,167.41) .. (439,165.75) -- cycle ;
+%Straight Lines [id:da8221440589742395] 
+\draw    (274,167) -- (398,167) ;
+\draw [shift={(400,167)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+
+% Text Node
+\draw (176,108.6) node [anchor=south east] [inner sep=0.75pt]    {$P$};
+% Text Node
+\draw (179,169.4) node [anchor=north east] [inner sep=0.75pt]    {$o$};
+% Text Node
+\draw (248,170.4) node [anchor=north west][inner sep=0.75pt]    {$x$};
+% Text Node
+\draw (191,81.4) node [anchor=north west][inner sep=0.75pt]    {$y$};
+% Text Node
+\draw (444,169.15) node [anchor=north west][inner sep=0.75pt]    {$\varphi ( P)$};
+% Text Node
+\draw (337,163.6) node [anchor=south] [inner sep=0.75pt]    {$\varphi $};
+
+
+\end{tikzpicture}
+\caption{例4.4之集合示意图}
+	\end{figure}
+\end{proof}
+\begin{note}
+实际上$S^{1}\chadiao\dkh{P}\cong \mathbb{R}$	，这一同胚可以利用球极投影来构造。
+\end{note}
+
+
+\begin{example}[$\mathbb{R}$与其上开区间是同胚的]
+	$(0,1)\cong \mathbb{R}$
+\end{example}
+\begin{proof}
+	直接取连续映射$f$如下：
+	\begin{equation*}
+		\begin{aligned}
+			f:(0,1)&\longrightarrow \mathbb{R}\\
+			x&\longmapsto \tan(\pi (x-\dfrac{1}{2}))
+		\end{aligned}
+	\end{equation*}
+	
+	\begin{figure}[h]
+		\centering
+
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Straight Lines [id:da27154555718723516] 
+\draw    (133,133) -- (232,133) ;
+\draw [shift={(234,133)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Straight Lines [id:da014731134416281932] 
+\draw    (153.5,127) -- (153.5,133) ;
+%Straight Lines [id:da45147409561198737] 
+\draw    (202.69,127) -- (202.69,133) ;
+%Straight Lines [id:da621125038529698] 
+\draw    (253,134) -- (305,134) ;
+\draw [shift={(307,134)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Shape: Axis 2D [id:dp30465240988331055] 
+\draw  (330,133.81) -- (444,133.81)(350.52,27) -- (350.52,238.5) (437,128.81) -- (444,133.81) -- (437,138.81) (345.52,34) -- (350.52,27) -- (355.52,34)  ;
+%Straight Lines [id:da7734073944649307] 
+\draw    (425.69,128) -- (425.69,134) ;
+%Curve Lines [id:da635020189289238] 
+\draw [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,draw opacity=1 ]   (361.18,227.41) .. controls (364.25,193.41) and (370.57,166.64) .. (388.1,133.9) .. controls (405.73,101) and (409.88,78.19) .. (419.55,36.42) ;
+\draw [shift={(420,34.5)}, rotate = 103.09] [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,draw opacity=1 ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+\draw [shift={(361,229.5)}, rotate = 274.9] [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,draw opacity=1 ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Straight Lines [id:da4431941385852294] 
+\draw  [dash pattern={on 4.5pt off 4.5pt}]  (425.69,30.5) -- (425.69,229.5) ;
+%Straight Lines [id:da9956387275889222] 
+\draw [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,draw opacity=1 ]   (153.5,133) -- (202.69,133) ;
+
+% Text Node
+\draw (202.69,136.4) node [anchor=north] [inner sep=0.75pt]    {$1$};
+% Text Node
+\draw (153.5,136.4) node [anchor=north] [inner sep=0.75pt]    {$0$};
+% Text Node
+\draw (280,130.6) node [anchor=south] [inner sep=0.75pt]    {$f$};
+% Text Node
+\draw (381,33.4) node [anchor=north west][inner sep=0.75pt]    {$+\infty $};
+% Text Node
+\draw (366,218.4) node [anchor=north west][inner sep=0.75pt]    {$-\infty $};
+% Text Node
+\draw (348.52,137.21) node [anchor=north east] [inner sep=0.75pt]    {$0$};
+% Text Node
+\draw (423.69,137.4) node [anchor=north east] [inner sep=0.75pt]    {$1$};
+
+
+\end{tikzpicture}
+\caption{例4.5之同胚$f$之图像}
+	\end{figure}
+	$f$及其逆映射皆是连续双射。
+\end{proof}
+
+\begin{example}[$\mathbb{R}$与其上任一非开区间是不同胚的]
+	$[0,1)\ncong \mathbb{R}$
+\end{example}
+\begin{proof}
+若	$[0,1)\cong \mathbb{R}$则存在连续映射$\varphi :[0,1)\longrightarrow \mathbb{R}$。
+在其定义域上抠掉$\dkh{0}$这一点，显然$[0,1)\chadiao\dkh{0}=(0,1)$为区间，仍是连通的，而映射$\varphi$相应的陪域为$\R \chadiao \dkh{\varphi(0)}$，这就不连通的，与命题\ref{c4-m4}相矛盾。
+\end{proof}
+
+
+\begin{proposition}[连通的充分条件]\label{c4-m5}
+	设$X$为拓扑空间，$\dkh{F_{\alpha}}_{\alpha\in I}$为$X$的一族两两相交非空的连通子集，且$X=\dabing_{\alpha \in X}F_{\alpha}$，则$X$连通。
+\end{proposition}
+\begin{proof}
+	对于$\forall\emptyset\neq U\subset_{open,closed} X$，只要证$U=X$即可。
+	
+	假设$U\neq X$，那么$X\chadiao U\neq \emptyset$，由于$X = \dabing_{\alpha\in I}F_{\alpha}$那么：
+	\begin{enumerate}
+		\item 一方面，$\emptyset\neq U = X\cap U = \dabing_{\alpha\in I}(F_{\alpha}\cap U)$，那么$\exists \alpha_{1},\st \tl{F_{\alpha_{1}}\cap U\neq \emptyset}$，又由于\lanse{$F_{\alpha_{1}}$连通}，因此\tl{$F_{\alpha_{1}}\cap U$连通}，则$F_{\alpha_{1}}\cap U = F_{\alpha_{1}}$，因此$F_{\alpha_{1}}\subset U$。
+		\item 另一方面，$(X\chadiao U) = \dabing_{\alpha \in I}(F_{\alpha}(X\chadiao U))$，因此$\exists \alpha_{2},\st F_{\alpha_{2}}\subset X\chadiao U$。
+	\end{enumerate}
+	综上，因为$F_{\alpha_{1}}\subset U$（\lei{1}中已证），因此$F_{\alpha_{1}}\cap F_{\alpha_{2}}=\emptyset$，与\lanse{$F_{\alpha}$两两交非空}矛盾，归谬。
+\end{proof}
+
+\begin{example}[一维球面与二维球面不同胚]
+	$S^{1}\ncong S^{2}$
+\end{example}
+\begin{proof}首先$S^{1}\chadiao\dkh{P,Q}$是不连通的，由于例\ref{c2-e8}球极投影可知，$S^{2}\chadiao\dkh{P}\cong \mathbb{R}^{2}$，因此下若证明$\mathbb{R}^{2}\chadiao\dkh{(0,0)}$是连通的，那么就证明了如图的$S^{2}\chadiao\dkh{\varphi(P),\varphi(Q)}$是连通的，因此$S^{1}\ncong S^{2}$。
+	\begin{figure}[h]
+		\centering
+		
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Shape: Circle [id:dp5720156977524582] 
+\draw  [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ] (127,153) .. controls (127,123.18) and (151.18,99) .. (181,99) .. controls (210.82,99) and (235,123.18) .. (235,153) .. controls (235,182.82) and (210.82,207) .. (181,207) .. controls (151.18,207) and (127,182.82) .. (127,153) -- cycle ;
+%Shape: Circle [id:dp1476626630307074] 
+\draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (178,99) .. controls (178,97.34) and (179.34,96) .. (181,96) .. controls (182.66,96) and (184,97.34) .. (184,99) .. controls (184,100.66) and (182.66,102) .. (181,102) .. controls (179.34,102) and (178,100.66) .. (178,99) -- cycle ;
+%Shape: Circle [id:dp6197701883715965] 
+\draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (178,207) .. controls (178,205.34) and (179.34,204) .. (181,204) .. controls (182.66,204) and (184,205.34) .. (184,207) .. controls (184,208.66) and (182.66,210) .. (181,210) .. controls (179.34,210) and (178,208.66) .. (178,207) -- cycle ;
+%Straight Lines [id:da7938139953077006] 
+\draw    (267,153) -- (391,153) ;
+\draw [shift={(393,153)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Shape: Ellipse [id:dp903039161932605] 
+\draw  [fill={rgb, 255:red, 247; green, 197; blue, 224 }  ,fill opacity=1 ] (419.07,153.64) .. controls (419.07,120.15) and (446.22,93) .. (479.71,93) .. controls (513.2,93) and (540.34,120.15) .. (540.34,153.64) .. controls (540.34,187.12) and (513.2,214.27) .. (479.71,214.27) .. controls (446.22,214.27) and (419.07,187.12) .. (419.07,153.64) -- cycle ;
+%Shape: Arc [id:dp8603171310701756] 
+\draw  [draw opacity=0] (540.34,153.64) .. controls (540.93,162.11) and (514.27,168.97) .. (480.78,168.97) .. controls (447.29,168.97) and (419.66,162.11) .. (419.07,153.64) -- (479.71,153.64) -- cycle ; \draw   (540.34,153.64) .. controls (540.93,162.11) and (514.27,168.97) .. (480.78,168.97) .. controls (447.29,168.97) and (419.66,162.11) .. (419.07,153.64) ;  
+%Shape: Arc [id:dp40554050950174947] 
+\draw  [draw opacity=0][dash pattern={on 4.5pt off 4.5pt}] (419.07,153.64) .. controls (419.07,153.64) and (419.07,153.64) .. (419.07,153.64) .. controls (418.48,145.16) and (445.15,138.3) .. (478.64,138.3) .. controls (512.12,138.3) and (539.75,145.16) .. (540.34,153.64) .. controls (540.93,162.11) and (514.27,168.97) .. (480.78,168.97) .. controls (447.29,168.97) and (419.66,162.11) .. (419.07,153.64) -- (479.71,153.64) -- cycle ; \draw  [dash pattern={on 4.5pt off 4.5pt}] (419.07,153.64) .. controls (419.07,153.64) and (419.07,153.64) .. (419.07,153.64) .. controls (418.48,145.16) and (445.15,138.3) .. (478.64,138.3) .. controls (512.12,138.3) and (539.75,145.16) .. (540.34,153.64) .. controls (540.93,162.11) and (514.27,168.97) .. (480.78,168.97) .. controls (447.29,168.97) and (419.66,162.11) .. (419.07,153.64) -- cycle ;  
+%Shape: Circle [id:dp3795335580680428] 
+\draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (456,126) .. controls (456,124.34) and (457.34,123) .. (459,123) .. controls (460.66,123) and (462,124.34) .. (462,126) .. controls (462,127.66) and (460.66,129) .. (459,129) .. controls (457.34,129) and (456,127.66) .. (456,126) -- cycle ;
+%Shape: Circle [id:dp9731821727151901] 
+\draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (485,187) .. controls (485,185.34) and (486.34,184) .. (488,184) .. controls (489.66,184) and (491,185.34) .. (491,187) .. controls (491,188.66) and (489.66,190) .. (488,190) .. controls (486.34,190) and (485,188.66) .. (485,187) -- cycle ;
+
+% Text Node
+\draw (176,95.6) node [anchor=south east] [inner sep=0.75pt]    {$P$};
+% Text Node
+\draw (179,210.4) node [anchor=north east] [inner sep=0.75pt]    {$Q$};
+% Text Node
+\draw (330,149.6) node [anchor=south] [inner sep=0.75pt]    {$\varphi $};
+% Text Node
+\draw (464,126) node [anchor=west] [inner sep=0.75pt]    {$\varphi ( P)$};
+% Text Node
+\draw (486,187) node [anchor=east] [inner sep=0.75pt]    {$\varphi ( Q)$};
+\end{tikzpicture}
+\caption{例4.7集合之示意图}
+	\end{figure}
+	\begin{figure}[h]
+		\centering
+
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Shape: Axis 2D [id:dp12777471430843268] 
+\draw  (123.46,160.92) -- (318.46,160.92)(220.49,81.67) -- (220.49,233.57) (311.46,155.92) -- (318.46,160.92) -- (311.46,165.92) (215.49,88.67) -- (220.49,81.67) -- (225.49,88.67)  ;
+%Shape: Circle [id:dp5126442360837764] 
+\draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (273,122.39) .. controls (273,120.73) and (274.34,119.39) .. (276,119.39) .. controls (277.66,119.39) and (279,120.73) .. (279,122.39) .. controls (279,124.05) and (277.66,125.39) .. (276,125.39) .. controls (274.34,125.39) and (273,124.05) .. (273,122.39) -- cycle ;
+%Straight Lines [id:da9233924486508229] 
+\draw    (167,98) -- (167,227.5) ;
+%Shape: Circle [id:dp6689746044956462] 
+\draw  [fill={rgb, 255:red, 208; green, 2; blue, 27 }  ,fill opacity=1 ] (217.49,160.92) .. controls (217.49,159.27) and (218.83,157.92) .. (220.49,157.92) .. controls (222.14,157.92) and (223.49,159.27) .. (223.49,160.92) .. controls (223.49,162.58) and (222.14,163.92) .. (220.49,163.92) .. controls (218.83,163.92) and (217.49,162.58) .. (217.49,160.92) -- cycle ;
+%Straight Lines [id:da038234456342600476] 
+\draw    (276,97) -- (276,226.5) ;
+%Straight Lines [id:da02720895133232415] 
+\draw    (146,122) -- (297,122) ;
+%Straight Lines [id:da8732247039929291] 
+\draw    (142,203) -- (293,203) ;
+%Shape: Circle [id:dp9262510333566631] 
+\draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (273.49,203.92) .. controls (273.49,202.27) and (274.83,200.92) .. (276.49,200.92) .. controls (278.14,200.92) and (279.49,202.27) .. (279.49,203.92) .. controls (279.49,205.58) and (278.14,206.92) .. (276.49,206.92) .. controls (274.83,206.92) and (273.49,205.58) .. (273.49,203.92) -- cycle ;
+%Shape: Circle [id:dp8649857128324736] 
+\draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (163.49,121.92) .. controls (163.49,120.27) and (164.83,118.92) .. (166.49,118.92) .. controls (168.14,118.92) and (169.49,120.27) .. (169.49,121.92) .. controls (169.49,123.58) and (168.14,124.92) .. (166.49,124.92) .. controls (164.83,124.92) and (163.49,123.58) .. (163.49,121.92) -- cycle ;
+
+% Text Node
+\draw (215.04,169.07) node [anchor=north east] [inner sep=0.75pt]    {$o$};
+% Text Node
+\draw (278,165.15) node [anchor=north west][inner sep=0.75pt]    {$x$};
+% Text Node
+\draw (223.5,118.6) node [anchor=south west] [inner sep=0.75pt]    {$y$};
+% Text Node
+\draw (219.5,206.4) node [anchor=north west][inner sep=0.75pt]    {$y'$};
+% Text Node
+\draw (165,166.15) node [anchor=north east] [inner sep=0.75pt]    {$x'$};
+% Text Node
+\draw (278,125.79) node [anchor=north west][inner sep=0.75pt]    {$Z_{x,y}$};
+% Text Node
+\draw (163.82,208.79) node [anchor=north east] [inner sep=0.75pt]    {$Z_{x',y'}$};
+
+
+\end{tikzpicture}
+\caption{例4.7证明$S^{2}\chadiao\dkh{\varphi(P),\varphi(Q)}$是连通的}
+	\end{figure}
+	
+	
+	
+	
+	设$Z_{x,y} = (\dkh{x}\times \mathbb{R})\cup(\dkh{y}\times \mathbb{R})$，由命题\ref{c4-m5}可知$Z_{x,y}$是连通的，而$\R^{2}\chadiao\dkh{(0,0)}\dabing_{x,y\neq 0}Z_{x,y}$，而这其中的集合族$\dkh{Z_{x,y}}_{x,y\in\R }$中任意两个集合之交$Z_{x,y}\cap Z_{x',y'} = \dkh{(x'.y),(x,y')}$非空。因此再由命题\ref{c4-m5}可知$R^{2}\chadiao\dkh{(0,0)}$是连通的。得证。
+\end{proof}
+
+
+\begin{proposition}[连通拓扑空间的乘积拓扑空间也是连通的]
+	若$X,Y$为连通的拓扑空间，则$X\times Y$在乘积拓扑意义下也是连通的拓扑空间。
+\end{proposition}
+\begin{proof}
+	记$Z_{x,y} =(\dkh{x}\times Y)\cup(\dkh{y}\times X)$那么由命题\ref{c4-m5}可知$Z_{x,y}$是连通的，而$X\times Y = \dabing_{(x,y)\in X\times Y}Z_{x,y}$，且$\dkh{(x,y')}\in Z_{x,y}\cap Z_{x',y'}\neq \emptyset$，因此再由命题\ref{c4-m5}可知$X\times Y$是连通的。
+\end{proof}
+\begin{example}[欧氏空间是连通的]
+	$\R \times \R = \R^{2}$是连通的拓扑空间。
+	\begin{note}
+	以此类推$\R \times \R \times \cdots \R  = \R^{n}$也是连通的拓扑空间。	
+	\end{note}
+\end{example}
+\begin{example}[欧氏空间中的单位球面是连通的]
+	$B(0,1) = \dkh{x\in \mathbb{R}^{n}|||x||<1}$是连通的。
+\end{example}
+\begin{proof}
+	只需证明：
+	\begin{equation*}
+		B(0,1)\cong \mathbb{R}^{n}
+	\end{equation*}即可。事实上构造函数：
+	\begin{equation*}
+		\begin{aligned}
+			B(0,1)&\longrightarrow \mathbb{R}^{n}\\
+			x&\longmapsto \dfrac{x}{1-||x||}
+		\end{aligned}
+	\end{equation*}
+	于是$y = \dfrac{x}{1-||x||}$，因此$||y|| = \dfrac{||x||}{1-||x||}$且$||x|| = \dfrac{||y||}{1+||y||}$，有$x = \dfrac{y}{1+||y||}$，都是连续的双射。
+\end{proof}
+
+\begin{proposition}[连通集合的闭包是连通的]\label{c4-m7}
+	设$X$为一个拓扑空间，$Y\subset X$是连通的，则$\overline{Y}$是连通的。
+\end{proposition}
+\begin{proof}
+	设$\overline{Y} = U\sqcup V;\tl{\emptyset\neq  U,V\subset_{open,closed}\overline{Y}}$，因此$Y = (Y\cap U)\sqcup (Y\cap V)$，由于\lanse{$Y$是连通的}，因此$Y\cap U  =Y$或者$Y\cap V=Y$，不妨设$Y\cap U=Y$则$Y\subset U$，又因为$U$是闭集，因此\tl{$\overline{Y}\subset U$}，因此$U =\overline{Y}$，则$V = \emptyset$矛盾！
+\end{proof}
+
+
+\begin{example}[二维单位球面是连通的]
+	$S^{2}$是在欧氏拓扑意义下是连通的。
+\end{example}
+\begin{proof}
+	仍然给出两个证明：
+	\begin{enumerate}
+		\item 我们已经知道$S^{2}\chadiao \dkh{P}\cong \mathbb{R}^{2}$是连通的。而若取$P\neq P'$就有$S^{2}=(S^{2}\chadiao \dkh{P})\cup(S^{2}\chadiao \dkh{P'})$是连通的。
+		\item 直接由命题\ref{c4-m7}可得，由于$S^{2}\chadiao \dkh{P}\cong \mathbb{R}^{2}$是连通的，则$\overline{S^{2}\chadiao\dkh{P}}$是连通的、
+	\end{enumerate}
+\end{proof}
+
+\subsection{连通分支}
+根据我们上面的讨论可以知道，连通性其实一个比较难达到的性质，但是有些不连通的拓扑空间的某些部分是连通的，因此我们引入下面的连通分支的概念：
+\begin{definition}[连通分支]
+	设$X$为一个拓扑空间，如果子集$Y\subset X$满足：
+	\begin{enumerate}
+	\item $Y$是连通的。（\tl{确保连通分支是连通的}）
+	\item $\forall Y'\subset X$是连通的，且$Y'\supset Y$，则$Y=  Y'$。（\tl{意思就是连通分支在连通分支中的极大性}）	
+	\end{enumerate}
+	就称$Y$为$X$的一个\gn{连通分支}。
+\end{definition}
+\begin{proposition}[连通分支的存在性]
+	设$X$为一个拓扑空间，则$X$可以表示为若干连通分支的无交并。
+\end{proposition}
+\begin{proof}
+固定$x_{0}\in X$，记$S_{x_{0}} = \dkh{F\subset X|F\text{连通},x_{0}\in F}$，令$X_{x_{0}} = \dabing_{F\in S}F $，那么$X_{x_{0}}$连通。
+
+$\forall Y\subset X$为包含$X_{x_{0}}$的连通集，$Y\supset X_{x_{0}}\ni $，则$Y\in S_{x_{0}}$，则$Y = X_{x_{0}}$，那么$X_{x_{0}}$为$X$中的一个连通分支。
+
+观察到连通分支$X_{x_{1}}$与$X_{x_{2}}$之间有这样两类的关系：
+\begin{enumerate}
+	\item $X_{x_{1}}\cap X_{x_{2}} = \emptyset$
+	\item $X_{x_{1}}\cap X_{x_{2}} \neq  \emptyset$，那么$X_{x_{1}} = X_{x_{2}}$
+\end{enumerate}
+
+那么提出重复的连通分支后，设$\dkh{X_{x_{i}}|i\in I}$为互不相交的连通分支，则：
+	\begin{equation}\label{c4-eq1}
+		X = \bigsqcup_{i\in I}X_{x_{i}}
+	\end{equation}
+\end{proof}
+\begin{proposition}[连通分支为闭集]\label{c4-m9}
+	连通分支必为闭集
+\end{proposition}
+\begin{proof}
+	设$F\subset X$为连通分支。$\overline{F}$是连通的，因此$\overline{F}\supset F$，则$\overline{F} = F$，说明$F$是闭集。
+\end{proof}
+
+\begin{note}
+在分解式\ref{c4-eq1}中，$\dkh{X_{x_{i}} |i\in I}$已经是$X$的全部连通分支（\tl{意思就是这些分解已经囊括了所有的$X$的连通分支}）。	
+\begin{proof}
+	任取$Y\subset X$为$X$的连通分支，那么$Y$就可以写作：
+	\begin{equation*}
+		Y = \bigsqcup_{i\in I}(Y\cap X_{x_{i}})
+	\end{equation*}
+	
+	其中$Y\cap X_{x_{i}}$是$Y$中闭集（由命题\ref{c4-m9}），设$y_{0}\in Y\subset X$，则$\exists i_{0},\st y_{0}\in X_{i_{0}}$，那么$Y,X_{i_{0}}$为包含$y_{0}$的连通分支。则$Y\cup X_{i_{0}}$是连通的。
+\end{proof}
+\end{note}
+\begin{corollary}[连通分支放在一起就构成了整个集合]
+	设$\dkh{X_{i}|i\in I}$为$X$的全部连通分支，则：
+	\begin{equation*}
+		X = \bigsqcup_{i\in I}X_{i}
+	\end{equation*}
+\end{corollary}
+
+\begin{note}
+（\tl{连通分支中的非空连通闭集就是连通分支}）若$\exists X$的有限个非空的连通闭集$F_{i},i=1,2,\cdots , n$，则$F_{i}$必等于某连通分支，即：$X = \bigsqcup_{i = 1}^{n}F_{i}$中的$\dkh{F_{i}|i=1,2,\cdots ,n}$为$X$的全部连通分支。
+
+\begin{proof}
+	设$\dkh{X_{i}|i\in I}$为$X$的连通分支集，即满足：\begin{equation*}
+		X = \bigsqcup_{i\in I}X_{i}
+	\end{equation*}
+	根据条件，我们还有：
+	\begin{equation*}
+		X = \bigsqcup_{i=1}^{n}F_{i}
+	\end{equation*}
+	那么就有$X_{i} = \bigsqcup_{j=1}^{n}(F_{j}\cap X_{i})$，则$\exists j_{0},
+	\st X_{i}=F_{j_{0}}\cap X_{i}$，那么$X_{i}\subset F_{j_{0}}$因此$X_{i} = F_{j_{0}}$。
+	
+	也就是说这边是给定一个$i$就会出来一个$j,\st X_{i} = F_{j}$那么就有：
+	\begin{equation*}
+		\dkh{X_{i}|i\in I}\subset \dkh{F_{i}|i=1,2,\cdots ,n}
+	\end{equation*}假设$\exists F_{i}\neq X_{j} ,\forall j\in X$，就有：
+	\begin{equation*}
+		X = \bigsqcup_{j\in I}X_{j} = \bigsqcup_{k}F_{i_{k}}
+	\end{equation*}
+	因此$F_{i}\cap(\bigsqcup_{k}F_{i_{k}}) = \emptyset$，那么$F_{i} = \emptyset$，与$F_{i}$非空矛盾！
+	
+	因此$\dkh{F_{i}|i=1,2,\cdots,n}$就是$X$的全部连通分支。
+\end{proof}	
+\end{note}
+\begin{example}[不连通集$\mathbb{Q}$的连通分支]
+	有理数集$\mathbb{Q}\subset\mathbb{R}$满足：
+	\begin{equation*}
+		\mathbb{Q} = \bigsqcup_{q\in \mathbb{Q}}\dkh{q}
+	\end{equation*}
+	\begin{proof}
+		只要证$\forall X\subset \mathbb{Q},\dkh{q}\sqsubset X$，则$X$不连通即可。不然，则$\exists q'\in X(q\neq q')$，由于实数的稠密性可知，$\exists x\in \mathbb{R}\chadiao\mathbb{Q}$，那么$X = ((-\infty ,x)\cap X)\sqcup((x,+\infty)\cap X)$。
+		
+		\begin{figure}[h]
+			\centering
+			
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Straight Lines [id:da04645423172406837] 
+\draw    (120,132) -- (326,132) ;
+\draw [shift={(328,132)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Straight Lines [id:da5717959472622021] 
+\draw    (224,126) -- (224,132) ;
+%Straight Lines [id:da5565885417046166] 
+\draw    (170,126) -- (170,132) ;
+%Straight Lines [id:da25972787960227084] 
+\draw    (263,126) -- (263,132) ;
+
+% Text Node
+\draw (170,135.4) node [anchor=north] [inner sep=0.75pt]    {$q$};
+% Text Node
+\draw (263,135.4) node [anchor=north] [inner sep=0.75pt]    {$q'$};
+% Text Node
+\draw (224,122.6) node [anchor=south] [inner sep=0.75pt]    {$x\in \mathbb{R}\chadiao\mathbb{Q}$};
+
+
+\end{tikzpicture}
+\caption{例4.11之区间关系}
+		\end{figure}
+		
+		这俩集合都是非空的（因为$q\in ((-\infty ,x)\cap X),q'\in ((x,+\infty)\cap X)$）。因此$X$不连通，
+	\end{proof}
+\end{example}
 \section{道路连通性}
+\begin{definition}[道路]
+	设$X$为拓扑空间，$X$中的一个连续映射$\gamma :[0,1]\longrightarrow X$称为$X$中的一条\gn{道路}。
+\end{definition}
+\subsection{道路连通性与例}
+\begin{definition}[道路连通]
+	设$X$为拓扑空间，如果对于$\forall p,q\in X,\exists$道路$\gamma :[0,1]\longrightarrow X,\st \gamma(0)=p,\gamma(1)=q$，就称$X$是\gn{道路连通的}。
+\end{definition}
+\begin{example}[$\R$中区间是道路连通的]
+	设$I\subset \R $为区间，则$\forall p,q\in I,\gamma(t) = tp+(1-t)q$是一条道路。
+\end{example}
+\subsection{道路连通性为拓扑不变性}
+\begin{proposition}[道路连通性是一个拓扑不变性]\label{c4-m10}
+	设$X,Y$为拓扑空间，设$f:X\longrightarrow Y$是连续映射，$X$是道路连通的，则$f(X)$也是道路连通的。
+\end{proposition}
+\begin{proof}映射之关系如图所示：
+	
+	\begin{figure}[h]
+		\centering
+		
 
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Curve Lines [id:da16539869633767168] 
+\draw    (249,135) .. controls (289,105) and (317,124.5) .. (329,128.5) .. controls (341,132.5) and (355,140.5) .. (346,194.5) .. controls (337,248.5) and (224,160) .. (249,135) -- cycle ;
+%Curve Lines [id:da4419452394973107] 
+\draw    (450,149) .. controls (438,119.5) and (534,103.5) .. (530,142.5) .. controls (526,181.5) and (578,182.5) .. (547,208.5) .. controls (516,234.5) and (472,205.5) .. (450,149) -- cycle ;
+%Curve Lines [id:da7140903966701106] 
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (271,142.5) .. controls (298.79,144.21) and (299.01,165.4) .. (311.05,184.07) ;
+\draw [shift={(312,185.5)}, rotate = 235.62] [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Curve Lines [id:da058857475357372735] 
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (475,145.5) .. controls (483,164.5) and (502.25,163.88) .. (508.63,169.69) .. controls (514.81,175.33) and (513.11,182.08) .. (529.43,192.52) ;
+\draw [shift={(531,193.5)}, rotate = 211.43] [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Straight Lines [id:da6748570416163333] 
+\draw    (158,168) -- (239,168) ;
+\draw [shift={(241,168)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Straight Lines [id:da630763668736043] 
+\draw    (365,168) -- (445,168) ;
+\draw [shift={(447,168)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+
+% Text Node
+\draw (156,168) node [anchor=east] [inner sep=0.75pt]    {$[ 0,1]$};
+% Text Node
+\draw (322,137.4) node [anchor=north west][inner sep=0.75pt]    {$X$};
+% Text Node
+\draw (493,128.4) node [anchor=north west][inner sep=0.75pt]    {$f( X)$};
+% Text Node
+\draw (199.5,164.6) node [anchor=south] [inner sep=0.75pt]    {$\gamma $};
+% Text Node
+\draw (406,164.6) node [anchor=south] [inner sep=0.75pt]    {$f$};
+% Text Node
+\draw (273,139.1) node [anchor=south west] [inner sep=0.75pt]    {$p'$};
+% Text Node
+\draw (314,188.9) node [anchor=north west][inner sep=0.75pt]    {$q'$};
+% Text Node
+\draw (473,145.5) node [anchor=east] [inner sep=0.75pt]    {$p$};
+% Text Node
+\draw (529,196.9) node [anchor=north east] [inner sep=0.75pt]    {$q$};
+% Text Node
+\draw (283,164.2) node [anchor=west] [inner sep=0.75pt]    {$\gamma $};
+% Text Node
+\draw (475,176.2) node [anchor=west] [inner sep=0.75pt]    {$f\circ \gamma $};
+
+
+\end{tikzpicture}\caption{命题\ref{c4-m10}之映射关系图}
+	\end{figure}
+		设道路为：
+	\begin{equation*}
+		\begin{aligned}
+			\gamma [0,1]&\longrightarrow X\\
+			t&\longmapsto \gamma(t)
+		\end{aligned}
+	\end{equation*}
+	
+	由于$X$是道路连通的，因此选择一条道路$p'q'\in X$，由于$f$是连续映射，那么$f\circ \gamma$是$f(X)$中起点为$p = f\circ \gamma(p')$，终点为$q = f\circ \gamma(q')$的道路。因此$f(X)$是道路连通的。
+\end{proof}
+\begin{corollary}
+	若$X\cong Y$，则$X$道路连通$\iff Y$道路连通。
+\end{corollary}
+
+和紧性一样，定义了道路连通，首先的问题是道路连通与连通性是什么关系呢？
+\begin{proposition}[道路连通性蕴含连通性]\label{c4-m11}
+	设$X$是道路连通的，则$X$是连通的。
+\end{proposition}
+\begin{proof}
+	若$X = U\sqcup V$，其中$U,V\subset_{open},U\neq \emptyset ,V\neq \emptyset$，取$\forall P\in U,Q\in V$，假设$\gamma :[0,1]\longrightarrow X$为道路。
+	
+	\begin{figure}[h]
+		\centering
+
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Curve Lines [id:da7863194874225077] 
+\draw [fill={rgb, 255:red, 243; green, 235; blue, 183 }  ,fill opacity=1 ]   (165,66) .. controls (205,36) and (233,55.5) .. (245,59.5) .. controls (257,63.5) and (323,101.5) .. (262,125.5) .. controls (201,149.5) and (140,91) .. (165,66) -- cycle ;
+%Curve Lines [id:da5888643693255495] 
+\draw [fill={rgb, 255:red, 243; green, 235; blue, 183 }  ,fill opacity=1 ]   (336,159.5) .. controls (352,126.5) and (402,117.5) .. (420,120.5) .. controls (438,123.5) and (482,165.5) .. (421,189.5) .. controls (360,213.5) and (311,184.5) .. (336,159.5) -- cycle ;
+%Curve Lines [id:da5690842124217828] 
+\draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (213,89) .. controls (262,70.5) and (298,112.5) .. (307,127.5) .. controls (315.96,142.43) and (317.98,183.09) .. (390.9,159.86) ;
+\draw [shift={(392,159.5)}, rotate = 162.03] [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Shape: Circle [id:dp17641741974455116] 
+\draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (208,90) .. controls (208,88.34) and (209.34,87) .. (211,87) .. controls (212.66,87) and (214,88.34) .. (214,90) .. controls (214,91.66) and (212.66,93) .. (211,93) .. controls (209.34,93) and (208,91.66) .. (208,90) -- cycle ;
+%Shape: Circle [id:dp21123219693785167] 
+\draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (391,158.5) .. controls (391,156.84) and (392.34,155.5) .. (394,155.5) .. controls (395.66,155.5) and (397,156.84) .. (397,158.5) .. controls (397,160.16) and (395.66,161.5) .. (394,161.5) .. controls (392.34,161.5) and (391,160.16) .. (391,158.5) -- cycle ;
+
+% Text Node
+\draw (201,58.4) node [anchor=north west][inner sep=0.75pt]    {$U$};
+% Text Node
+\draw (208,95.4) node [anchor=north east] [inner sep=0.75pt]    {$P$};
+% Text Node
+\draw (407,133.4) node [anchor=north west][inner sep=0.75pt]    {$V$};
+% Text Node
+\draw (392,162.9) node [anchor=north] [inner sep=0.75pt]    {$Q$};
+% Text Node
+\draw (304,116) node [anchor=south west] [inner sep=0.75pt]    {$\gamma $};
+
+
+\end{tikzpicture}\caption{命题\ref{c4-m11}之集合}
+	\end{figure}
+	
+	那么：$\gamma(0)=P,\gamma(1)=Q$，则连通集合$[0,1]=\gamma^{-1}(U)\sqcup \gamma^{-1}(V)$，其中$P\in \gamma^{-1}(U),Q\in \gamma^{-1}(V)$，均非空，因此矛盾。
+\end{proof}
+\begin{example}[连通但不道路连通的例子---拓扑学家的正弦曲线]\label{c4-l13}
+	设拓扑空间$X \subset \R^{2} $赋予子空间拓扑，且$X :=Y\sqcup Z$，其中：
+	\begin{figure}[h]
+		\centering
+		\includegraphics[scale=0.6]{图片/sin_1.pdf}
+		\caption{例\ref{c4-l13}之函数图像}
+	\end{figure}
+	\begin{equation*}
+		Y=\dkh{(x,y)|-1\leq y \leq 1}
+	\end{equation*}
+	\begin{equation*}
+		Z = \dkh{(x,\sin\dfrac{\pi}{x})|0<x\leq 1}
+	\end{equation*}
+	我们断言下两点：
+	\begin{itemize}
+		\item 首先我们说明\lei{$X$是连通的}，这是因为很明显有$X = \overline{Z}$，并且$Z$是连通的（从函数的构造可以知道）。
+		\item 其次\lei{$X$不是道路连通的}。
+	\end{itemize}
+\end{example}
+\begin{proof}
+	反设$\exists\gamma:[0,1]\longrightarrow X,\st \gamma(0)\in Y,\gamma(1)\in Z$，因为$Y$是闭集，因此$\gamma^{-1}(Y)\subset_{closed}[0,1]$，下只需证明$\gamma^{-1}(Y)$是开集。
+	
+	这只需要证$\forall t_{0}\in \gamma^{-1}(Y),\exists \delta>0,\st (t_{0}-\delta,t_{0}+\delta)\cap[0,1]\subset \gamma^{-1}(Y)$。
+	
+	对于$\gamma(t_{0})\in Y$，取一个足够小的$\gamma(t_{0})$的开的矩形邻域$U$，那么$U\cap X$如下所示：
+	\begin{figure}[h]
+		\centering
+		\includegraphics[scale=0.6]{图片/sin_2.pdf}
+		\caption{例\ref{c4-l13}之$U\cap X$}
+	\end{figure}
+	
+	下断言：\lei{$U\cap Y$为$U\cap X$的一个连通分支。}
+	
+	$\blacktriangleright$这是因为：$\forall U\cap Y\sqsubset F\subset U\cap X$，取$p\in F$，且$p\in U\cap Z$，根据实数的稠密性，必然$\exists a$使得$F = (\dkh{x\leq a}\cap F)\sqcup (\dkh{x\geq a}\cap F)$。$\blacktriangleleft$
+	
+	设$\gamma^{-1}(U)$为包含$t_{0}$的一个开邻域，则$\exists \delta>0,\st I=(t_{0}-\delta,t_{0}+\delta)\cap [0,1]\subset \gamma^{-1}(U)$，那么：
+	\begin{enumerate}
+		\item $\gamma(I)$连通
+		\item $\gamma(I)\ni \gamma{t_{0}} $则$\gamma(I)\cap(U\cap Y)\neq \emptyset$
+		\item $U\cap Y$为$U\cap X$的一个连通分支。
+	\end{enumerate}
+	
+	因此$\gamma(I)\subset U\cap Y$，因此$I\subset \gamma^{-1}(Y)$。
+	
+\end{proof}
+\begin{note}
+道路连通的连通分支的闭包不必为闭集。	
+\end{note}
+\begin{definition}[局部道路连通]
+	设$X$为拓扑空间，若$\forall p\in X.\forall p$的开邻域$U$，总存在$p$的道路连通的且含于$U$的开邻域$V$，则称$X$是\gn{局部道路连通}的。
+\end{definition}
+
+\begin{note}
+若$X$是局部道路连通的，则：
+\begin{equation}\label{c4-eq2}
+	\forall p\in X,\exists p\text{的道路连通的开邻域。}	
+\end{equation}
+\end{note}
+\begin{proof}
+	这是上定义的直接缩小。
+\end{proof}
+
+
+
+\begin{lemma}[Glueing引理]\label{c4-y1}
+	设$X = Y\cup Z,f:Y\longrightarrow W,g:Z\longrightarrow W$均为连续映射，$f|_{Y\cap Z} = g|_{Y\cap Z}$，设$Y,Z$均为闭集，定义：
+	\begin{equation*}
+		\begin{aligned}
+			f\cup g:X&\longrightarrow W\\
+			p&\longmapsto \hanshu{&f(p),p\in Y\\
+			&g(p),p\in Z}
+		\end{aligned}
+	\end{equation*}
+	则$f\cup g$是连续映射。
+\end{lemma}	
+\begin{proof}
+	$\forall F\subset_{closed}W,(f\cup g)^(-1)(F) = f^{-1}(F)\cup g^{-1}(F)\subset_{closed}X$，最后一步是因为$f,g$均为连续映射，那么$f^{-1}(F)$为$Y$中闭集，$g^{-1}(F)$为$Z$中闭集，因此他俩均为$X$中闭集。
+\end{proof}
+\begin{proposition}\label{c4-m12}
+	局部道路连通的连通拓扑空间是道路连通的拓扑空间。
+\end{proposition}
+\begin{note}
+实际上连通拓扑空间满足性质\ref{c4-eq2}，就是道路连通的了（从证明可以看出来）。	
+\end{note}
+\begin{proof}
+设$X$是连通的，并且局部道路连通，要证$X$是道路连通的，取$p_{0}\in X,S=\dkh{p\in X|\exists\text{道路}\gamma,\st \gamma(0) = p_{0},\gamma(1) = p}$。下只需证$S =X$即可。
+
+$\blacktriangleright$这是因为，我们可以这样看待集合$S$，集合$X$中的连通道路都可以通过此两种操作通过$S$进行构造：
+\begin{figure}[h]
+	\centering
+	
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Curve Lines [id:da849424854437286] 
+\draw    (152,95) .. controls (161,51) and (220,31) .. (307,42) .. controls (394,53) and (392,117.5) .. (331,141.5) .. controls (270,165.5) and (143,132) .. (152,95) -- cycle ;
+%Shape: Circle [id:dp6204923445616997] 
+\draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (207,78.5) .. controls (207,76.84) and (208.34,75.5) .. (210,75.5) .. controls (211.66,75.5) and (213,76.84) .. (213,78.5) .. controls (213,80.16) and (211.66,81.5) .. (210,81.5) .. controls (208.34,81.5) and (207,80.16) .. (207,78.5) -- cycle ;
+%Shape: Circle [id:dp26857039968349916] 
+\draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (270,117.5) .. controls (270,115.84) and (271.34,114.5) .. (273,114.5) .. controls (274.66,114.5) and (276,115.84) .. (276,117.5) .. controls (276,119.16) and (274.66,120.5) .. (273,120.5) .. controls (271.34,120.5) and (270,119.16) .. (270,117.5) -- cycle ;
+%Shape: Circle [id:dp23654368410237447] 
+\draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (324,82.5) .. controls (324,80.84) and (325.34,79.5) .. (327,79.5) .. controls (328.66,79.5) and (330,80.84) .. (330,82.5) .. controls (330,84.16) and (328.66,85.5) .. (327,85.5) .. controls (325.34,85.5) and (324,84.16) .. (324,82.5) -- cycle ;
+%Curve Lines [id:da33957480200046386] 
+\draw    (211.26,80.12) .. controls (227.32,101.33) and (234,126.76) .. (273,117.5) ;
+\draw [shift={(210,78.5)}, rotate = 51.67] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Curve Lines [id:da8390265271686743] 
+\draw    (273,117.5) .. controls (278.91,94.35) and (286.76,92.06) .. (325.22,82.92) ;
+\draw [shift={(327,82.5)}, rotate = 166.64] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+
+% Text Node
+\draw (275,120.9) node [anchor=north west][inner sep=0.75pt]    {$p_{0}$};
+% Text Node
+\draw (208,81.9) node [anchor=north east] [inner sep=0.75pt]    {$p$};
+% Text Node
+\draw (329,85.9) node [anchor=north west][inner sep=0.75pt]    {$q$};
+% Text Node
+\draw (229.7,107.4) node [anchor=north] [inner sep=0.75pt]    {$\gamma _{1}$};
+% Text Node
+\draw (286.7,72.4) node [anchor=north] [inner sep=0.75pt]    {$\gamma _{2}$};
+% Text Node
+\draw (352,70.4) node [anchor=north west][inner sep=0.75pt]    {$X$};
+
+
+\end{tikzpicture}
+\caption{命题\ref{c4-m12}“只要证”之说明}
+\end{figure}
+\begin{enumerate}
+	\item \lanse{道路反过来走}：$\gamma:[0,1]\longrightarrow X$，定义：
+	\begin{equation*}
+		\begin{aligned}
+			\gamma^{-1}:[0,1]&\longrightarrow X\\
+			t&\longmapsto \gamma(1-t)
+		\end{aligned}
+	\end{equation*}
+	\item \lanse{道路接起来}：设$\gamma_{1},\gamma_{2}:[0,1]\longrightarrow X$为道路，$\gamma_{1} = \gamma_{2}(0)$，定义：
+	\begin{equation*}
+		\begin{aligned}
+			\gamma = \gamma_{1}\circ\gamma_{2} [0,1]
+		&\longrightarrow X\\
+		t&\longmapsto \hanshu{&\gamma_{1}(2t),0\leq t\leq\dfrac{1}{2}\\
+		&\gamma_{2}(2t-1),\dfrac{1}{2}\leq t\leq 1}
+		\end{aligned}
+	\end{equation*}
+\end{enumerate}而这又由于引理\ref{c4-y1}可知，这样的映射$\gamma$是连续的。$\blacktriangleleft$
+
+
+
+
+
+由于$S$是连通的，则只需要证$S$既开又闭即可。
+
+\begin{enumerate}
+	\item \lanse{若$S$是开集}，则$\forall p\in S,\exists p$的开邻域$U,\st U\subset S$。
+	\begin{figure}[h]
+		\centering
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Curve Lines [id:da5717965138672669] 
+\draw    (172,164) .. controls (181,120) and (194,91) .. (281,102) .. controls (368,113) and (417,151) .. (362,194) .. controls (307,237) and (163,201) .. (172,164) -- cycle ;
+%Shape: Circle [id:dp46404817304840984] 
+\draw  [fill={rgb, 255:red, 248; green, 231; blue, 28 }  ,fill opacity=1 ][dash pattern={on 4.5pt off 4.5pt}] (277,132) .. controls (277,120.95) and (285.95,112) .. (297,112) .. controls (308.05,112) and (317,120.95) .. (317,132) .. controls (317,143.05) and (308.05,152) .. (297,152) .. controls (285.95,152) and (277,143.05) .. (277,132) -- cycle ;
+%Curve Lines [id:da9713828285003865] 
+\draw    (218,176) .. controls (250.51,139.55) and (270.4,165.2) .. (295.83,133.49) ;
+\draw [shift={(297,132)}, rotate = 127.41] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Shape: Circle [id:dp31815568627463153] 
+\draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (295,132) .. controls (295,130.34) and (296.34,129) .. (298,129) .. controls (299.66,129) and (301,130.34) .. (301,132) .. controls (301,133.66) and (299.66,135) .. (298,135) .. controls (296.34,135) and (295,133.66) .. (295,132) -- cycle ;
+%Shape: Circle [id:dp14359583316159896] 
+\draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (215,176) .. controls (215,174.34) and (216.34,173) .. (218,173) .. controls (219.66,173) and (221,174.34) .. (221,176) .. controls (221,177.66) and (219.66,179) .. (218,179) .. controls (216.34,179) and (215,177.66) .. (215,176) -- cycle ;
+%Curve Lines [id:da032394262122533934] 
+\draw    (284.14,118.31) .. controls (298.22,120.8) and (290.23,129.14) .. (295,132) ;
+\draw [shift={(282,118)}, rotate = 6.71] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Shape: Circle [id:dp02758863898796493] 
+\draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (279,118) .. controls (279,116.34) and (280.34,115) .. (282,115) .. controls (283.66,115) and (285,116.34) .. (285,118) .. controls (285,119.66) and (283.66,121) .. (282,121) .. controls (280.34,121) and (279,119.66) .. (279,118) -- cycle ;
+
+% Text Node
+\draw (321,189.4) node [anchor=north west][inner sep=0.75pt]    {$X$};
+% Text Node
+\draw (216,176) node [anchor=east] [inner sep=0.75pt]    {$p_{0}$};
+% Text Node
+\draw (277,118) node [anchor=east] [inner sep=0.75pt]    {$S\ni q$};
+% Text Node
+\draw (319,135.4) node [anchor=north west][inner sep=0.75pt]    {$U$};
+% Text Node
+\draw (298,135.4) node [anchor=north] [inner sep=0.75pt]    {$p$};
+
+
+\end{tikzpicture}\caption{命题\ref{c4-m12}中之$S$为开集}
+	\end{figure}
+	\item \lanse{若$S$是闭集}，则$\forall S$的极限点$p$，$p\in S$。
+	\begin{figure}[h]
+		\centering
+		
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Curve Lines [id:da5692727890928835] 
+\draw    (192,184) .. controls (201,140) and (214,111) .. (301,122) .. controls (388,133) and (437,171) .. (382,214) .. controls (327,257) and (183,221) .. (192,184) -- cycle ;
+%Shape: Circle [id:dp048125122285625155] 
+\draw  [fill={rgb, 255:red, 248; green, 231; blue, 28 }  ,fill opacity=1 ][dash pattern={on 4.5pt off 4.5pt}] (297,152) .. controls (297,140.95) and (305.95,132) .. (317,132) .. controls (328.05,132) and (337,140.95) .. (337,152) .. controls (337,163.05) and (328.05,172) .. (317,172) .. controls (305.95,172) and (297,163.05) .. (297,152) -- cycle ;
+%Curve Lines [id:da8438741294128063] 
+\draw    (238,196) .. controls (270.51,159.55) and (275.84,171.62) .. (300.84,139.5) ;
+\draw [shift={(302,138)}, rotate = 127.41] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Shape: Circle [id:dp3225199611789409] 
+\draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (315,152) .. controls (315,150.34) and (316.34,149) .. (318,149) .. controls (319.66,149) and (321,150.34) .. (321,152) .. controls (321,153.66) and (319.66,155) .. (318,155) .. controls (316.34,155) and (315,153.66) .. (315,152) -- cycle ;
+%Shape: Circle [id:dp19908889775923666] 
+\draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (235,196) .. controls (235,194.34) and (236.34,193) .. (238,193) .. controls (239.66,193) and (241,194.34) .. (241,196) .. controls (241,197.66) and (239.66,199) .. (238,199) .. controls (236.34,199) and (235,197.66) .. (235,196) -- cycle ;
+%Curve Lines [id:da024774956604691534] 
+\draw    (302,138) .. controls (316.79,139.74) and (311.9,146.78) .. (313.67,150.55) ;
+\draw [shift={(315,152)}, rotate = 210.96] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Shape: Circle [id:dp5919265314746458] 
+\draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (299,138) .. controls (299,136.34) and (300.34,135) .. (302,135) .. controls (303.66,135) and (305,136.34) .. (305,138) .. controls (305,139.66) and (303.66,141) .. (302,141) .. controls (300.34,141) and (299,139.66) .. (299,138) -- cycle ;
+
+% Text Node
+\draw (341,209.4) node [anchor=north west][inner sep=0.75pt]    {$X$};
+% Text Node
+\draw (236,196) node [anchor=east] [inner sep=0.75pt]    {$p_{0}$};
+% Text Node
+\draw (300,134.6) node [anchor=south east] [inner sep=0.75pt]    {$S\ni q$};
+% Text Node
+\draw (339,155.4) node [anchor=north west][inner sep=0.75pt]    {$U$};
+% Text Node
+\draw (318,155.4) node [anchor=north] [inner sep=0.75pt]    {$p$};
+
+
+\end{tikzpicture}\caption{命题\ref{c4-m12}中之$S$为闭集}
+	\end{figure}
+\end{enumerate}
+因此$S$是既开又闭集，证毕！
+\end{proof}
 
 \chapter{商空间}
 
@@ -2368,6 +3328,8 @@ $$(h\circ g)\circ f = h\circ (g\circ f)$$
 	\item $F=_{closed}X$的含义是$F$和$X$相等，且均为闭集。
 	\item 所有的弯体（比如$\subset$）变直之后就表示更加强的区分效果（比如$\sqsubset$，表示真被包含）。
 	\item 所有的包含采用类似$\subset$的符号，若出现$\subseteq$（一般不会），表示同一意思。
+	\item 同胚的符号主要使用$\cong$，这是因为我想这么用。但是不同胚的符号只能用$\ncong$了，这是因为只有这个符号可以被使用。
+	\item 虽然被包含的符号按照流行且不产生歧义的方式使用了$\subset$，但是不被包含的类似符号不存在，因此只好改用$\nsubseteq$。
 \end{enumerate}
 \section{语法说明}
 \begin{enumerate}

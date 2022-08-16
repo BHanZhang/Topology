@@ -890,7 +890,7 @@
       colbacktitle=main, 
       overlay unbroken and last={
         \node[anchor=south east, outer sep=0pt] at (\linewidth-width,0) {
-          \textcolor{main}{$\clubsuit$}};}},
+          \textcolor{main}{$\heartsuit ~ n\bm{m}y.$}};}},
     thmstyle/.style={
       common,
       colframe=second,  
@@ -898,7 +898,7 @@
       colbacktitle=second, 
       overlay unbroken and last={
         \node[anchor=south east, outer sep=0pt] at (\linewidth-width,0) {
-          \textcolor{second}{$\heartsuit$}};}},
+          \textcolor{second}{$\heartsuit ~ nm\bm{y}.$}};}},
     propstyle/.style={
       common,
       colframe=third,  
@@ -906,7 +906,7 @@
       colbacktitle=third, 
       overlay unbroken and last={
         \node[anchor=south east, outer sep=0pt] at (\linewidth-width,0) {
-          \textcolor{third}{$\spadesuit$}};}},}
+          \textcolor{third}{$\heartsuit ~ \bm{n}my.$}};}},}
   % \newtcbtheorem[auto counter,number within=chapter]{definition}{\definitionname}{defstyle}{def}
   \DeclareTColorBox[auto counter,number within=\ELEGANT@thmcnt]{definition}{ o t\label g }{
     common,defstyle,
