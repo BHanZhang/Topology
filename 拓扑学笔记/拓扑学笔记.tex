@@ -103,7 +103,7 @@
 %第一章
 \chapter{拓扑空间}
 \section{拓扑空间，开集}
-\begin{definition}[拓扑空间，开集]\label{c1-d1}\index{拓扑空间}
+\begin{definition}[拓扑空间，开集]\label{c1-d1}\index{拓扑空间}\index{开集}
 	设$X$为一个集合$\mathscr{F}\in \mathscr{P}(X)$（把$\mathscr{F}$中的元素称为$X$中的\gn{开集}），满足：
 	\begin{enumerate}
 		\item $\emptyset , X \in \mathscr{F}$
@@ -150,7 +150,7 @@
 通过以后的学习可以知道，平凡拓扑具有较为“刚性”的拓扑结构，而离散拓扑具有较为“柔性”的拓扑结构。
 \end{note}
 
-\begin{definition}[度量空间]
+\begin{definition}[度量空间]\index{度量空间}
 	设$X$为一个集合，$\rho : X\times X\to \mathbb{R}$满足以下三条：
 \begin{enumerate}
 	\item $\rho(x,y) = \rho(y,x) $;
@@ -184,7 +184,7 @@
 	设$X = \{0,1 \}$，$\tp =\{\emptyset , \dkh{0},\dkh{0,1}\}$是一个拓扑，$(X,\tp)$是一个拓扑空间。
 \end{example}
 \section{更多的拓扑空间与子空间拓扑}
-\begin{definition}[子空间拓扑]
+\begin{definition}[子空间拓扑]\index{子空间拓扑}
 	设$X$是一个拓扑空间，$Y\subset X$为$X$的一个子集，则$Y$上可以如下定义一个拓扑结构：
 	\begin{equation*}
 		\tp =\dkh{U\cap Y| U\subset_{open} X}
@@ -228,7 +228,7 @@ $n$维单位球面$S^{n}\subset \mathbb{R}^{n}$赋予欧氏拓扑，其中$S^{n}
 \end{example}
 
 \section{开集的反面，闭集}
-\begin{definition}[闭集]
+\begin{definition}[闭集]\index{闭集}
 	设$X$是拓扑空间，$F\subset X$，如果$X\backslash F $是$X$中开集，则$F$称为$X$中的\gn{闭集}。
 \end{definition}
 根据开集的性质(定义\ref{c1-d1})可立马得到闭集的性质：
@@ -240,12 +240,12 @@ $n$维单位球面$S^{n}\subset \mathbb{R}^{n}$赋予欧氏拓扑，其中$S^{n}
 	\end{enumerate}
 \end{proposition}
 \subsection{闭集之刻画}
-\begin{definition}[极限点]
+\begin{definition}[极限点]\index{极限点}
 	设$X$是一个拓扑空间，$A\subset X$，$\forall p\in X$，若$\forall $包含$p$的开集$U$都有：
 	\begin{equation*}
 		(U\chadiao \dkh{p})\cap A \neq \emptyset
 	\end{equation*}
-	则称$p$为$A$的一个\gn{极限点}。而将集合$\overline{A} = A \cup \dkh{A\text{的极限点}}$称为$A$的\gn{闭包}。
+	则称$p$为$A$的一个\gn{极限点}。而将集合$\overline{A} = A \cup \dkh{A\text{的极限点}}$称为$A$的\gn{闭包}。\index{闭包}
 \end{definition}
 \begin{example}[欧氏空间中有理点的极限点集为欧氏空间]
 	$X = \mathbb{R}^{3}$，$A$是$X$中的有理点（即$A\in \dkh{(x,y,z)|x,y,z\in \mathbb{Q}}$），那么$X$就是$A$的极限点集。
@@ -364,7 +364,7 @@ $则$\exists$开集$U\subset X \st p\in U$且由于$p\notin A$则$U\cap A = (U\c
 	设$X=\dkh{0,1}$，$\tp =\dkh{\dkh{0},\dkh{0,1},\emptyset}$，于是拓扑空间的闭集就是直接取$\tp$在$X$中的补集，即$\dkh{\dkh{1},\emptyset,\dkh{0,1}}$，对比之后明显可以看出来$A = \dkh{0}$不是闭集（其他几个都是既开又闭）。根据我们前面例\ref{c1-l13}的经验，$\dkh{0}$的极限点是$1$，因此$\overline{A} = A\cup \dkh{A\text{的极限点}} = \dkh{0,1} = X$。即取了闭包之后就取到全集，这种现象我们称之为\textbf{稠密}。
 \end{example}
 \subsection{稠密}
-\begin{definition}[稠密]
+\begin{definition}[稠密]\index{稠密性}
 	设$X$为一个拓扑空间，$A\subset X$，若$\overline{A} = X$则称$A$在$X$中\gn{稠密}。如果$Y\subset X$是$X$的拓扑子空间，如果还有$Y$的拓扑子空间$Z\subset Y$那么我们分别记：
 	\begin{enumerate}
 		\item[$\overline{Z_{Y}}$] ：$Z$在$Y$中取闭包。
@@ -419,7 +419,7 @@ $则$\exists$开集$U\subset X \st p\in U$且由于$p\notin A$则$U\cap A = (U\c
 \draw (264.5,66.4) node [anchor=north west][inner sep=0.75pt]    {$Y$};
 \draw (312,166.6) node [anchor=south east] [inner sep=0.75pt]    {$X$};
 \end{tikzpicture}
-\caption{命题1.4之集合关系图}
+\caption{命题\ref{c1-m4}之集合关系图}
 \end{figure}
 		\item[\lei{[$\supset$]}] 即证$\forall x\in \overline{Z_{X}}\cap Y , \st x\in \overline{Z_{Y}}$，首先明显有$x\in Y$于是仍分类讨论：
 		\begin{enumerate}
@@ -460,7 +460,7 @@ $则$\exists$开集$U\subset X \st p\in U$且由于$p\notin A$则$U\cap A = (U\c
 
 \subsection{集合之解体}
 为了更好说话，引入以下概念：
-\begin{definition}[内点，外点，边界点]
+\begin{definition}[内点，外点，边界点]\index{内点}\index{外点}\index{边界点}
 设X为一个拓扑空间，$A\subset X$定义：
 \begin{itemize}
 	\item 定义$A$的\gn{内点集}：$int(A) : = \dkh{p\in A | \exists X\text{中开集}V(p\in V) , V\subset A}$
@@ -474,7 +474,7 @@ $则$\exists$开集$U\subset X \st p\in U$且由于$p\notin A$则$U\cap A = (U\c
 	X = int(A) \sqcup ext(A) \sqcup \partial(A)
 \end{equation*}
 \end{note}
-\begin{example}[一些显然的例子]
+\begin{example}[一些显然的例子]\label{c1-l18}
 	\begin{enumerate}
 		\item 设$A = [0,1)\subset \mathbb{R}$那么：$\partial(A) = \dkh{0,1} , int(A) = \xkh{0,1} , ext(A) = (-\infty,0)\cup(1,+\infty)$
 		\item \begin{enumerate}
@@ -499,7 +499,7 @@ $则$\exists$开集$U\subset X \st p\in U$且由于$p\notin A$则$U\cap A = (U\c
 \draw (284.75,138.4) node [anchor=north west][inner sep=0.75pt]    {$1$};
 \draw (240.5,138.4) node [anchor=north west][inner sep=0.75pt]    {$0$};
 \end{tikzpicture}
-\caption{例1.18.3之拓扑空间$D$}
+\caption{例\ref{c1-l18}.3之拓扑空间$D$}
 		\end{figure}
 		\end{enumerate}
 		\item 设$A = [0,1]\subset \mathbb{R}^{2}$，此时$\partial(A) = A , int(A) = \emptyset , ext(A) = X\chadiao A$
@@ -516,7 +516,7 @@ $则$\exists$开集$U\subset X \st p\in U$且由于$p\notin A$则$U\cap A = (U\c
 \draw (265,131.4) node [anchor=north west][inner sep=0.75pt]    {$x$};
 \draw (142,87.4) node [anchor=north west][inner sep=0.75pt]    {$y$};
 \end{tikzpicture}
-\caption{例1.18.4之拓扑空间$A$}
+\caption{例\ref{c1-l18}.4之拓扑空间$A$}
 		\end{figure}
 	\end{enumerate}
 \end{example}
@@ -524,7 +524,7 @@ $则$\exists$开集$U\subset X \st p\in U$且由于$p\notin A$则$U\cap A = (U\c
 \begin{definition}[拓扑基]\index{拓扑基}
 	设$X$是拓扑空间，$\tpj$是一个由一些$X$中开集构成的集族，如果对$\forall X$中开集$U$，$U$均可表为$\tpj$中一些元素之并，则称$\tpj$构成了$X$的一个\gn{拓扑基}。
 \end{definition}
-\begin{example}[$\mathbb{R}^{1}$中的欧氏拓扑可以有不同的拓扑基]
+\begin{example}[$\mathbb{R}^{1}$中的欧氏拓扑可以有不同的拓扑基]\label{c1-l19}
 \label{c1-e19}
 	很明显，$\mathbb{R}^{1}$有一个拓扑基为$\tpj = \dkh{(a,b)|a<b}$。
 	
@@ -543,7 +543,7 @@ $则$\exists$开集$U\subset X \st p\in U$且由于$p\notin A$则$U\cap A = (U\c
 \draw (149,103.4) node [anchor=north west][inner sep=0.75pt]    {$a_{p}$};
 \draw (207,103.4) node [anchor=north west][inner sep=0.75pt]    {$b_{p}$};
 \end{tikzpicture}
-\caption{例1.19之数轴}
+\caption{例\ref{c1-l19}之数轴}
 		\end{figure}
 	\end{proof}
 \end{example}
@@ -585,7 +585,7 @@ $则$\exists$开集$U\subset X \st p\in U$且由于$p\notin A$则$U\cap A = (U\c
 	\end{enumerate}
 	根据定义可知$\tpj$也确实为拓扑$\tp$上的一个拓扑基。从构造来看，我们并没有规定在拓扑基$\tpj$中的并是哪些，因此$\tp$是唯一的，因此命题得证。
 \end{proof}
-\begin{example}[$\mathbb{R}^{2}$的另一拓扑基]
+\begin{example}[$\mathbb{R}^{2}$的另一拓扑基]\label{c1-l20}
 	明显来看，欧氏空间$\mathbb{R}^{2}$中的开球的全体构成的集合是$\mathbb{R}^{2}$的一个拓扑基，根据我们在度量空间中所积攒的经验，$\mathbb{R}^{2}$中的开球和邻域是等价的，很自然的我们可以考虑$\mathbb{R}^{2}$中的开矩体的全体构成的集合$\tpj' = \dkh{(a,b)\times(c,d)|a<b,c<d}\cup\dkh{\emptyset}$：
 	\begin{figure}[h]
 		\centering
@@ -598,13 +598,13 @@ $则$\exists$开集$U\subset X \st p\in U$且由于$p\notin A$则$U\cap A = (U\c
 \draw (343,229.4) node [anchor=north west][inner sep=0.75pt]    {$x$};
 \draw (82,32.4) node [anchor=north west][inner sep=0.75pt]    {$y$};
 \end{tikzpicture}
-\caption{例1.20之开矩体}
+\caption{例\ref{c1-l20}之开矩体}
 	\end{figure}
 	
 	很明显$\tpj'$是$\mathbb{R}^{2}$上某拓扑的拓扑基。
 \end{example}
 为了更好地描述两个拓扑基之间的关系，以便更加方便地研究两个拓扑基生成的拓扑空间之间的关系，我们对拓扑基引入如下的定义：
-\begin{definition}[拓扑基之间的等价]
+\begin{definition}[拓扑基之间的等价]\label{c1-d11}
 设$\tpj,\tpj'$满足\lei{TB1}、\lei{TB2}，称$\tpj$与$\tpj'$是\gn{等价}的，若：
 \begin{enumerate}
 	\item $\forall U\in \tpj,p\in U,$都$\exists U'\in \tpj',\st p\in U'\subset U$
@@ -642,7 +642,7 @@ $则$\exists$开集$U\subset X \st p\in U$且由于$p\notin A$则$U\cap A = (U\c
 \end{tikzpicture}
      \end{minipage}
     }
-		\caption{定义1.10之说明}
+		\caption{定义\ref{c1-d10}之说明}
 	\end{figure}
 	
 	\begin{proposition}
@@ -672,7 +672,7 @@ $则$\exists$开集$U\subset X \st p\in U$且由于$p\notin A$则$U\cap A = (U\c
 \subsection{连续映射与其等价刻画}
 首先，我们重申连续性的定义：
 
-\begin{definition}[连续映射]
+\begin{definition}[连续映射]\index{连续性}
 	若$f$是拓扑空间$X\longrightarrow Y$的映射，如果$\forall ~U\subset_{open} Y , f^{-1}(U)$为$X$中开集，则称映射$f$是\gn{连续映射}。
 \end{definition}
 我们有下面这俩显然的命题：\begin{proposition}[连续映射之复合是连续映射]
@@ -726,7 +726,7 @@ $则$\exists$开集$U\subset X \st p\in U$且由于$p\notin A$则$U\cap A = (U\c
 \end{example}
 
 为了更好地刻画连续映射，我们有连续映射的以下等价命题：
-\begin{proposition}下列命题等价：
+\begin{proposition}\label{c2-m3}下列命题等价：
 	\begin{enumerate}
 		\item $f:Z\longrightarrow Y$是连续映射。
 		\item $\forall U\subset_{open} Y,f^{-1}(U)$是开集。
@@ -777,7 +777,7 @@ $则$\exists$开集$U\subset X \st p\in U$且由于$p\notin A$则$U\cap A = (U\c
 \draw (332,176.4) node [anchor=north west][inner sep=0.75pt]    {$f( A)$};
 \draw (309,223.4) node [anchor=north west][inner sep=0.75pt]    {$Y$};
 \end{tikzpicture}
-\caption{命题2.3之证明图示}
+\caption{命题\ref{c2-m3}之证明图示}
 			\end{figure}
 			如上图，\tl{$\forall U\subset_{open}\tpj(y\in U)$}，由\lei{2}可知$f^{-1}(U)$是开集，又由于$x\in f^{-1}(U)\st f(x)=y\in U$，因此$x\in f^{-1}(U)$。另外由于$\exists x\in f^{-1}(U)$，则有：
 			$$(f^{-1}(U)\chadiao \dkh{x})\cap A\neq \emptyset$$这说明除了$x$外，$\exists a\in (f^{-1}(U))\cap A$，即$f(a)\in U, f(a)\in f(A)$，因此$U\cap f(A)\neq \emptyset$，又由于$y\notin f(A)$，即\tl{$(U\chadiao\dkh{y})\cap f(A) \neq \emptyset$}，因此$y$是$f(A)$的极限点。
@@ -794,7 +794,7 @@ $则$\exists$开集$U\subset X \st p\in U$且由于$p\notin A$则$U\cap A = (U\c
 \end{proof}
 \subsection{拓扑空间中的极限与Hausdorff\footnote{费利克斯·豪斯多夫（德语：Felix Hausdorff，1868年11月8日－1942年1月26日），德国数学家。他是拓扑学的创始人之一，并且对集合论和泛函分析都贡献不少。他定义和研究偏序集、豪斯多夫空间和豪斯多夫维，证明豪斯多夫极大定理。他以笔名Paul Mongré出版哲学和文学作品。}空间}
 研究连续性，是和极限密不可分的，下面开始定义极限。
-\begin{definition}[极限]\label{c2-d2}
+\begin{definition}[极限]\label{c2-d2}\index{极限}
 	设$X$是一个拓扑空间，$\dkh{x_{n}}\subset X$是$X$内的一个序列，如果对于$\forall U\subset_{open} X(x\in U) , \exists N,\st \forall n>N,x_{n}\in U$，
 	则把$x\in X$称为$\dkh{x_{n}}$的一个\gn{极限}。
 \end{definition}
@@ -808,7 +808,7 @@ $则$\exists$开集$U\subset X \st p\in U$且由于$p\notin A$则$U\cap A = (U\c
 
 这样就非常的不好啊，仔细想来，在$\mathbb{R}$中我们可以有唯一的极限，这是因为$\mathbb{R}$很牛，里面有很多结构，比如有欧氏度量，而且还是全序域，还有线性结构。一般的拓扑空间不能做到极限唯一，肯定是因为其少了什么东西，这种东西就是所谓的\textbf{分离性}。增加的方法有很多，比如下面的\lei{T2}分离公理。
 
-\begin{definition}[Hausdorff空间]
+\begin{definition}[Hausdorff空间]\index{Hausdorff空间}
 	设$X$为一个拓扑空间，如果$\forall x_{1},x_{2}\in X,x_{1} \neq x_{2} , \exists$开集$U_{1} , U_{2},\st x_{1}\in U_{1},x_{2}\in U_{2}$且$U_{1}\cap U_{2}=\emptyset$，则称$X$为一个\gn{Hausdorff空间}\footnote{这也称为拓扑空间$X$满足\gn{T2分离公理}。}。
 \end{definition}
 \begin{proposition}
@@ -822,7 +822,7 @@ $则$\exists$开集$U\subset X \st p\in U$且由于$p\notin A$则$U\cap A = (U\c
 	
 	这是因为取$y_{1} = 0,y_{2} = 1$，那么$y_{2} \in \dabing_{open}$只只存在一种情况：$y_{2}\in \dkh{0,1}$，此时$U\cap \dkh{y_{1}}=\emptyset$。
 \end{example}
-\begin{example}[度量空间都是Hausdorff空间]
+\begin{example}[度量空间都是Hausdorff空间]\label{c2-l6}
 	设$(X,\rho)$为一个度量空间，$x_{1},x_{2}\in X,x_{1}\neq x_{2}$，设$\rho = \rho(x_{1},x_{2})>0$，令$U_{1} = B(x_{1},\dfrac{\rho}{2}),U_{2} = B(x_{2},\dfrac{\rho}{2})$，那么$U_{1}\cap U_{2}=\emptyset$。
 	\begin{figure}[h]
 	\centering
@@ -839,7 +839,7 @@ $则$\exists$开集$U\subset X \st p\in U$且由于$p\notin A$则$U\cap A = (U\c
 \draw (223,162.4) node [anchor=north west][inner sep=0.75pt]    {$U_{2}$};
 \draw (187,130.4) node [anchor=north west][inner sep=0.75pt]    {$\rho $};
 \end{tikzpicture}
-\caption{例2.6之图示}
+\caption{例\ref{c2-l6}之图示}
 \end{figure}
 更加准确一点儿说就是，反设$x\in U_{1}\cap U_{2}$，$\rho(x_{1},x_{2})\leq \rho(x_{1},x)+\rho(x,x_{2})\leq \dfrac{\rho}{2}+\dfrac{\rho}{2}$，矛盾！
 \end{example}
@@ -865,7 +865,7 @@ $$f(x)\text{连续}~\Rightarrow ~\lim_{\mathcal{B}}f(x) = f(\lim_{\mathcal{B}} x
 \end{definition}
 
 在这个定义中，\lei{2}和\lei{3}真是十分奇怪，怎么会有连续映射的逆映射不连续的呢？下面给出了一个复变函数中的例子来进行说明。
-\begin{example}[存在连续映射之逆映射不连续]
+\begin{example}[存在连续映射之逆映射不连续]\label{c2-l7}
 设映射为：
 \begin{equation*}
 	\begin{aligned}
@@ -901,7 +901,7 @@ $$f(x)\text{连续}~\Rightarrow ~\lim_{\mathcal{B}}f(x) = f(\lim_{\mathcal{B}} x
 \draw (495,73.4) node [anchor=north west][inner sep=0.75pt]    {$y$};
 \draw (495,160.65) node [anchor=north west][inner sep=0.75pt]    {$o$};
 \end{tikzpicture}
-\caption{例2.7中的映射}
+\caption{例\ref{c2-l7}中的映射}
 \end{figure}
 
 这是为什么呢，很显然，该映射$f$是一个连续映射，但是$f^{-1}$不连续，这是因为从$t=0$按照逆时针走，是$t$自$0$增大的过程，但是若顺时针走动，幅角从$0$突然变到比$2\pi$小一点点，$t$会由$0$瞬间变到$1$的周围，导致不连续的事情发生。
@@ -982,7 +982,7 @@ $$f(x)\text{连续}~\Rightarrow ~\lim_{\mathcal{B}}f(x) = f(\lim_{\mathcal{B}} x
 	\end{enumerate}
 \end{example}
 \section{充满整个空间的曲线-Peano\footnote{朱塞佩·皮亚诺 （意大利语：Giuseppe Peano；1858年8月27日－1932年4月20日）是意大利数学家、逻辑学家、语言学家。}曲线}
-本节将给出一个在分析学、拓扑学中都很重要且著名的例子---Peano曲线。
+本节将给出一个在分析学、拓扑学中都很重要且著名的例子---Peano曲线。\index{Peano曲线}
 
 \begin{example}[Peano曲线]\index{Peano曲线}
 	设$f:[0,1]\longrightarrow X$是一个连续映射，称之为一个\gn{曲线}。其中$X$设定为三角形$\triangle$（边长为$1$），取$\mathbb{R}^{2}$的子空间拓扑。按照如下方式对Peano曲线进行绘制：
@@ -1220,10 +1220,10 @@ $$f(x)\text{连续}~\Rightarrow ~\lim_{\mathcal{B}}f(x) = f(\lim_{\mathcal{B}} x
 \chapter{紧性}
 紧性是一类非常重要的拓扑性质，在分析中，我们常常利用紧性说明一些真理。紧性和集合开闭、连续都有很大的关联。下面我们首先研究紧性，然后在此基础上推广一些概念，使之更加一般。
 \section{开覆盖，紧集，紧子集}
-\begin{definition}[开覆盖]
+\begin{definition}[开覆盖]\index{开覆盖}
 	设$X$为一个拓扑空间，对于拓扑空间$X$中的一族开集$\dkh{U_{i}}_{i\in I}$，如果$$\dabing_{i\in I} U_{i} = X$$那么就把开集族$\dkh{U_{i}}_{i\in I}$称为$X$的一个\gn{开覆盖}。
 \end{definition}
-\begin{example}[$\mathbb{R}^{3}$中球面$S^{2}$的一组开覆盖]
+\begin{example}[$\mathbb{R}^{3}$中球面$S^{2}$的一组开覆盖]\label{c3-l1}
 	以下开集$U_1,U_2$是$\mathbb{R}^{3}$中球面$S^{2}$的一组开覆盖：
 	\begin{figure}[h]
 		\centering
@@ -1274,16 +1274,16 @@ $$f(x)\text{连续}~\Rightarrow ~\lim_{\mathcal{B}}f(x) = f(\lim_{\mathcal{B}} x
 
 
 \end{tikzpicture}
-\caption{例3.1中的$U_1$与$U_2$}
+\caption{例\ref{c3-l1}中的$U_1$与$U_2$}
 	\end{figure}
 	
 	即：$S^{2} = U_{1}\cup U_{2}$。
 \end{example}
 
-\begin{definition}[子覆盖]
+\begin{definition}[子覆盖]\index{子覆盖}
 	若开覆盖$\dkh{U_{i}}_{i\in I}$中可以取出一部分开集，记之为$\dkh{U_{j}}_{j\in J},J\subset I$，且满足$\dabing_{j\in J}U_{j} = X$，则称$\dkh{U_{j}}_{j\in J}$为原先开覆盖的一个\gn{子覆盖}；若特别地，$|J|<+\infty$，则称之为原先覆盖的一个\gn{有限子覆盖}。
 \end{definition}
-\begin{definition}[紧性]
+\begin{definition}[紧性]\index{紧集}
 	设$X$为一个拓扑空间，若$\forall X$的开覆盖，存在有限子覆盖，则称$X$是\gn{紧的}。
 \end{definition}
 下面几个例子说明了紧性对于分析学有一些方便的好处。
@@ -1308,7 +1308,7 @@ $$f(x)\text{连续}~\Rightarrow ~\lim_{\mathcal{B}}f(x) = f(\lim_{\mathcal{B}} x
 回忆之前数学分析中的情况，我们是说闭区间$[a,b]$是$\mathbb{R}$中的紧集，但是我们的定义是针对拓扑空间$X$来说的，因此差一个子集和子空间拓扑的区别，因此我们需要下面的概念来进行统一：
 
 
-\begin{definition}[紧子集]
+\begin{definition}[紧子集]\index{紧子集}
 	设$X$为一个拓扑空间，$Y\subset X$，如果$Y$在子控件拓扑下是紧的，则称$Y$为$X$的一个\gn{紧子集}。
 \end{definition}
 \begin{note}
@@ -1343,7 +1343,7 @@ $$f(x)\text{连续}~\Rightarrow ~\lim_{\mathcal{B}}f(x) = f(\lim_{\mathcal{B}} x
 	设$X=\dkh{0,1},\tp = \dkh{\dkh{0},\dkh{0,1},\emptyset}$对于集合$Y = \dkh{0}$，是$X$中紧集，但是并不是闭集（因为$X\chadiao Y = \dkh{1}\notin \tp$即不是开集）。
 \end{example}
 很明显的直觉就是，这个玩意不乖是因为没有T2分离公理，所以我们隆重推出以下结论：
-\begin{proposition}[Hausdroff空间中的紧集必然是闭集]
+\begin{proposition}[Hausdroff空间中的紧集必然是闭集]\label{c3-m1}
 	设$Y\subset X$是拓扑空间，$Y$是紧集，那么如果$X$是Hausdroff空间，则$Y$是闭集。
 \end{proposition}
 \begin{proof}
@@ -1398,7 +1398,7 @@ $$f(x)\text{连续}~\Rightarrow ~\lim_{\mathcal{B}}f(x) = f(\lim_{\mathcal{B}} x
 
 
 \end{tikzpicture}
-\caption{命题3.1之示意图}
+\caption{命题\ref{c3-m1}之示意图}
 	\end{figure}
 	
 	任取$x_{0}\neq y_{1}\in Y$，由于\lanse{$X$是Hausdroff空间}，则$\exists V_{y_{1}}(y_{1}\in V_{y_{1}}) , U_{y_{1}}(x_{0}\in U_{y_{1}}),\st V_{y_{1}}\cap U_{y_{1}} = \emptyset$，又由于\lanse{$X$是紧集}，任取$Y$的一个开覆盖$\dkh{V_{y_{i}}}_{i}^{\infty}$存在有限子覆盖$\dkh{V_{y_{i}}}_{i}^{n}$，使得\begin{equation}\label{eq3-1}
@@ -1439,7 +1439,7 @@ $$f(x)\text{连续}~\Rightarrow ~\lim_{\mathcal{B}}f(x) = f(\lim_{\mathcal{B}} x
 \subsection{一般般的乘积拓扑}
 实际上，在分析学中，我们已经接触到一些与乘积拓扑相关的例子。
 \begin{example}[$\mathbb{R}^{2}$中的闭矩形]
-	比如集合$[a,b]\times [c,d] = \dkh{(x,y)|a\leq x\leq b,c\leq y\leq d}$，如下图所示：
+	比如集合$[a,b]\times [c,d] = \dkh{(x,y)|a\leq x\leq b,c\leq y\leq d}$，如图\ref{c3-t3}所示：\newpage
 	\begin{figure}[h]
 	\centering
 		
@@ -1482,6 +1482,7 @@ y\\
 
 \end{tikzpicture}
 \caption{$\mathbb{R}^{2}$上闭矩形}
+\label{c3-t3}
 	\end{figure}
 	
 \end{example}
@@ -1540,6 +1541,7 @@ y\\
 		\caption{$\mathbb{R}^{3}$上圆柱体}
 	\end{figure}
 \end{example}
+\newpage
 \begin{example}[轮胎面]
 	$\mathbb{R}^{3}$中的轮胎面$T$赋予子空间拓扑同胚于乘积拓扑$S^{1}\times S^{1}$，轮胎面$T$如下：
 	\begin{figure}[h]
@@ -1610,95 +1612,59 @@ y\\
 \end{tikzpicture}
 \caption{轮胎面$T$}
 	\end{figure}
-	\newpage
 	其中$(x,y,z)$可以由两参数$(\theta,\alpha)$来决定，取第一个$S^{1}$为某点$(x,y,z)$向$xoy$平面做投影得到。投影点与$x$轴之夹角为$\theta$：
+	
 	\begin{figure}[h]
-		\centering
-		
-
-\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
-
-\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
-%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
-
-%Shape: Axis 2D [id:dp18065539959509458] 
+\centering
+ {
+  \begin{minipage}{6.5cm}
+\centering
+\tikzset{every picture/.style={line width=0.75pt}}
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1,scale=0.88]
 \draw  (70,149) -- (277,149)(173,41) -- (173,248) (270,144) -- (277,149) -- (270,154) (168,48) -- (173,41) -- (178,48)  ;
-%Shape: Circle [id:dp5752488942133569] 
 \draw   (119,149) .. controls (119,119.18) and (143.18,95) .. (173,95) .. controls (202.82,95) and (227,119.18) .. (227,149) .. controls (227,178.82) and (202.82,203) .. (173,203) .. controls (143.18,203) and (119,178.82) .. (119,149) -- cycle ;
-%Shape: Circle [id:dp149080506500179] 
 \draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (215,119) .. controls (215,117.34) and (216.34,116) .. (218,116) .. controls (219.66,116) and (221,117.34) .. (221,119) .. controls (221,120.66) and (219.66,122) .. (218,122) .. controls (216.34,122) and (215,120.66) .. (215,119) -- cycle ;
-%Straight Lines [id:da14226355330318952] 
 \draw  [dash pattern={on 4.5pt off 4.5pt}]  (173,149) -- (218,119) ;
-%Shape: Arc [id:dp8550926156223679] 
 \draw  [draw opacity=0] (191.8,136.63) .. controls (194.14,140.18) and (195.5,144.43) .. (195.5,149) -- (173,149) -- cycle ; \draw   (191.8,136.63) .. controls (194.14,140.18) and (195.5,144.43) .. (195.5,149) ;  
-
-% Text Node
 \draw (197.5,145.6) node [anchor=south west] [inner sep=0.75pt]    {$\theta $};
-% Text Node
 \draw (220,115.6) node [anchor=south west] [inner sep=0.75pt]    {$e^{i\theta }$};
-
-
 \end{tikzpicture}
 		\caption{第一个$S^{1}$球面}
-	\end{figure}
-	
-	在小圆中，建立点$(x,y,z)$与$z$轴之间的夹角为$\alpha$：
-	
-	\begin{figure}[h]
+  \end{minipage}
+ }
+    {
+     \begin{minipage}{6.5cm}
 		\centering
-		
-
-\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
-
+\tikzset{every picture/.style={line width=0.75pt}}
 \begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
-%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
-
-%Straight Lines [id:da715868777824265] 
 \draw    (100,178) -- (100,51) ;
 \draw [shift={(100,49)}, rotate = 90] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
-%Straight Lines [id:da5936824959340532] 
 \draw  [dash pattern={on 4.5pt off 4.5pt}]  (100,178) -- (337,178) ;
-%Straight Lines [id:da0558945933767967] 
 \draw    (246,178) -- (246,51) ;
 \draw [shift={(246,49)}, rotate = 90] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
-%Shape: Circle [id:dp6756364793613125] 
 \draw  [dash pattern={on 4.5pt off 4.5pt}] (192,178) .. controls (192,148.18) and (216.18,124) .. (246,124) .. controls (275.82,124) and (300,148.18) .. (300,178) .. controls (300,207.82) and (275.82,232) .. (246,232) .. controls (216.18,232) and (192,207.82) .. (192,178) -- cycle ;
-%Shape: Circle [id:dp722136459883157] 
 \draw  [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ,fill opacity=1 ] (281,139) .. controls (281,137.34) and (282.34,136) .. (284,136) .. controls (285.66,136) and (287,137.34) .. (287,139) .. controls (287,140.66) and (285.66,142) .. (284,142) .. controls (282.34,142) and (281,140.66) .. (281,139) -- cycle ;
-%Straight Lines [id:da18507445500370823] 
 \draw  [dash pattern={on 4.5pt off 4.5pt}]  (246,178) -- (284,139) ;
-%Straight Lines [id:da5829910938279133] 
 \draw  [dash pattern={on 4.5pt off 4.5pt}]  (284,177.5) -- (284,139) ;
-%Straight Lines [id:da17288867127298624] 
 \draw  [dash pattern={on 4.5pt off 4.5pt}]  (246,139) -- (284,139) ;
-%Shape: Arc [id:dp34543009938456426] 
 \draw  [draw opacity=0] (246,165.5) .. controls (249.34,165.5) and (252.38,166.81) .. (254.62,168.95) -- (246,178) -- cycle ; \draw   (246,165.5) .. controls (249.34,165.5) and (252.38,166.81) .. (254.62,168.95) ;  
-%Straight Lines [id:da24295335253932926] 
 \draw    (246,178) -- (207.48,142.85) ;
 \draw [shift={(206,141.5)}, rotate = 42.38] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
-
-% Text Node
 \draw (171,180.4) node [anchor=north west][inner sep=0.75pt]    {$a$};
-% Text Node
 \draw (246,181.4) node [anchor=north] [inner sep=0.75pt]    {$A$};
-% Text Node
 \draw (248,162.1) node [anchor=south west] [inner sep=0.75pt]    {$\alpha $};
-% Text Node
 \draw (284,180.9) node [anchor=north] [inner sep=0.75pt]    {$r\sin \alpha $};
-% Text Node
 \draw (213,154.4) node [anchor=north west][inner sep=0.75pt]    {$r$};
-% Text Node
 \draw (102,52.4) node [anchor=north west][inner sep=0.75pt]    {$z$};
-% Text Node
 \draw (98,181.4) node [anchor=north east] [inner sep=0.75pt]    {$o$};
-
-
 \end{tikzpicture}
 		\caption{第二个$S^{1}$球面}
+     \end{minipage}
+    }
 	\end{figure}
 
 
-这样我们可以看出映射$f$：
+	在小圆中，建立点$(x,y,z)$与$z$轴之间的夹角为$\alpha$，这样我们可以看出映射$f$：
 \begin{equation*}
 	\begin{aligned}
 		S^{1}\times S^{1} &\longrightarrow T\\
@@ -1708,7 +1674,7 @@ y\\
 这个映射是一个双射，因此是一个同胚。这说明\lei{$S^{1}\times S^{1} \cong T$}。
 \end{example}
 下面我们给出乘积拓扑的定义：
-\begin{definition}[乘积拓扑]
+\begin{definition}[乘积拓扑]\index{乘积拓扑}
 	设$X,Y$为两个拓扑空间。定义$\tpj$为$X\times Y$上的如下子集族$$\dkh{U\times V|U\subset_{open},V\subset_{open}Y}$$则$\tpj$生成了$X\times Y$上的一个拓扑，该拓扑称为$X\times Y$上的\gn{乘积拓扑}。
 \end{definition}
 \begin{proof}
@@ -1973,7 +1939,7 @@ y\\
 	\end{enumerate}
 \end{proof}
 \subsubsection{范畴与范畴的乘积}
-\begin{definition}[范畴]
+\begin{definition}[范畴]\index{范畴}\index{态射}\index{对象}
 	一个\gn{范畴}（\gn{category}）$\mathcal{C}$是指下面的数据：
 	\begin{enumerate}
 		\item 一些被称为\gn{对象}（\gn{object}）的东西所组成的集合$\mathcal{O}b\mathcal{(C)}$。
@@ -2206,8 +2172,8 @@ $$(h\circ g)\circ f = h\circ (g\circ f)$$
 \begin{proof}
 	设$X$是紧集，$f:X\longrightarrow \mathbb{R}$是连续映射，根据上命题\ref{c3-m4}可知$f(X)$是紧集，根据定理\ref{c3-t2}可知$f(X)$是有界闭集，下设$S = \sup f(X),s=\inf f(X)$，由于$f(X)$是闭集，集合的上确界和下确界都可在集合中取到。因此$S,s\in f(X)$。
 \end{proof}
-\subsection{更多的紧性}
-\begin{definition}[极限点紧性]
+\section{更多的紧性}\subsection{极限点紧性}
+\begin{definition}[极限点紧性]\index{极限点紧性}
 	设$X$为拓扑空间，如果$X$中的任意无限子集都有极限点，就称$X$是\gn{极限点紧}\footnote{By Munkers ： 在拓扑学早期，这种紧性被称为\gn{紧致性}。如同我们在数学分析中证明的一样，不过在这里我们需要区分紧支集、紧致性、紧性、列紧性。}的。
 \end{definition}
 \begin{proposition}
@@ -2227,8 +2193,8 @@ $$(h\circ g)\circ f = h\circ (g\circ f)$$
 		对于$\forall \emptyset \neq A\subset \mathbb{Z}_{+}\times Y$，若$(n,1)\in A$，那么$(n,1)$是$A$的极限点。因此之当然是极限点紧集。但是其并非紧集，比如对于一组开集族$\dkh{\dkh{n}\times Y}_{n=1,2,\cdots}$显然是$\mathbb{Z}_{+}\times Y$的一组开覆盖，但是其并没有一个有限子覆盖。
 		
 %		但是对于$\mathbb{Z}_{+}\times Y$的一组拓扑基为$\dkh{n}\times Y,n=1,2,\cdots$，则$\forall U\subset_{open}\mathbb{Z}_{+}\times Y,(n,0)\in U$
-	\end{proof}\end{example}
-	\begin{definition}[列紧性]
+	\end{proof}\end{example}\subsection{列紧性}
+	\begin{definition}[列紧性]\index{列紧性}
 		设$X$为一个拓扑空间，如果对于$X$中的任何一个无限点列$\dkh{x_{n}}_{n=1}^{\infty}$都有收敛子列，就称$X$是一个\gn{列紧集}。
 	\end{definition}
 \begin{proposition}
@@ -2309,7 +2275,7 @@ $$(h\circ g)\circ f = h\circ (g\circ f)$$
 \begin{example}[$\mathbb{R}$中不连通的例子]
 	设集合$X=[0,1)\cup(1,2]$，那么$X = ((-1,1)\cap X)\sqcup((1,3)\cap X)$，在子空间拓扑下两侧集合都是开集和闭集，因此$X$在子空间拓扑意义下是不连通的。
 \end{example}
-\begin{example}[圆扣掉两个点就不连通了]
+\begin{example}[圆扣掉两个点就不连通了]\label{c4-l3}
 	设$X = S^{1}\chadiao\dkh{P,Q} = (\dkh{x<0}\cap X)\sqcup(\dkh{x>0}\cap X)$，因此其是不连通的。\end{example}
 	\begin{figure}[h]
 		\centering
@@ -2336,9 +2302,9 @@ $$(h\circ g)\circ f = h\circ (g\circ f)$$
 % Text Node
 \draw (260,173.4) node [anchor=north west][inner sep=0.75pt]    {$x$};
 \draw (203,84.4) node [anchor=north west][inner sep=0.75pt]    {$y$};
-\end{tikzpicture}\caption{例4.3中的$X = S^{1}\chadiao\dkh{P,Q}$}
+\end{tikzpicture}\caption{例\ref{c4-l3}中的$X = S^{1}\chadiao\dkh{P,Q}$}
 	\end{figure}
-\begin{definition}[连通性]
+\begin{definition}[连通性]\index{连通性}
 	设$X$为一个拓扑空间，如果$X = U\sqcup V$，其中$U,V\subset_{open }X$，则$U,V$中至少有一个为空集。则称$X$是\gn{连通}的。
 \end{definition}
 
@@ -2380,7 +2346,7 @@ $$(h\circ g)\circ f = h\circ (g\circ f)$$
 
 在数学分析之中，我们常常在$\mathbb{R}$上研究问题，因此下面我们考虑一些$\mathbb{R}$上的连通性的例子。
 
-\begin{proposition}
+\begin{proposition}\label{c4-m2}
 	$\mathbb{R}$在欧氏拓扑意义下是连通的。
 \end{proposition}
 \begin{proof}
@@ -2420,7 +2386,7 @@ $$(h\circ g)\circ f = h\circ (g\circ f)$$
 
 
 \end{tikzpicture}
-\caption{命题4.2之区间关系图}
+\caption{命题\ref{c4-m2}之区间关系图}
 	\end{figure}
 	首先\tl{$ x_{1}\in S\neq \emptyset$}，并且\tl{$S$上有界}（$x_{2}$就是$S$的一个上界，这是因为$x_{2}\in U,$则$[x_{1},x_{2}]\nsubseteq \mathbb{R}\chadiao U,\forall y>x_{2},[x_{1},y]\nsubseteq\mathbb{R}\chadiao U$，这就说明$x_{2}$是上界），那么由\lei{确界原理}可知$S$有上确界，记之为$s = \sup S$。那么：
 	\begin{enumerate}
@@ -2432,7 +2398,7 @@ $$(h\circ g)\circ f = h\circ (g\circ f)$$
 \begin{definition}[连通性]
 	设$X$为拓扑空间，$Y\subset X$，若$Y$在$X$的子空间拓扑意义下连通，则称$Y$是连通的。
 \end{definition}
-\begin{proposition}
+\begin{proposition}\label{c4-m3}
 	$X\subset \mathbb{R}$是连通的$\iff X$为一个区间。
 \end{proposition}
 \begin{proof}
@@ -2498,7 +2464,7 @@ $$(h\circ g)\circ f = h\circ (g\circ f)$$
 
 
 \end{tikzpicture}
-\caption{命题4.3之区间关系}
+\caption{命题\ref{c4-m3}之区间关系}
 	\end{figure}
 	由子空间拓扑的定义，$U,V$都是$X$的中的开集，并且有$U\sqcup V = X$，因此$U,V$均为闭集，则$X$不连通，矛盾！
 \end{proof}
@@ -2513,7 +2479,7 @@ $$(h\circ g)\circ f = h\circ (g\circ f)$$
 	若$X\cong Y$则$X$连通$\iff Y$连通。
 \end{corollary}
 
-\begin{example}[一维单位球面与$\mathbb{R}$不是同胚的]
+\begin{example}[一维单位球面与$\mathbb{R}$不是同胚的]\label{c4-l4}
 	$S^{1}\ncong \mathbb{R}$
 \end{example}
 \begin{proof}现已知的两种拓扑不变量，分别给出证明：
@@ -2560,7 +2526,7 @@ $$(h\circ g)\circ f = h\circ (g\circ f)$$
 
 
 \end{tikzpicture}
-\caption{例4.4之集合示意图}
+\caption{例\ref{c4-l4}之集合示意图}
 	\end{figure}
 \end{proof}
 \begin{note}
@@ -2568,7 +2534,7 @@ $$(h\circ g)\circ f = h\circ (g\circ f)$$
 \end{note}
 
 
-\begin{example}[$\mathbb{R}$与其上开区间是同胚的]
+\begin{example}[$\mathbb{R}$与其上开区间是同胚的]\label{c4-l5}
 	$(0,1)\cong \mathbb{R}$
 \end{example}
 \begin{proof}
@@ -2629,7 +2595,7 @@ $$(h\circ g)\circ f = h\circ (g\circ f)$$
 
 
 \end{tikzpicture}
-\caption{例4.5之同胚$f$之图像}
+\caption{例\ref{c4-l5}之同胚$f$之图像}
 	\end{figure}
 	$f$及其逆映射皆是连续双射。
 \end{proof}
@@ -2657,7 +2623,7 @@ $$(h\circ g)\circ f = h\circ (g\circ f)$$
 	综上，因为$F_{\alpha_{1}}\subset U$（\lei{1}中已证），因此$F_{\alpha_{1}}\cap F_{\alpha_{2}}=\emptyset$，与\lanse{$F_{\alpha}$两两交非空}矛盾，归谬。
 \end{proof}
 
-\begin{example}[一维球面与二维球面不同胚]
+\begin{example}[一维球面与二维球面不同胚]\label{c4-l7}
 	$S^{1}\ncong S^{2}$
 \end{example}
 \begin{proof}首先$S^{1}\chadiao\dkh{P,Q}$是不连通的，由于例\ref{c2-e8}球极投影可知，$S^{2}\chadiao\dkh{P}\cong \mathbb{R}^{2}$，因此下若证明$\mathbb{R}^{2}\chadiao\dkh{(0,0)}$是连通的，那么就证明了如图的$S^{2}\chadiao\dkh{\varphi(P),\varphi(Q)}$是连通的，因此$S^{1}\ncong S^{2}$。
@@ -2701,7 +2667,7 @@ $$(h\circ g)\circ f = h\circ (g\circ f)$$
 % Text Node
 \draw (486,187) node [anchor=east] [inner sep=0.75pt]    {$\varphi ( Q)$};
 \end{tikzpicture}
-\caption{例4.7集合之示意图}
+\caption{例\ref{c4-l7}集合之示意图}
 	\end{figure}
 	\begin{figure}[h]
 		\centering
@@ -2748,7 +2714,7 @@ $$(h\circ g)\circ f = h\circ (g\circ f)$$
 
 
 \end{tikzpicture}
-\caption{例4.7证明$S^{2}\chadiao\dkh{\varphi(P),\varphi(Q)}$是连通的}
+\caption{例\ref{c4-l7}证明$S^{2}\chadiao\dkh{\varphi(P),\varphi(Q)}$是连通的}
 	\end{figure}
 	
 	
@@ -2808,7 +2774,7 @@ $$(h\circ g)\circ f = h\circ (g\circ f)$$
 
 \subsection{连通分支}
 根据我们上面的讨论可以知道，连通性其实一个比较难达到的性质，但是有些不连通的拓扑空间的某些部分是连通的，因此我们引入下面的连通分支的概念：
-\begin{definition}[连通分支]
+\begin{definition}[连通分支]\index{连通分支}
 	设$X$为一个拓扑空间，如果子集$Y\subset X$满足：
 	\begin{enumerate}
 	\item $Y$是连通的。（\tl{确保连通分支是连通的}）
@@ -2886,7 +2852,7 @@ $\forall Y\subset X$为包含$X_{x_{0}}$的连通集，$Y\supset X_{x_{0}}\ni $�
 	因此$\dkh{F_{i}|i=1,2,\cdots,n}$就是$X$的全部连通分支。
 \end{proof}	
 \end{note}
-\begin{example}[不连通集$\mathbb{Q}$的连通分支]
+\begin{example}[不连通集$\mathbb{Q}$的连通分支]\label{c4-l11}
 	有理数集$\mathbb{Q}\subset\mathbb{R}$满足：
 	\begin{equation*}
 		\mathbb{Q} = \bigsqcup_{q\in \mathbb{Q}}\dkh{q}
@@ -2922,7 +2888,7 @@ $\forall Y\subset X$为包含$X_{x_{0}}$的连通集，$Y\supset X_{x_{0}}\ni $�
 
 
 \end{tikzpicture}
-\caption{例4.11之区间关系}
+\caption{例\ref{c4-l11}之区间关系}
 		\end{figure}
 		
 		这俩集合都是非空的（因为$q\in ((-\infty ,x)\cap X),q'\in ((x,+\infty)\cap X)$）。因此$X$不连通，
@@ -2933,7 +2899,7 @@ $\forall Y\subset X$为包含$X_{x_{0}}$的连通集，$Y\supset X_{x_{0}}\ni $�
 	设$X$为拓扑空间，$X$中的一个连续映射$\gamma :[0,1]\longrightarrow X$称为$X$中的一条\gn{道路}。
 \end{definition}
 \subsection{道路连通性与例}
-\begin{definition}[道路连通]
+\begin{definition}[道路连通]\index{道路连通性}
 	设$X$为拓扑空间，如果对于$\forall p,q\in X,\exists$道路$\gamma :[0,1]\longrightarrow X,\st \gamma(0)=p,\gamma(1)=q$，就称$X$是\gn{道路连通的}。
 \end{definition}
 \begin{example}[$\R$中区间是道路连通的]
@@ -3028,9 +2994,9 @@ $\forall Y\subset X$为包含$X_{x_{0}}$的连通集，$Y\supset X_{x_{0}}\ni $�
 %uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
 
 %Curve Lines [id:da7863194874225077] 
-\draw [fill={rgb, 255:red, 243; green, 235; blue, 183 }  ,fill opacity=1 ]   (165,66) .. controls (205,36) and (233,55.5) .. (245,59.5) .. controls (257,63.5) and (323,101.5) .. (262,125.5) .. controls (201,149.5) and (140,91) .. (165,66) -- cycle ;
+\draw [fill={rgb, 255:red, 252; green, 211; blue, 55 }  ,fill opacity=1 ]   (165,66) .. controls (205,36) and (233,55.5) .. (245,59.5) .. controls (257,63.5) and (323,101.5) .. (262,125.5) .. controls (201,149.5) and (140,91) .. (165,66) -- cycle ;
 %Curve Lines [id:da5888643693255495] 
-\draw [fill={rgb, 255:red, 243; green, 235; blue, 183 }  ,fill opacity=1 ]   (336,159.5) .. controls (352,126.5) and (402,117.5) .. (420,120.5) .. controls (438,123.5) and (482,165.5) .. (421,189.5) .. controls (360,213.5) and (311,184.5) .. (336,159.5) -- cycle ;
+\draw [fill={rgb, 252:red, 243; green, 211; blue, 55 }  ,fill opacity=1 ]   (336,159.5) .. controls (352,126.5) and (402,117.5) .. (420,120.5) .. controls (438,123.5) and (482,165.5) .. (421,189.5) .. controls (360,213.5) and (311,184.5) .. (336,159.5) -- cycle ;
 %Curve Lines [id:da5690842124217828] 
 \draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (213,89) .. controls (262,70.5) and (298,112.5) .. (307,127.5) .. controls (315.96,142.43) and (317.98,183.09) .. (390.9,159.86) ;
 \draw [shift={(392,159.5)}, rotate = 162.03] [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
@@ -3056,12 +3022,12 @@ $\forall Y\subset X$为包含$X_{x_{0}}$的连通集，$Y\supset X_{x_{0}}\ni $�
 	
 	那么：$\gamma(0)=P,\gamma(1)=Q$，则连通集合$[0,1]=\gamma^{-1}(U)\sqcup \gamma^{-1}(V)$，其中$P\in \gamma^{-1}(U),Q\in \gamma^{-1}(V)$，均非空，因此矛盾。
 \end{proof}
-\begin{example}[连通但不道路连通的例子---拓扑学家的正弦曲线]\label{c4-l13}
+\begin{example}[连通但不道路连通的例子---拓扑学家的正弦曲线]\label{c4-l13}\index{拓扑学家的正弦曲线}
 	设拓扑空间$X \subset \R^{2} $赋予子空间拓扑，且$X :=Y\sqcup Z$，其中：
 	\begin{figure}[h]
 		\centering
 		\includegraphics[scale=0.6]{图片/sin_1.pdf}
-		\caption{例\ref{c4-l13}之函数图像}
+		\caption{例\ref{c4-l13}之函数图像：\gn{拓扑学家的正弦曲线}}
 	\end{figure}
 	\begin{equation*}
 		Y=\dkh{(x,y)|-1\leq y \leq 1}
@@ -3084,7 +3050,7 @@ $\forall Y\subset X$为包含$X_{x_{0}}$的连通集，$Y\supset X_{x_{0}}\ni $�
 	\begin{figure}[h]
 		\centering
 		\includegraphics[scale=0.6]{图片/sin_2.pdf}
-		\caption{例\ref{c4-l13}之$U\cap X$}
+		\caption{例\ref{c4-l13}之$U\cap X$（放大部分）}
 	\end{figure}
 	
 	下断言：\lei{$U\cap Y$为$U\cap X$的一个连通分支。}
@@ -3104,7 +3070,7 @@ $\forall Y\subset X$为包含$X_{x_{0}}$的连通集，$Y\supset X_{x_{0}}\ni $�
 \begin{note}
 道路连通的连通分支的闭包不必为闭集。	
 \end{note}
-\begin{definition}[局部道路连通]
+\begin{definition}[局部道路连通]\index{局部道路连通}
 	设$X$为拓扑空间，若$\forall p\in X.\forall p$的开邻域$U$，总存在$p$的道路连通的且含于$U$的开邻域$V$，则称$X$是\gn{局部道路连通}的。
 \end{definition}
 
@@ -3120,7 +3086,7 @@ $\forall Y\subset X$为包含$X_{x_{0}}$的连通集，$Y\supset X_{x_{0}}\ni $�
 
 
 
-\begin{lemma}[Glueing引理]\label{c4-y1}
+\begin{lemma}[Glueing引理]\label{c4-y1}\index{Glueing引理}
 	设$X = Y\cup Z,f:Y\longrightarrow W,g:Z\longrightarrow W$均为连续映射，$f|_{Y\cap Z} = g|_{Y\cap Z}$，设$Y,Z$均为闭集，定义：
 	\begin{equation*}
 		\begin{aligned}
@@ -3335,6 +3301,8 @@ $\blacktriangleright$这是因为，我们可以这样看待集合$S$，集合$X
 \begin{enumerate}
 	\item 数学逻辑语言同国际标准。
 	\item 外加一些张氏古代汉语和标准中式英语（虽然掺杂一些少量标准英式英语）。
+	\item 如果在证明之中内嵌证明，则会采用$\blacktriangleright${\kaiti{证明}}$\blacktriangleleft$来写内嵌的证明部分。
+	\item 在一般证明之结束之时，会用$\Box$来标记结束。
 \end{enumerate}
 
 \printindex
