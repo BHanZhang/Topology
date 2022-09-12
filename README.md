@@ -6,3 +6,6 @@
 5. 由于本人的水平不佳，并且属于业余选手（将来转正也未可知），因此有任何疑问可以与我联系！
 6. 此外，整个排版使用[Elegantbook](https://github.com/ElegantLaTeX/ElegantBook)进行排版，部分进行了魔改（额，可能只有一小部分）。
 7. 祝君学业有成，更上一楼！
+
+
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />本作品采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a>进行许可。
